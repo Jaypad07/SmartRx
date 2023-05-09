@@ -32,8 +32,9 @@ public class User {
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
 
-    public User() {
-    }
+public class User{
+
+}
 
     public Long getId() {
         return id;
