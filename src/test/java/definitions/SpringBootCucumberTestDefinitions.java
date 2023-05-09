@@ -1,6 +1,6 @@
 package definitions;
 
-import com.sei.SmartRx.SmartRxApplication;
+import com.sei.smartrx.SmartRxApplication;
 import io.cucumber.java.en.Given;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.response.Response;

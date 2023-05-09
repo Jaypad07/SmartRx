@@ -1,4 +1,4 @@
-package com.sei.SmartRx.models;
+package com.sei.smartrx.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

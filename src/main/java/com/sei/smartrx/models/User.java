@@ -1,4 +1,4 @@
-package com.sei.SmartRx.models;
+package com.sei.smartrx.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
@@ -94,7 +94,7 @@ public class User{
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
