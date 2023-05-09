@@ -4,6 +4,7 @@ import com.sei.smartrx.SmartRxApplication;
 import io.cucumber.java.en.Given;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 
@@ -20,6 +21,8 @@ public class SpringBootCucumberTestDefinitions {
 
     @Given("A list of expired and active prescriptions")
     public void aListOfExpiredAndActivePrescriptions() {
-
+        try {
+            ResponseBody<>
+        }
     }
 }
