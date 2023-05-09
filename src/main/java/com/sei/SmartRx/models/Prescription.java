@@ -11,34 +11,34 @@ public class Prescription {
     @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long prescriptionId;
+    private Long prescriptionId;
 
     @Column
-    String patientName;
+    private String patientName;
 
     @Column
-    String medicationName;
+    private String medicationName;
 
     @Column
-    Double doseage;
+    private Double doseage;
 
     @Column
-    int quantity;
+    private int quantity;
 
     @Column
-    String frequency;
+    private String frequency;
 
     @Column
-    String route;
+    private String route;
 
     @Column
-    int refills;
+    private int refills;
 
     @Column
-    LocalDate endDate;
+    private LocalDate endDate;
 
     @Column
-    Boolean status;
+    private Boolean status;
     /**
      * Create both an empty default constructor and a loaded constructor
      */
