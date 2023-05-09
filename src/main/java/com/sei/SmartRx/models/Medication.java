@@ -9,7 +9,7 @@ public class Medication {
     private String genericName;
     private String contraIndication;
     private String sideEffects;
-    private String indredients;
+    private String ingredients;
 
 
     public Medication() {
