@@ -2,18 +2,26 @@ package com.sei.smartrx.models;
 import com.sei.smartrx.models.Prescription;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.ManyToMany;
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "medications")
 public class Medication {
 
+    @Id
+    @Column
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column
     private String name;
-
+    @Column
     private String genericName;
+    @Column
     private String contraIndication;
+    @Column
     private String sideEffects;
+    @Column
     private String ingredients;
 
     //Many Medications can belong to Many Prescriptions

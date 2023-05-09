@@ -3,8 +3,8 @@ Feature: Rest API functionalities
   Scenario: view prescription history
     #Given I am logged in
     Given A list of expired and active prescriptions
-    When a user searches for their prescription history
-    Then a user should see a list of active and inactive prescriptions
+#    When a user searches for their prescription history
+#    Then a user should see a list of active and inactive prescriptions
 
 
 

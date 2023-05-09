@@ -5,7 +5,6 @@ import io.cucumber.java.en.Given;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
-import io.restassured.response.ResponseBody;
 import org.junit.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -28,6 +27,8 @@ public class SpringBootCucumberTestDefinitions {
     String port;
 
     private static Response response;
+
+
 
     @Given("A list of expired and active prescriptions")
     public void aListOfExpiredAndActivePrescriptions() {
