@@ -54,5 +54,102 @@ public class Prescription {
         this.endDate = endDate;
         this.status = status;
     }
+    /**
+     * getters and setters for Prescription attributes and "TO STRING" method for readability
+     */
+    public Long getPrescriptionId() {
+        return prescriptionId;
+    }
 
+    public void setPrescriptionId(Long prescriptionId) {
+        this.prescriptionId = prescriptionId;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getMedicationName() {
+        return medicationName;
+    }
+
+    public void setMedicationName(String medicationName) {
+        this.medicationName = medicationName;
+    }
+
+    public Double getDoseage() {
+        return doseage;
+    }
+
+    public void setDoseage(Double doseage) {
+        this.doseage = doseage;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
+    public String getRoute() {
+        return route;
+    }
+
+    public void setRoute(String route) {
+        this.route = route;
+    }
+
+    public int getRefills() {
+        return refills;
+    }
+
+    public void setRefills(int refills) {
+        this.refills = refills;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "Prescription{" +
+                "prescriptionId=" + prescriptionId +
+                ", patientName='" + patientName + '\'' +
+                ", medicationName='" + medicationName + '\'' +
+                ", doseage=" + doseage +
+                ", quantity=" + quantity +
+                ", frequency='" + frequency + '\'' +
+                ", route='" + route + '\'' +
+                ", refills=" + refills +
+                ", endDate=" + endDate +
+                ", status=" + status +
+                '}';
+    }
 }
