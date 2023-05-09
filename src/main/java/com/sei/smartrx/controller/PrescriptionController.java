@@ -1,5 +1,6 @@
 package com.sei.smartrx.controller;
 
+import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.management.InstanceNotFoundException;
 import java.util.List;
 
 @RestController
@@ -24,9 +26,9 @@ public class PrescriptionController {
     @GetMapping(path = "/prescriptions")
     public List<Prescription> getAllPrescriptions() {
         List<Prescription> prescriptionList = prescriptionRepository.findAll();
-        if (prescriptionList.isEmpty()) {
-
-        }
+        if (prescriptionList.size() == 0) {
+            throw new InformationNotFoundException("No previous prescriptions found.");
+        }else return prescriptionList;
     }
 
 }
