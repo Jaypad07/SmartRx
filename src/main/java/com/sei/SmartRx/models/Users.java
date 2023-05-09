@@ -1,2 +1,4 @@
-package com.sei.SmartRx.models;public class Users {
+package com.sei.SmartRx.models;
+
+public class Users {
 }
