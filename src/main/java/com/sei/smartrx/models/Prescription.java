@@ -1,9 +1,11 @@
-package com.sei.SmartRx.models;
+package com.sei.smartrx.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import com.sei.SmartRx.models.Medication;
 
 @Entity
 @Table(name="prescriptions")
@@ -44,11 +46,11 @@ public class Prescription {
      */
     public Prescription() {}
 
-    public Prescription(Long prescriptionId, String patientName, String medicationName, Double doseage, int quantity, String frequency, String route, int refills, LocalDate endDate, Boolean status) {
+    public Prescription(Long prescriptionId, String patientName, String medicationName, Double dosage, int quantity, String frequency, String route, int refills, LocalDate endDate, Boolean status) {
         this.prescriptionId = prescriptionId;
         this.patientName = patientName;
         this.medicationName = medicationName;
-        this.doseage = doseage;
+        this.doseage = dosage;
         this.quantity = quantity;
         this.frequency = frequency;
         this.route = route;
@@ -80,11 +82,11 @@ public class Prescription {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

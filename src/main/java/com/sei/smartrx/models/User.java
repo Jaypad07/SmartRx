@@ -1,4 +1,4 @@
-package com.sei.SmartRx.models;
+package com.sei.smartrx.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "users")
-public class Users {
+public class User {
     @Id
     @Column
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +32,18 @@ public class Users {
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
 
-    public Users() {
+
+    public User() {
+    }
+
+    public User(Long id, String firstName, String lastName, String email, LocalDate dob, String password, UserProfile userProfile) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.dob = dob;
+        this.password = password;
+        this.userProfile = userProfile;
     }
 
     public Long getId() {
@@ -93,7 +104,7 @@ public class Users {
 
     @Override
     public String toString() {
-        return "Users{" +
+        return "User{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

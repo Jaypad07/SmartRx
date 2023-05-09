@@ -1,4 +1,4 @@
-package com.sei.SmartRx.controller;
+package com.sei.smartrx.controller;
 
 public class PrescriptionController {
 

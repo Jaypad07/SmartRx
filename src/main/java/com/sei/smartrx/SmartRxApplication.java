@@ -1,4 +1,4 @@
-package com.sei.SmartRx;
+package com.sei.smartrx;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
