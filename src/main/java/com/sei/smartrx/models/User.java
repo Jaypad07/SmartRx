@@ -36,6 +36,15 @@ public class User {
     public User() {
     }
 
+    public User(Long id, String firstName, String lastName, String email, LocalDate dob, String password, UserProfile userProfile) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.dob = dob;
+        this.password = password;
+        this.userProfile = userProfile;
+    }
 
     public Long getId() {
         return id;
