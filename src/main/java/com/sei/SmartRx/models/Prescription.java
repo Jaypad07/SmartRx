@@ -1,5 +1,7 @@
 package com.sei.SmartRx.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -54,6 +56,23 @@ public class Prescription {
         this.endDate = endDate;
         this.status = status;
     }
+    /**
+     * Created Many-to-Many relationship to Medication
+     * joined by column "prescription_medication, where that id is equal to medication ID
+     */
+    @ManyToMany
+    @JsonIgnore
+    @JoinTable(name = "prescription_medication", joinColumns = @JoinColumn(name = "prescription_id"), inverseJoinColumns = @JoinColumn(name = "medication_id"))
+    private List<Medication> medicationList;
+
+    public List<Medication> getMedicationList() {
+        return medicationList;
+    }
+
+    public void setMedicationList(List<Medication> medicationList) {
+        this.medicationList = medicationList;
+    }
+
     /**
      * getters and setters for Prescription attributes and "TO STRING" method for readability
      */
