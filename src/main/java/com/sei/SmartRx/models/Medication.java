@@ -1,4 +1,9 @@
 package com.sei.SmartRx.models;
+import com.sei.SmartRx.models.Prescription;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.ManyToMany;
+import java.util.List;
 
 public class Medication {
 
@@ -10,6 +15,11 @@ public class Medication {
     private String contraIndication;
     private String sideEffects;
     private String ingredients;
+
+    //Many Medications can belong to Many Prescriptions
+    @JsonIgnore
+    @ManyToMany(mappedBy = "medicationList")
+    private List<Prescription> prescriptionList;
 
 
     public Medication() {
