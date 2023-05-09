@@ -80,11 +80,11 @@ public class Prescription {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
     }
 
