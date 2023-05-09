@@ -77,15 +77,15 @@ public class Prescription {
      */
     @ManyToOne
     @JsonIgnore
-    @JoinColumn(name = "patient_id")
-    private Patient patient;
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    public Patient getPatient() {
-        return patient;
+    public User getUser() {
+        return user;
     }
 
-    public void setPatient(Patient patient) {
-        this.patient = patient;
+    public void setUser(User user) {
+        this.user = user;
     }
 
     /**
