@@ -67,6 +67,9 @@ public class Prescription {
     @JoinTable(name = "prescription_medication", joinColumns = @JoinColumn(name = "prescription_id"), inverseJoinColumns = @JoinColumn(name = "medication_id"))
     private List<Medication> medicationList;
 
+    public Prescription(String johnBeck, String atorvastatin, double v, int i, String onceAtNight, String byMouth, int i1, int i2, boolean b) {
+    }
+
     public List<Medication> getMedicationList() {
         return medicationList;
     }
