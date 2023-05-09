@@ -21,7 +21,7 @@ public class Medication {
         this.genericName = genericName;
         this.contraIndication = contraIndication;
         this.sideEffects = sideEffects;
-        this.indredients = indredients;
+        this.ingredients = indredients;
     }
 
     public Long getId() {
@@ -65,10 +65,10 @@ public class Medication {
     }
 
     public String getIndredients() {
-        return indredients;
+        return ingredients;
     }
 
     public void setIndredients(String indredients) {
-        this.indredients = indredients;
+        this.ingredients = indredients;
     }
 }
