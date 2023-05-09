@@ -32,9 +32,9 @@ public class User {
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
 
-public class User{
 
-}
+    public User() {
+    }
 
     public Long getId() {
         return id;
