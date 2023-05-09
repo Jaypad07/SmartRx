@@ -57,7 +57,7 @@ public class Prescription {
         this.status = status;
     }
     /**
-     * Created Many-to-Many relationship to Medication
+     * Prescriptions have a Many-to-Many relationship to Medication
      * joined by column "prescription_medication, where that id is equal to medication ID
      */
     @ManyToMany
@@ -71,6 +71,21 @@ public class Prescription {
 
     public void setMedicationList(List<Medication> medicationList) {
         this.medicationList = medicationList;
+    }
+    /**
+     * Prescriptions have a Many-To-One relationship with the User
+     */
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "patient_id")
+    private Patient patient;
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     /**
