@@ -67,12 +67,20 @@
 		<artifactId>cucumber-spring</artifactId>
 		<version>7.10.1</version>
 	</dependency>
+<<<<<<< HEAD
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+    </dependencies>
+=======
 		<!-- GETS YOUR JPA,  -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 	</dependencies>
+>>>>>>> ed999ad02383f83f5c3443bb6c3fa9723d724c5c
 
 	<build>
 		<plugins>
