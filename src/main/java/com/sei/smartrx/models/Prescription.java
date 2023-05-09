@@ -45,11 +45,11 @@ public class Prescription {
      */
     public Prescription() {}
 
-    public Prescription(Long prescriptionId, String patientName, String medicationName, Double doseage, int quantity, String frequency, String route, int refills, LocalDate endDate, Boolean status) {
+    public Prescription(Long prescriptionId, String patientName, String medicationName, Double dosage, int quantity, String frequency, String route, int refills, LocalDate endDate, Boolean status) {
         this.prescriptionId = prescriptionId;
         this.patientName = patientName;
         this.medicationName = medicationName;
-        this.doseage = doseage;
+        this.doseage = dosage;
         this.quantity = quantity;
         this.frequency = frequency;
         this.route = route;
@@ -81,11 +81,11 @@ public class Prescription {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Users getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User user) {
         this.user = user;
     }
 
