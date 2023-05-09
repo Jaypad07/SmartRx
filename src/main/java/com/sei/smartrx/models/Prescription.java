@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import com.sei.SmartRx.models.Medication;
+
 
 @Entity
 @Table(name="prescriptions")

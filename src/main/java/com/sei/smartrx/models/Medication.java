@@ -1,5 +1,5 @@
-package com.sei.SmartRx.models;
-import com.sei.SmartRx.models.Prescription;
+package com.sei.smartrx.models;
+import com.sei.smartrx.models.Prescription;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.ManyToMany;
