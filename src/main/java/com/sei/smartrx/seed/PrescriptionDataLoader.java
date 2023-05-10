@@ -23,7 +23,7 @@ public class PrescriptionDataLoader implements CommandLineRunner {
 
     private void loadPrescriptionData(){
         if(prescriptionRepository.count() == 0) {
-            Prescription prescription = new Prescription(1L, "John Beck", "Lisinipril", 20.0, 30, "Twice a day", "By mouth", 34, currentDate, true);
+            Prescription prescription = new Prescription(1L, "John Beck", 5, currentDate, true);
             prescriptionRepository.save(prescription);
         }
     }
