@@ -37,22 +37,14 @@ public class SpringBootCucumberTestDefinitions {
 
     private static Response response;
 
-
     LocalDate localDate = LocalDate.of(2023, 8, 1);
     LocalDate currentDate = localDate.now();
-    User user = new User(1L, "John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900", Arrays.asList("aspirin", "metformin"));
-    @Given("A list of prescriptions is available")
-    public void aListOfPrescriptionsIsAvailable() {
-        try {
-            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions", HttpMethod.GET, null, String.class);
-            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
-            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-            Assert.assertTrue(prescriptions.size() > 0);
-        }catch (HttpClientErrorException e) {
-            e.printStackTrace();
-        }
-    }
+    User user = new User(1L, "John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900", "aspirin, metformin");
 
+    /**
+     * FEATURE 1
+     * @throws JSONException
+     */
     @Given("user is registered")
     public void userIsRegistered() throws JSONException {
         RequestSpecification request = RestAssured.given();
@@ -75,4 +67,54 @@ public class SpringBootCucumberTestDefinitions {
     public void iShouldBeLoggedInSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    /**
+     * FEATURE 2
+     */
+    @Given("a user has a list of prescriptions")
+    public void aUserHasAListOfPrescriptions() {
+        Long userId = 1L;
+        try {
+            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/" + userId , HttpMethod.GET, null, String.class);
+            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
+            System.out.println(prescriptions);
+            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+            Assert.assertTrue(prescriptions.size() > 0);
+        }catch (HttpClientErrorException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @When("a user searches for their prescriptions")
+    public void aUserSearchesForTheirPrescriptions() {
+
+    }
+
+    @Then("a user should see a list of their prescriptions")
+    public void aUserShouldSeeAListOfTheirPrescriptions() {
+    }
 }
+//    @Given("A list of prescriptions is available")
+//    public void aListOfPrescriptionsIsAvailable() {
+//        try {
+//            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/" + 1L , HttpMethod.GET, null, String.class);
+//            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
+//            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+//            Assert.assertTrue(prescriptions.size() > 0);
+//        }catch (HttpClientErrorException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//    @When("a user searches for their prescription history")
+//    public void aUserSearchesForTheirPrescriptionHistory() {
+//        RestAssured.baseURI = BASE_URL;
+//        RequestSpecification request = RestAssured.given();
+//        Long id = 1L;
+//        response = request.get(BASE_URL + port + "/api/prescriptions/1");
+//        System.out.println(response);
+//    }
+//
+//    @Then("a user should see a list of prescriptions")
+//    public void aUserShouldSeeAListOfPrescriptions() {
+//    }

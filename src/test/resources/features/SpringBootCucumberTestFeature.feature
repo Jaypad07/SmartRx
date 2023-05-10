@@ -1,20 +1,26 @@
 # Post
-Feature:  Secure Successful Login
-  Scenario:
-    Given user is registered
-    When I enter my username and password
-    Then I should be logged in successfully
+#Feature:  Secure Successful Login
+#  Scenario:
+#    Given user is registered
+#    When I enter my username and password
+#    Then I should be logged in successfully
 
 
-#  #GET
+  #GET Pharmacist
 #Feature: GetAllPrescriptions
 #  Scenario:
 #    Given A list of prescriptions is available
 #    When a user searches for their prescription history
-#    Then a user should see a list of active and inactive prescriptions
+#    Then a user should see a list of prescriptions
 #
+  #GET
+  Feature: A user can get all of their prescriptions
+    Scenario:
+    Given a user has a list of prescriptions
+#    When a user searches for their prescriptions
+#    Then a user should see a list of their prescriptions
 #  #GET
-#  Feature: Get Prescription ID
+#  Feature: Get a medication
 #  Scenario:
 #    Given A specific user Id
 #    When user enters their medication ID number
