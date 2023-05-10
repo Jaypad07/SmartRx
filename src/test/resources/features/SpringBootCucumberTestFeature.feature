@@ -1,3 +1,11 @@
+# Post
+Feature:  Secure Successful Login
+  Scenario:
+    Given that I am registered
+    When I enter my username and password
+    Then I should be logged in successfully
+
+
   #GET
 Feature: GetAllPrescriptions
   Scenario:
@@ -9,7 +17,7 @@ Feature: GetAllPrescriptions
   Feature: Get Prescription ID
   Scenario:
     Given A specific user Id
-    When user enters my medication ID number
+    When user enters their medication ID number
     Then user should receive specific information about that medication
 
   #Post
@@ -41,10 +49,7 @@ Feature: GetAllPrescriptions
     Then the account is deleted
 
 
-#  Scenario: Secure Successful Login
-#    Given that I am registered
-#    When I enter my username and password
-#    Then I should be logged in successfully
+
 
 
 

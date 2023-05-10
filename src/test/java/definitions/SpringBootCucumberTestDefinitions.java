@@ -1,6 +1,7 @@
 package definitions;
 
 import com.sei.smartrx.SmartRxApplication;
+import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.path.json.JsonPath;
@@ -37,5 +38,10 @@ public class SpringBootCucumberTestDefinitions {
         }catch (HttpClientErrorException e) {
             e.printStackTrace();
         }
+    }
+
+    @Given("that I am registered")
+    public void thatIAmRegistered() {
+        User user
     }
 }
