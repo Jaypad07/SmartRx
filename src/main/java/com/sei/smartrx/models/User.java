@@ -1,8 +1,5 @@
 package com.sei.smartrx.models;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -32,27 +29,24 @@ public class User {
     private String password;
 
     @Column
-    private String allergies;
+    private List<String> allergyList;
 
     @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
 
-    @OneToMany(mappedBy = "user")
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Prescription> prescriptionList;
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, LocalDate dob, String password, String allergies) {
+    public User(Long id, String firstName, String lastName, String email, LocalDate dob, String password, List<String> allergyList){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
         this.password = password;
-        this.allergies = allergies;
+        this.allergyList = allergyList;
     }
 
     public Long getId() {
@@ -111,20 +105,12 @@ public class User {
         this.userProfile = userProfile;
     }
 
-    public List<Prescription> getPrescriptionList() {
-        return prescriptionList;
+    public List<String> getAllergyList() {
+        return allergyList;
     }
 
-    public void setPrescriptionList(List<Prescription> prescriptionList) {
-        this.prescriptionList = prescriptionList;
-    }
-
-    public String getAllergies() {
-        return allergies;
-    }
-
-    public void setAllergies(String allergies) {
-        this.allergies = allergies;
+    public void setAllergyList(List<String> allergyList) {
+        this.allergyList = allergyList;
     }
 
     @Override
