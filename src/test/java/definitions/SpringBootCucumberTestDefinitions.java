@@ -4,8 +4,12 @@ import com.sei.smartrx.SmartRxApplication;
 import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.spring.CucumberContextConfiguration;
+import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
@@ -15,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +33,11 @@ public class SpringBootCucumberTestDefinitions {
     String port;
 
     private static Response response;
+
+
+    LocalDate localDate = LocalDate.of(2023, 8, 1);
+    LocalDate currentDate = localDate.now();
+    User user = new User(1L, "John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900");
     @Given("A list of prescriptions is available")
     public void aListOfPrescriptionsIsAvailable() {
         try {
@@ -40,7 +50,13 @@ public class SpringBootCucumberTestDefinitions {
         }
     }
 
-    @Given("that I am registered")
-    public void thatIAmRegistered() {
+    @Given("user is registered")
+    public void userIsRegistered() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("email", user.getEmail());
+        requestBody.put("password", user.getPassword());
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/users/register");
     }
 }
