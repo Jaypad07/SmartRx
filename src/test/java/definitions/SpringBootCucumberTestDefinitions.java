@@ -27,11 +27,8 @@ public class SpringBootCucumberTestDefinitions {
     String port;
 
     private static Response response;
-
-
-
-    @Given("A list of expired and active prescriptions")
-    public void aListOfExpiredAndActivePrescriptions() {
+    @Given("A list of prescriptions is available")
+    public void aListOfPrescriptionsIsAvailable() {
         try {
             ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions", HttpMethod.GET, null, String.class);
             List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");

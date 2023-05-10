@@ -1,13 +1,50 @@
-Feature: Rest API functionalities
+  #GET
+Feature: GetAllPrescriptions
+  Scenario:
+    Given A list of prescriptions is available
+    When a user searches for their prescription history
+    Then a user should see a list of active and inactive prescriptions
 
-  Scenario: view prescription history
-    #Given I am logged in
-    Given A list of expired and active prescriptions
-#    When a user searches for their prescription history
-#    Then a user should see a list of active and inactive prescriptions
+  #GET
+  Feature: Get Prescription ID
+  Scenario:
+    Given A specific user Id
+    When user enters my medication ID number
+    Then user should receive specific information about that medication
+
+  #Post
+  Feature: Create a prescription refill request
+  Scenario:
+    Given A valid prescription status
+    When user submits a prescription refill
+    Then the prescription is filled
+
+  #Put
+  Feature: Update account by ID
+  Scenario:
+    Given User has an active account
+    When user updates their account information by id
+    Then user information will be updated
+
+  #Put
+  Feature: Update allergy information
+  Scenario:
+    Given User has an active account
+    When user updates allergy information
+    Then then the allergy information will be updated
+
+  #Delete
+  Feature: Delete account by ID
+    Scenario:
+    Given User has an active account
+    When user removes their account by ID
+    Then the account is deleted
+
+
+#  Scenario: Secure Successful Login
+#    Given that I am registered
+#    When I enter my username and password
+#    Then I should be logged in successfully
 
 
 
-# As a user, I want to view my past and present prescriptions, so that I can have all of my medication history in one place.
-
-  #As a user, I want to be able to create a refill request for my prescription by providing valid prescription status and refill, so that I can take medications based on my current health status. POST/CREATE
