@@ -80,9 +80,10 @@ public class SpringBootCucumberTestDefinitions {
     @Given("a user has a list of prescriptions")
     public void aUserHasAListOfPrescriptions() {
         RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
-        response = request.get("/api/prescriptions/" + 1L);
-        Assert.assertEquals(200, response.getStatusCode());
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<User> responseEntityUser = restTemplate.getForEntity(BASE_URL + port + "/api/prescriptions/{id}", User.class, Map.of("id", "1"));
+        Assert.assertEquals(responseEntityUser.getStatusCode().value(), response.getStatusCode());
+    }
 //        try {
 //            ResponseEntity<User> responseEntityUser =  new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/{id}", HttpMethod.GET);
 //            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
@@ -91,8 +92,6 @@ public class SpringBootCucumberTestDefinitions {
 //        } catch (HttpClientErrorException e) {
 //            e.printStackTrace();
 //        }
-
-    }
 
     @When("a user searches for their prescriptions")
     public void aUserSearchesForTheirPrescriptions() {
