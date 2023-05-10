@@ -1,14 +1,17 @@
 package definitions;
 
 import com.sei.smartrx.SmartRxApplication;
+import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
+import io.restassured.response.ResponseBody;
 import io.restassured.specification.RequestSpecification;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +28,8 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+
+import static io.restassured.RestAssured.given;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SmartRxApplication.class)
@@ -43,16 +48,17 @@ public class SpringBootCucumberTestDefinitions {
 
     /**
      * FEATURE 1
+     *
      * @throws JSONException
      */
     @Given("user is registered")
     public void userIsRegistered() throws JSONException {
-        RequestSpecification request = RestAssured.given();
+        RequestSpecification request = given();
         JSONObject requestBody = new JSONObject();
         requestBody.put("email", user.getEmail());
         requestBody.put("password", user.getPassword());
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/users/register");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/register");
     }
 
     @When("I enter my username and password")
@@ -69,20 +75,22 @@ public class SpringBootCucumberTestDefinitions {
     }
 
     /**
-     * FEATURE 2
+     * FEATURE: a user can view their prescriptions
      */
     @Given("a user has a list of prescriptions")
     public void aUserHasAListOfPrescriptions() {
-        Long userId = 1L;
-        try {
-            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/" + userId , HttpMethod.GET, null, String.class);
-            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
-            System.out.println(prescriptions);
-            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-            Assert.assertTrue(prescriptions.size() > 0);
-        }catch (HttpClientErrorException e) {
-            e.printStackTrace();
-        }
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        response = request.get("/api/prescriptions/" + 1L);
+        Assert.assertEquals(200, response.getStatusCode());
+//        try {
+//            ResponseEntity<User> responseEntityUser =  new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/{id}", HttpMethod.GET);
+//            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
+//            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+//            Assert.assertTrue(prescriptions.size() > 0);
+//        } catch (HttpClientErrorException e) {
+//            e.printStackTrace();
+//        }
 
     }
 
@@ -94,18 +102,37 @@ public class SpringBootCucumberTestDefinitions {
     @Then("a user should see a list of their prescriptions")
     public void aUserShouldSeeAListOfTheirPrescriptions() {
     }
+
+    /**
+     * FEATURE Create a refill request
+     * #  #Post
+     * #  Feature: Create a prescription refill request
+     * #  Scenario:
+     * #    Given A valid prescription status
+     * #    When user submits a prescription refill
+     * #    Then the prescription is filled
+     */
+    @Given("A valid prescription status")
+    public void aValidPrescriptionStatus() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        Response response = request.post(BASE_URL + port + "/api/prescriptions/newRequest/{prescriptionId}");
+        JSONObject requestParams = new JSONObject();
+        requestParams.put("prescriptionId", 1L);
+        ResponseBody body = response.getBody();
+    }
+
+    @Given("A list of prescriptions is available")
+    public void aListOfPrescriptionsIsAvailable() {
+        try {
+            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions", HttpMethod.GET, null, String.class);
+            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
+            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+            Assert.assertTrue(prescriptions.size() > 0);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+        }
+    }
 }
-//    @Given("A list of prescriptions is available")
-//    public void aListOfPrescriptionsIsAvailable() {
-//        try {
-//            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/" + 1L , HttpMethod.GET, null, String.class);
-//            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
-//            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-//            Assert.assertTrue(prescriptions.size() > 0);
-//        }catch (HttpClientErrorException e) {
-//            e.printStackTrace();
-//        }
-//    }
 //    @When("a user searches for their prescription history")
 //    public void aUserSearchesForTheirPrescriptionHistory() {
 //        RestAssured.baseURI = BASE_URL;

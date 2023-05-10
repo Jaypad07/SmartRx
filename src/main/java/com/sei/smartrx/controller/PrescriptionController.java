@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -49,5 +50,16 @@ public class PrescriptionController {
         if (prescriptionList.size() == 0) {
             throw new InformationNotFoundException("No previous prescriptions found.");
         } else return prescriptionList;
+    }
+
+    @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
+    public Prescription requestPrescriptionRefill(@PathVariable Long prescriptionId){
+        Optional<Prescription> refillPrescription = Optional.of(prescriptionRepository.getById(prescriptionId));
+        if(refillPrescription.isEmpty()){
+            throw new InformationNotFoundException("There is no prescription with this id present");
+        }
+        else{
+            return refillPrescription.get();
+        }
     }
 }
