@@ -3,6 +3,8 @@ package com.sei.smartrx.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -28,6 +30,9 @@ public class User {
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @Column
+    private List<String> allergyList;
+
     @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
@@ -36,13 +41,14 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, LocalDate dob, String password) {
+    public User(Long id, String firstName, String lastName, String email, LocalDate dob, String password, List<String> allergyList){
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
         this.password = password;
+        this.allergyList = allergyList;
     }
 
     public Long getId() {
@@ -101,7 +107,13 @@ public class User {
         this.userProfile = userProfile;
     }
 
+    public List<String> getAllergyList() {
+        return allergyList;
+    }
 
+    public void setAllergyList(List<String> allergyList) {
+        this.allergyList = allergyList;
+    }
 
     @Override
     public String toString() {
