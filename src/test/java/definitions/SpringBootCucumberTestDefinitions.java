@@ -42,6 +42,5 @@ public class SpringBootCucumberTestDefinitions {
 
     @Given("that I am registered")
     public void thatIAmRegistered() {
-        User user
     }
 }
