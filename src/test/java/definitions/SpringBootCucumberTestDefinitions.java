@@ -22,6 +22,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -39,7 +40,7 @@ public class SpringBootCucumberTestDefinitions {
 
     LocalDate localDate = LocalDate.of(2023, 8, 1);
     LocalDate currentDate = localDate.now();
-    User user = new User(1L, "John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900");
+    User user = new User(1L, "John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900", Arrays.asList("aspirin", "metformin"));
     @Given("A list of prescriptions is available")
     public void aListOfPrescriptionsIsAvailable() {
         try {
