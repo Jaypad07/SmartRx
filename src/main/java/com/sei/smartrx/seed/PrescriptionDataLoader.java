@@ -32,7 +32,7 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             prescriptionRepository.save(prescription2);
             prescriptionRepository.save(prescription3);
             Medication med1 = new Medication(1L, "Ceftriaxone", "Rocephin", "poor kidney function", "pain at site, rash, loss of appetitie", "sodium chloride, ceftriaxone");
-            User user1 = new User(1L, "Stacey", "Smith", "email@email.com", 03/10/1935 , "password");
+            User user1 = new User(1L, "Stacey", "Smith", "email@email.com", currentDate , "password");
         }
     }
 }
