@@ -1,6 +1,8 @@
 package com.sei.smartrx.seed;
 
+import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
+import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -23,8 +25,14 @@ public class PrescriptionDataLoader implements CommandLineRunner {
 
     private void loadPrescriptionData(){
         if(prescriptionRepository.count() == 0) {
-            Prescription prescription = new Prescription(1L, "John Beck", 5, currentDate, true);
-            prescriptionRepository.save(prescription);
+            Prescription prescription1 = new Prescription(1L, "John Beck", 5, currentDate, true);
+            Prescription prescription2 = new Prescription(2L, "Joan Hill", 2, currentDate, true);
+            Prescription prescription3 = new Prescription(3L, "Eric Slack", 2, currentDate, false);
+            prescriptionRepository.save(prescription1);
+            prescriptionRepository.save(prescription2);
+            prescriptionRepository.save(prescription3);
+            Medication med1 = new Medication(1L, "Ceftriaxone", "Rocephin", "poor kidney function", "pain at site, rash, loss of appetitie", "sodium chloride, ceftriaxone");
+            User user1 = new User(1L, "Stacey", "Smith", "email@email.com", currentDate , "password");
         }
     }
 }
