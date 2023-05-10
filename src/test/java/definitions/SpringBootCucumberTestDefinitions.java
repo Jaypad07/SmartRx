@@ -3,6 +3,7 @@ package definitions;
 import com.sei.smartrx.SmartRxApplication;
 import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
@@ -67,5 +68,10 @@ public class SpringBootCucumberTestDefinitions {
         System.out.println(response.getBody().asString());
         Assert.assertEquals(user.getEmail(), jsonObject.get("email"));
         Assert.assertEquals(user.getPassword(), jsonObject.get("password"));
+    }
+
+    @Then("I should be logged in successfully")
+    public void iShouldBeLoggedInSuccessfully() {
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
