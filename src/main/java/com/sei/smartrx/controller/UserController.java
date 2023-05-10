@@ -5,6 +5,7 @@ import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,8 +18,9 @@ public class UserController {
 
 
     @PostMapping (path = "/register")
-    public User createUser(User userObject) {
+    public User createUser(@RequestBody User userObject) {
         if (!userRepository.existsByEmail(userObject.getEmail())) {
+//            userObject.setPassword(userObject.getPassword());
             return userRepository.save(userObject);
         }else throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
     }

@@ -3,6 +3,7 @@ package definitions;
 import com.sei.smartrx.SmartRxApplication;
 import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
@@ -58,5 +59,13 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("password", user.getPassword());
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/users/register");
+    }
+
+    @When("I enter my username and password")
+    public void iEnterMyUsernameAndPassword() {
+        JsonPath jsonObject = new JsonPath(response.asString());
+        System.out.println(response.getBody().asString());
+        Assert.assertEquals(user.getEmail(), jsonObject.get("email"));
+        Assert.assertEquals(user.getPassword(), jsonObject.get("password"));
     }
 }

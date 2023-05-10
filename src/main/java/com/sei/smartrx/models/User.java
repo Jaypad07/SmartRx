@@ -25,7 +25,7 @@ public class User {
     private LocalDate dob;
 
     @Column
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well
