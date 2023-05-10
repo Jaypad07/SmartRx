@@ -13,12 +13,12 @@
 #    When a user searches for their prescription history
 #    Then a user should see a list of prescriptions
 #
-  Feature: A user can get all of their prescriptions
-    Scenario:
-    Given a user has a list of prescriptions
+#  #GET
+#  Feature: A user can get all of their prescriptions
+#    Scenario:
+#    Given a user has a list of prescriptions
 #    When a user searches for their prescriptions
 #    Then a user should see a list of their prescriptions
-
 #  #GET
 #  Feature: Get a medication
 #  Scenario:
@@ -26,7 +26,7 @@
 #    When user enters their medication ID number
 #    Then user should receive specific information about that medication
 #
-  #Post
+#  #Post
 #  Feature: Create a prescription refill request
 #  Scenario:
 #    Given A valid prescription status
@@ -40,13 +40,13 @@
 #    When user updates their account information by id
 #    Then user information will be updated
 #
-#  #Put
-#  Feature: Update allergy information
-#  Scenario:
+  #Put
+  Feature: Update allergy information
+  Scenario:
 #    Given User has an active account
-#    When user updates allergy information
+    When user updates allergy information
 #    Then then the allergy information will be updated
-#
+
 #  #Delete
 #  Feature: Delete account by ID
 #    Scenario:
