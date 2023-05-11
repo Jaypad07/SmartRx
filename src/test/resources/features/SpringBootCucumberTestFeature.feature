@@ -6,12 +6,12 @@
 #    Then a user should see a list of their prescriptions
 
 
-#  #GET
-  Feature: Get a medication
-  Scenario:
-    Given A specific medication ID
-    When a user searches for medication by ID
-    Then user should receive specific information about that medication
+#  #GET ✅
+#  Feature: Get a medication
+#  Scenario:
+#    Given A specific medication ID
+#    When a user searches for medication by ID
+#    Then user should receive specific information about that medication
 
 #  #Post
 #  Feature: Create a prescription refill request
@@ -20,23 +20,23 @@
 #    When user submits a prescription refill
 #    Then the prescription is filled
 
-#  #Put
+#  #Put ✅
 #  Feature: Update account by ID
 #  Scenario:
 #    Given User has an active account
 #    When user updates their account information by id
 #    Then user information will be updated
 
-  #Put ✅✅
-#  Feature: Update allergy information
-#  Scenario:
-#    Given User has an active account
+  #Put ✅
+Feature: Update allergy information
+  Scenario:
+    Given User has an active account
 #    When user updates allergy information
 #    Then the allergy information will be updated
 
-  #Delete ✅✅
-#    When user removes their account by ID
-#    Then the account is deleted
+  #Delete ✅
+    When user removes their account by ID
+    Then the account is deleted
 
 
 
