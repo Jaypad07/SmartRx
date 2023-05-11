@@ -4,9 +4,15 @@ import com.sei.smartrx.exceptions.InformationExistException;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.UserRepository;
+import com.sei.smartrx.security.JWTUtils;
+import com.sei.smartrx.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -15,10 +21,18 @@ import java.util.Optional;
 @Service
 public class UserService {
     private UserRepository userRepository;
+    private PasswordEncoder passwordEncoder;
+    private JWTUtils jwUtils;
+    private AuthenticationManager authenticationManager;
+    private MyUserDetails myUserDetails;
 
     @Autowired
-    public void setUserRepository(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder, JWTUtils jwtUtils, @Lazy AuthenticationManager authenticationManager, @Lazy MyUserDetails myUserDetails ){
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.jwUtils = jwtUtils;
+        this.authenticationManager = authenticationManager;
+        this.myUserDetails = myUserDetails;
     }
 
     public User createUser(User userObject){

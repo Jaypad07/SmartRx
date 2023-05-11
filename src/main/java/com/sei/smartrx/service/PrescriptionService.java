@@ -3,9 +3,12 @@ package com.sei.smartrx.service;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
+import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
+import com.sei.smartrx.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +30,12 @@ public class PrescriptionService {
     public void setPrescriptionRepository(PrescriptionRepository prescriptionRepository) {
         this.prescriptionRepository = prescriptionRepository;
     }
+    //---------------------------------------------
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
+    //---------------------------------------------
 
     public List<Prescription> getAllPrescriptions() {
         List<Prescription> prescriptionList = prescriptionRepository.findAll();
