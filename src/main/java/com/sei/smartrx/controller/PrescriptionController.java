@@ -5,7 +5,7 @@ import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
-import com.sei.smartrx.repository.UserRepository;
+import com.sei.smartrx.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,26 +22,23 @@ public class PrescriptionController {
     private PrescriptionRepository prescriptionRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private MedicationRepository medicationRepository;
 
-    @GetMapping(path = "/hello-world")
-    public String helloWorld() {
-        return "hello World";
+    private PrescriptionService prescriptionService;
+
+    @Autowired
+    public void setPrescriptionService(PrescriptionService prescriptionService) {
+        this.prescriptionService = prescriptionService;
     }
 
     /**
      * Will need this URL for pharmacist later
      * @return
      */
+    // http://localhost:8080/api/prescriptions
     @GetMapping(path = "/prescriptions")
     public List<Prescription> getAllPrescriptions() {
-        List<Prescription> prescriptionList = prescriptionRepository.findAll();
-        if (prescriptionList.size() == 0) {
-            throw new InformationNotFoundException("No previous prescriptions found.");
-        }else return prescriptionList;
+      return prescriptionService.getAllPrescriptions();
     }
 
     /**
