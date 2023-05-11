@@ -1,6 +1,7 @@
 package com.sei.smartrx.controller;
 
 import com.sei.smartrx.models.User;
+import com.sei.smartrx.models.request.LoginRequest;
 import com.sei.smartrx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class UserController {
     }
 
     @PostMapping(path="/auth/users/login")
-    public User loginUser(@RequestBody User userObject){
-        return userService.findUserByEmailAddress(userObject.getEmail());
+    public ResponseEntity<?> loginUser(@RequestBody LoginRequest loginRequest){
+        return userService.loginUser(loginRequest);
     }
 
     @GetMapping(path = "/users/{userId}")
