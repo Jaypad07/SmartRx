@@ -1,16 +1,15 @@
 package com.sei.smartrx.security;
 
-
-
+import com.sei.smartrx.models.User;
 import com.sei.smartrx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 
+@Service
 public class MyUserDetailsService implements UserDetailsService {
 
     private UserService userService;
@@ -25,20 +24,4 @@ public class MyUserDetailsService implements UserDetailsService {
         User user = userService.findUserByEmailAddress(email);
         return new MyUserDetails(user);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

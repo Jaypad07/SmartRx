@@ -1,7 +1,8 @@
 package com.sei.smartrx.security;
 
+import com.sei.smartrx.models.User;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.HashSet;
@@ -33,7 +34,7 @@ public class MyUserDetails implements UserDetails{
 
     @Override
     public String getUsername() {
-        return user.getEmailAddress();
+        return user.getEmail();
     }
 
     @Override
@@ -58,7 +59,7 @@ public class MyUserDetails implements UserDetails{
 
     //IMPORTANT METHOD!!
     public User getUser() {
-        return user; //grabs the credentials & returns the user object
+        return user;
     }
 
 

@@ -1,12 +1,8 @@
 package com.sei.smartrx.controller;
 
-import com.sei.smartrx.exceptions.InformationExistException;
-import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.User;
-import com.sei.smartrx.repository.UserRepository;
 import com.sei.smartrx.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,14 +15,14 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping (path = "/users/register")
+    @PostMapping (path = "/auth/users/register")
     public User createUser(@RequestBody User userObject) {
         return userService.createUser(userObject);
     }
 
-    @PostMapping(path="/users/login")
+    @PostMapping(path="/auth/users/login")
     public User loginUser(@RequestBody User userObject){
-        return userService.findUserByEmail(userObject.getEmail());
+        return userService.findUserByEmailAddress(userObject.getEmail());
     }
 
     @GetMapping(path = "/users/{userId}")
