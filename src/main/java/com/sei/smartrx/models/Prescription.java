@@ -19,21 +19,6 @@ public class Prescription {
     private String patientName;
 
     @Column
-    private String medicationName;
-
-    @Column
-    private Double doseage;
-
-    @Column
-    private int quantity;
-
-    @Column
-    private String frequency;
-
-    @Column
-    private String route;
-
-    @Column
     private int refills;
 
     @Column
@@ -46,18 +31,14 @@ public class Prescription {
      */
     public Prescription() {}
 
-    public Prescription(Long prescriptionId, String patientName, String medicationName, Double dosage, int quantity, String frequency, String route, int refills, LocalDate endDate, Boolean status) {
+    public Prescription(Long prescriptionId, String patientName, int refills, LocalDate endDate, Boolean status) {
         this.prescriptionId = prescriptionId;
         this.patientName = patientName;
-        this.medicationName = medicationName;
-        this.doseage = dosage;
-        this.quantity = quantity;
-        this.frequency = frequency;
-        this.route = route;
         this.refills = refills;
         this.endDate = endDate;
         this.status = status;
     }
+
     /**
      * Prescriptions have a Many-to-Many relationship to Medication
      * joined by column "prescription_medication, where that id is equal to medication ID
@@ -112,46 +93,6 @@ public class Prescription {
         this.patientName = patientName;
     }
 
-    public String getMedicationName() {
-        return medicationName;
-    }
-
-    public void setMedicationName(String medicationName) {
-        this.medicationName = medicationName;
-    }
-
-    public Double getDoseage() {
-        return doseage;
-    }
-
-    public void setDoseage(Double doseage) {
-        this.doseage = doseage;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getFrequency() {
-        return frequency;
-    }
-
-    public void setFrequency(String frequency) {
-        this.frequency = frequency;
-    }
-
-    public String getRoute() {
-        return route;
-    }
-
-    public void setRoute(String route) {
-        this.route = route;
-    }
-
     public int getRefills() {
         return refills;
     }
@@ -181,14 +122,11 @@ public class Prescription {
         return "Prescription{" +
                 "prescriptionId=" + prescriptionId +
                 ", patientName='" + patientName + '\'' +
-                ", medicationName='" + medicationName + '\'' +
-                ", doseage=" + doseage +
-                ", quantity=" + quantity +
-                ", frequency='" + frequency + '\'' +
-                ", route='" + route + '\'' +
                 ", refills=" + refills +
                 ", endDate=" + endDate +
                 ", status=" + status +
+                ", medicationList=" + medicationList +
+                ", user=" + user +
                 '}';
     }
 }

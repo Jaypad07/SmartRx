@@ -1,8 +1,11 @@
 package com.sei.smartrx.models;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Entity
@@ -25,25 +28,31 @@ public class User {
     private LocalDate dob;
 
     @Column
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
+    @Column
+    private String allergies;
 
     @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
 
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Prescription> prescriptionList;
 
     public User() {
     }
 
-    public User(Long id, String firstName, String lastName, String email, LocalDate dob, String password, UserProfile userProfile) {
+    public User(Long id, String firstName, String lastName, String email, LocalDate dob, String password, String allergies) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dob = dob;
         this.password = password;
-        this.userProfile = userProfile;
+        this.allergies = allergies;
     }
 
     public Long getId() {
@@ -100,6 +109,22 @@ public class User {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public List<Prescription> getPrescriptionList() {
+        return prescriptionList;
+    }
+
+    public void setPrescriptionList(List<Prescription> prescriptionList) {
+        this.prescriptionList = prescriptionList;
+    }
+
+    public String getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(String allergies) {
+        this.allergies = allergies;
     }
 
     @Override
