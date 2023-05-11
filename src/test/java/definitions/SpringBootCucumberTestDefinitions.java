@@ -109,13 +109,34 @@ public class SpringBootCucumberTestDefinitions {
         }
     }
 
+    @When("user updates their account information")
+    public void userUpdatesTheirAccountInformation() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("firstName", "Tim");
+        requestBody.put("lastName", "Rodriguez");
+        requestBody.put("email", "Tim@yahoo.com");
+        requestBody.put("dob", "1983-03-06");
+        requestBody.put("allergies", "apples");
+        requestBody.put("password", "tim123");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
+    }
+
+    @Then("user information will be updated")
+    public void userInformationWillBeUpdated() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+
+
 //    #Put
     @When("user updates allergy information")
     public void userUpdatesAllergyInformation() throws JSONException {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        requestBody.put("firstName", "Tim");
         requestBody.put("allergy", "watermelon");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
