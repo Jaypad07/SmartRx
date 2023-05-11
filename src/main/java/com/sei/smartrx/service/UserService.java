@@ -35,6 +35,13 @@ public class UserService {
         } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
     }
 
+    public boolean getUserByEmail(String email){
+        if(userRepository.existsByEmail(email)){
+            return false;
+        }
+        return true;
+    }
+
     public User updateUser(Long userId, User userObject) throws InformationNotFoundException{
         User updatedUser = getUser(userId);
         updatedUser.setFirstName(userObject.getFirstName());
@@ -53,7 +60,7 @@ public class UserService {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    public boolean findUserByEmail(String email) {
-        return userRepository.existsByEmail(email);
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
     }
 }
