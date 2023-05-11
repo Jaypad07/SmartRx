@@ -3,7 +3,6 @@ package com.sei.smartrx.controller;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
-import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
