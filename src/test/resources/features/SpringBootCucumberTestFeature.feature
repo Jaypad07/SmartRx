@@ -13,19 +13,19 @@
 #    When a user searches for medication by ID
 #    Then user should receive specific information about that medication
 
-#  #Post
+#  #Post Silver Feature
 #  Feature: Create a prescription refill request
 #  Scenario:
 #    Given A valid prescription status
 #    When user submits a prescription refill
 #    Then the prescription is filled
 
-#  #Put ✅
-#  Feature: Update account by ID
-#  Scenario:
-#    Given User has an active account
-#    When user updates their account information by id
-#    Then user information will be updated
+  #Put ✅
+  Feature: User able to update account information
+  Scenario:
+    Given User has an active account
+    When user updates their account information
+    Then user information will be updated
 
   #Put ✅
 #Feature: Update allergy information
