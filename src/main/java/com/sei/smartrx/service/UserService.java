@@ -14,8 +14,12 @@ import java.util.Optional;
 
 @Service
 public class UserService {
-
     private UserRepository userRepository;
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User createUser(User userObject){
         if (!userRepository.existsByEmail(userObject.getEmail())) {
