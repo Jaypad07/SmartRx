@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping (path = "/register")
+    @PostMapping (path = "/users/register")
     public User createUser(@RequestBody User userObject) {
         return userService.createUser(userObject);
     }
