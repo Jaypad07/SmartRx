@@ -168,7 +168,7 @@ public class SpringBootCucumberTestDefinitions {
                     HttpMethod.GET, null, String.class);
             Assert.assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);  //404 status, account has been deleted
         } catch (HttpClientErrorException e) {
-            Assert.assertEquals(e.getStatusCode(), HttpStatus.NO_CONTENT); //verifying that the status code is 404
+            Assert.assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND); //verifying that the status code is 404
         }
     }
 

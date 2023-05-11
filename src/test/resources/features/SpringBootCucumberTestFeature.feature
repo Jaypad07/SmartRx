@@ -28,13 +28,16 @@
 #    Then user information will be updated
 
   #Put ✅
-Feature: Update allergy information
-  Scenario:
-    Given User has an active account
-    When user updates allergy information
-    Then the allergy information will be updated
+#Feature: Update allergy information
+#  Scenario:
+#    Given User has an active account
+#    When user updates allergy information
+#    Then the allergy information will be updated
 
   #Delete ✅
+#Feature: User is able to delete account
+#  Scenario:
+#   Given User has an active account
 #    When user removes their account by ID
 #    Then the account is deleted
 
