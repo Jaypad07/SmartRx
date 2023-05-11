@@ -16,14 +16,16 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 
 @CucumberContextConfiguration
@@ -41,6 +43,16 @@ public class SpringBootCucumberTestDefinitions {
     LocalDate currentDate = localDate.now();
     User user = new User("John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900", "aspirin, metformin");
 
+    public String getYourKey() throws JSONException {
+      RequestSpecification request = RestAssured.given();
+      JSONObject jsonObject = new JSONObject();
+      jsonObject.put("email", "email@email.com");
+      jsonObject.put("password", "password");
+      request.header("Content-Type", "application/json");
+      response = request.body(jsonObject.toString()).post(BASE_URL + port + "/api/auth/users/login");
+      return response.jsonPath().getString("message");
+    }
+
     /**
      * FEATURE 1
      * @throws JSONException
@@ -49,8 +61,8 @@ public class SpringBootCucumberTestDefinitions {
     public void userIsRegistered() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        requestBody.put("email", user.getEmail());
-        requestBody.put("password", user.getPassword());
+        requestBody.put("email", "email@email.com");
+        requestBody.put("password", "password");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/users/register");
     }
@@ -76,10 +88,10 @@ public class SpringBootCucumberTestDefinitions {
      * FEATURE: a user can view their prescriptions
      */
     @Given("a user has a list of prescriptions")
-    public void aUserHasAListOfPrescriptions() throws JsonProcessingException {
+    public void aUserHasAListOfPrescriptions() {
         RestAssured.baseURI = BASE_URL;
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> jsonResponse = restTemplate.getForEntity(BASE_URL + port + "/api/prescriptions/{id}", String.class, Map.of("id", "1"));
+        ResponseEntity<String> jsonResponse = restTemplate.getForEntity(BASE_URL + port + "/api/prescriptions", String.class);
         int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
         Assert.assertEquals(1, userId);
     }
@@ -100,10 +112,13 @@ public class SpringBootCucumberTestDefinitions {
 
 
     @Given("User has an active account")
-    public void userHasAnActiveAccount(){
+    public void userHasAnActiveAccount() throws JSONException{
         try {
+            RequestSpecification request = RestAssured.given();
+            String token = getYourKey();
+            request.header("Authorization", "Bearer " + token);
             ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
-                    HttpMethod.GET, null, String.class);   //checking to see if an account exists
+                    HttpMethod.POST, null, String.class);   //checking to see if an account exists
             Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
@@ -122,6 +137,8 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("allergies", "apples");
         requestBody.put("password", "tim123");
         request.header("Content-Type", "application/json");
+        String token = getYourKey();
+        request.header("Authorization", "Bearer " + token);
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
     }
 
