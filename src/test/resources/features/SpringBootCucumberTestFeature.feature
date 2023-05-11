@@ -1,5 +1,4 @@
-
-  #GET
+#GET ✅
 #  Feature: A user can get all of their prescriptions
 #    Scenario:
 #    Given a user has a list of prescriptions
@@ -28,14 +27,14 @@
 #    When user updates their account information by id
 #    Then user information will be updated
 
-  #Put
-  Feature: Update allergy information
-  Scenario:
-    Given User has an active account
-    When user updates allergy information
-    Then the allergy information will be updated
+  #Put ✅✅
+#  Feature: Update allergy information
+#  Scenario:
+#    Given User has an active account
+#    When user updates allergy information
+#    Then the allergy information will be updated
 
-  #Delete
+  #Delete ✅✅
 #    When user removes their account by ID
 #    Then the account is deleted
 
