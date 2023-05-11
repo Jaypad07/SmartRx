@@ -21,18 +21,18 @@
 #    Then the prescription is filled
 
   #Put ✅
-  Feature: User able to update account information
-  Scenario:
-    Given User has an active account
-    When user updates their account information
-    Then user information will be updated
-
-  #Put ✅
-#Feature: Update allergy information
+#  Feature: User able to update account information
 #  Scenario:
 #    Given User has an active account
-#    When user updates allergy information
-#    Then the allergy information will be updated
+#    When user updates their account information
+#    Then user information will be updated
+
+  #Put ✅
+Feature: Update allergy information
+  Scenario:
+    Given User has an active account
+    When user updates allergy information
+    Then the allergy information will be updated
 
   #Delete ✅
 #    When user removes their account by ID
