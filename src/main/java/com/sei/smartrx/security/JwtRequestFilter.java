@@ -24,8 +24,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private MyUserDetailsService myUserDetailsService;
 
-    @Autowired
     private JWTUtils jwtUtils;
+    @Autowired
+    public void setJTWUtils(JWTUtils jwtUtils){ this.jwtUtils = jwtUtils;}
 
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
