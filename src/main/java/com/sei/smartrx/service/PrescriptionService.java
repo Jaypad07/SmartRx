@@ -1,6 +1,7 @@
 package com.sei.smartrx.service;
 
 import com.sei.smartrx.exceptions.InformationNotFoundException;
+import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PrescriptionService {
@@ -31,6 +33,33 @@ public class PrescriptionService {
         if (prescriptionList.size() == 0) {
             throw new InformationNotFoundException("No previous prescriptions found.");
         }else return prescriptionList;
+    }
+
+    public List<Prescription> getAllPrescriptionsForUser(Long userId) {
+        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(userId).get();
+        if (prescriptionList.size() == 0) {
+            throw new InformationNotFoundException("No previous prescriptions found.");
+        } else return prescriptionList;
+    }
+
+    public Medication seeAMedication(Long medicationId){
+        Optional<Medication> medication = medicationRepository.findById(medicationId);
+        if(medication.isEmpty()){
+            throw new InformationNotFoundException("There is no medication with id of " + medicationId);
+        }
+        else{
+            return medication.get();
+        }
+    }
+
+    public Prescription requestPrescriptionRefill(Long prescriptionId){
+        Optional<Prescription> refillPrescription = Optional.of(prescriptionRepository.getById(prescriptionId));
+        if(refillPrescription.isEmpty()){
+            throw new InformationNotFoundException("There is no prescription with this id present");
+        }
+        else{
+            return refillPrescription.get();
+        }
     }
 
 

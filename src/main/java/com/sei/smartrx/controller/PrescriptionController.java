@@ -1,6 +1,5 @@
 package com.sei.smartrx.controller;
 
-import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.repository.PrescriptionRepository;
@@ -11,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api")
@@ -42,33 +40,21 @@ public class PrescriptionController {
      * @param userId
      * @return List of Prescriptions
      */
+    // http://localhost:8080/api/prescriptions/1
     @GetMapping(path = "/prescriptions/{userId}")
     public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
-        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(userId).get();
-        if (prescriptionList.size() == 0) {
-            throw new InformationNotFoundException("No previous prescriptions found.");
-        } else return prescriptionList;
+        return prescriptionService.getAllPrescriptionsForUser(userId);
     }
 
+    // http://localhost:8080/api/newRequest/prescriptions/1
     @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
     public Prescription requestPrescriptionRefill(@PathVariable Long prescriptionId){
-        Optional<Prescription> refillPrescription = Optional.of(prescriptionRepository.getById(prescriptionId));
-        if(refillPrescription.isEmpty()){
-            throw new InformationNotFoundException("There is no prescription with this id present");
-        }
-        else{
-            return refillPrescription.get();
-        }
+        return prescriptionService.requestPrescriptionRefill(prescriptionId);
     }
 
+    // http://localhost:8080/api/prescriptions/medications/1
     @GetMapping(path="/prescriptions/medications/{medicationId}")
     public Medication seeAMedication(@PathVariable Long medicationId){
-        Optional<Medication> medication = medicationRepository.findById(medicationId);
-        if(medication.isEmpty()){
-            throw new InformationNotFoundException("There is no medication with id of " + medicationId);
-        }
-        else{
-            return medication.get();
-        }
+        return prescriptionService.seeAMedication(medicationId);
     }
 }
