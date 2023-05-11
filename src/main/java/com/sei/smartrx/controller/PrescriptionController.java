@@ -29,22 +29,22 @@ public class PrescriptionController {
      * Will need this URL for pharmacist later
      * @return
      */
-    // http://localhost:8080/api/prescriptions
-    @GetMapping(path = "/prescriptions")
-    public List<Prescription> getAllPrescriptions() {
-      return prescriptionService.getAllPrescriptions();
-    }
+//    // http://localhost:8080/api/prescriptions
+//    @GetMapping(path = "/prescriptions")
+//    public List<Prescription> getAllPrescriptions() {
+//      return prescriptionService.getAllPrescriptions();
+//    }
 
     /**
      * based on given userId, returns list of Prescriptions that userId = prescription.user_id
 //     * @param userId
      * @return List of Prescriptions
      */
-    // http://localhost:8080/api/prescriptions/1
-//    @GetMapping(path = "/prescriptions/{userId}")
-//    public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
-//        return prescriptionService.getAllPrescriptionsForUser(userId);
-//    }
+     //http://localhost:8080/api/prescriptions/1
+    @GetMapping(path = "/prescriptions")
+    public List<Prescription> getAllPrescriptionsForUser()  {
+        return prescriptionService.getAllPrescriptionsForUser();
+    }
 
     // http://localhost:8080/api/newRequest/prescriptions/1
     @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
