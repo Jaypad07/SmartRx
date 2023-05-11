@@ -25,7 +25,7 @@ public class UserController {
     }
 
     @PostMapping(path="/users/login")
-    public boolean loginUser(@RequestBody User userObject){
+    public User loginUser(@RequestBody User userObject){
         return userService.findUserByEmail(userObject.getEmail());
     }
 
@@ -43,6 +43,5 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         return userService.deleteUser(userId);
     }
-
 
 }
