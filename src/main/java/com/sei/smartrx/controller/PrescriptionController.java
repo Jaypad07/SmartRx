@@ -21,9 +21,6 @@ public class PrescriptionController {
     @Autowired
     private PrescriptionRepository prescriptionRepository;
 
-    @Autowired
-    private MedicationRepository medicationRepository;
-
     private PrescriptionService prescriptionService;
 
     @Autowired
