@@ -1,17 +1,18 @@
 package com.sei.smartrx.seed;
 
-import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.repository.UserRepository;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Logger;
 
 @Component
 public class PrescriptionDataLoader implements CommandLineRunner {
@@ -25,37 +26,41 @@ public class PrescriptionDataLoader implements CommandLineRunner {
     @Autowired
     UserRepository userRepository;
 
-
     @Override
     public void run(String... args) throws Exception {
         loadPrescriptionData();
     }
 
     private void loadPrescriptionData() {
-        ArrayList<Prescription> arrayList = new ArrayList<>();
+
+        System.out.println("Calling PrescriptionDataLoader");
 
         if (prescriptionRepository.count() == 0) {
-            Prescription prescription1 = new Prescription(1L, "John Beck", 5, currentDate, true);
-            Prescription prescription2 = new Prescription(2L, "Joan Hill", 2, currentDate, true);
-            Prescription prescription3 = new Prescription(3L, "Eric Slack", 2, currentDate, false);
-            User user1 = new User(1L, "Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
-            userRepository.save(user1);
-//            User user1 = userRepository.findById(1L).get();
-            user1.setPrescriptionList(Arrays.asList(prescription1, prescription2, prescription3));
-            prescription1.setUser(user1);
-            prescription2.setUser(user1);
-            prescription3.setUser(user1);
+            Prescription prescription1 = new Prescription("John Beck", 5, currentDate, true);
+            Prescription prescription2 = new Prescription("Joan Hill", 2, currentDate, true);
+            Prescription prescription3 = new Prescription("Eric Slack", 2, currentDate, false);
 
-            prescriptionRepository.save(prescription1);
-            prescriptionRepository.save(prescription2);
-            prescriptionRepository.save(prescription3);
+            User user = new User("Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
 
-            Medication med1 = new Medication(1L, "Ceftriaxone", "Rocephin", "poor kidney function", "pain at site, rash, loss of appetitie", "sodium chloride, ceftriaxone");
-//            User user1 = new User(1L, "Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
-            arrayList.add(prescription1);
-            arrayList.add(prescription2);
-            user1.setPrescriptionList(arrayList);
-            userRepository.save(user1);
+            // user can have many prescriptions
+            List<Prescription> prescriptionList = new ArrayList<>();
+            prescriptionList.add(prescription1);
+            prescriptionList.add(prescription2);
+            prescriptionList.add(prescription3);
+
+            // reference each prescription to user
+            prescription1.setUser(user);
+            prescription2.setUser(user);
+            prescription3.setUser(user);
+
+            // many prescriptions belongs to one user
+            user.setPrescriptionList(prescriptionList);
+
+            // save data
+            userRepository.save(user);
+            prescriptionRepository.saveAll(prescriptionList);
+
+            System.out.println(user.getPrescriptionList());
         }
     }
 }

@@ -1,7 +1,7 @@
 #GET ✅
-#  Feature: A user can get all of their prescriptions
-#    Scenario:
-#    Given a user has a list of prescriptions
+  Feature: A user can get all of their prescriptions
+    Scenario:
+    Given a user has a list of prescriptions
 #    When a user searches for their prescriptions
 #    Then a user should see a list of their prescriptions
 
@@ -37,6 +37,8 @@
   #Delete ✅✅
 #    When user removes their account by ID
 #    Then the account is deleted
+
+
 
 
 
