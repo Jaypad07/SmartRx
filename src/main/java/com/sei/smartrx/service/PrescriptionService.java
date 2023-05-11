@@ -44,12 +44,12 @@ public class PrescriptionService {
         }else return prescriptionList;
     }
 
-//    public List<Prescription> getAllPrescriptionsForUser(Long userId) {
-//        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(userId).get();
-//        if (prescriptionList.size() == 0) {
-//            throw new InformationNotFoundException("No previous prescriptions found.");
-//        } else return prescriptionList;
-//    }
+    public List<Prescription> getAllPrescriptionsForUser() {
+        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(PrescriptionService.getCurrentLoggedInUser().getId()).get();
+        if (prescriptionList.size() == 0) {
+            throw new InformationNotFoundException("No previous prescriptions found.");
+        } else return prescriptionList;
+    }
 
     public Medication seeAMedication(Long medicationId){
         Optional<Medication> medication = medicationRepository.findById(medicationId);

@@ -60,7 +60,8 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             Prescription prescription1 = new Prescription("John Beck", 5, currentDate, true);
             Prescription prescription2 = new Prescription("Joan Hill", 2, currentDate, true);
             Prescription prescription3 = new Prescription("Eric Slack", 2, currentDate, false);
-
+            Prescription prescription4 = new Prescription("Another name", 6, currentDate, true);
+            Prescription prescription5 = new Prescription("Patient A", 0, currentDate, false);
 
             User user = new User("Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
             User user2 = new User("Mike", "Harrington", "email1@email.com", currentDate, "password1", "seafood, iodine");
@@ -73,21 +74,25 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             prescriptionList.add(prescription1);
             prescriptionList.add(prescription2);
             prescriptionList.add(prescription3);
-
+            List<Prescription> prescriptionList2 = new ArrayList<>();
+            prescriptionList2.add(prescription4);
+            prescriptionList2.add(prescription5);
             // reference each prescription to user
             prescription1.setUser(user);
             prescription2.setUser(user);
             prescription3.setUser(user);
-
+            prescription4.setUser(user2);
+            prescription1.setUser(user3);
+            prescription5.setUser(user2);
             // many prescriptions belong to one user
             user.setPrescriptionList(prescriptionList);
-
+            user2.setPrescriptionList(prescriptionList2);
             // save data
             userService.createUser(user);
             userService.createUser(user2);
             userService.createUser(user3);
             prescriptionRepository.saveAll(prescriptionList);
-
+            prescriptionRepository.saveAll(prescriptionList2);
             System.out.println(user.getPrescriptionList());
         }
     }

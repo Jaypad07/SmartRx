@@ -35,11 +35,11 @@
 #    Then the allergy information will be updated
 
   #Delete ✅
-#Feature: User is able to delete account
-#  Scenario:
-#   Given User has an active account
-#    When user removes their account by ID
-#    Then the account is deleted
+Feature: User is able to delete account
+  Scenario:
+   Given User has an active account
+    When user removes their account by ID
+    Then the account is deleted
 
 
 
