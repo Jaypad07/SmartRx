@@ -199,9 +199,19 @@ public class SpringBootCucumberTestDefinitions {
     }
 
 
+    @Given("a user has a unique email")
+    public void aUserHasAUniqueEmail() {
+        String email = "email@email.com";
 
+    }
 
+    @When("they enter their email and password")
+    public void theyEnterTheirEmailAndPassword() {
+        //when they make post method with request body
+    }
 
-
-
+    @Then("the password and their information is stored in database")
+    public void thePasswordAndTheirInformationIsStoredInDatabase() {
+        //they get status 200 .
+    }
 }

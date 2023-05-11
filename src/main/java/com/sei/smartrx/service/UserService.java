@@ -53,4 +53,7 @@ public class UserService {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    public boolean findUserByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }
