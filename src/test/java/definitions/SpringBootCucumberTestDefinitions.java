@@ -207,11 +207,22 @@ public class SpringBootCucumberTestDefinitions {
 
     @When("they enter their email and password")
     public void theyEnterTheirEmailAndPassword() {
-        //when they make post method with request body
+        try{
+            RestAssured.baseURI = BASE_URL;
+            RequestSpecification request = RestAssured.given();
+            JSONObject requestBody = new JSONObject();
+            requestBody.put("email", "email@email.com");
+            requestBody.put("password", "password");
+            request.header("Content-Type", "application/json");
+            response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/login");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Then("the password and their information is stored in database")
     public void thePasswordAndTheirInformationIsStoredInDatabase() {
-        //they get status 200 .
+        Assert.assertNotNull(response.getBody());
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
