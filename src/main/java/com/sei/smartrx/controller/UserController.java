@@ -11,9 +11,11 @@ import java.util.Optional;
 @RestController
 @RequestMapping(path = "/api")
 public class UserController {
-
-    @Autowired
     private UserService userService;
+    @Autowired
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @PostMapping (path = "/auth/users/register")
     public User createUser(@RequestBody User userObject) {
