@@ -199,9 +199,17 @@ public class SpringBootCucumberTestDefinitions {
     }
 
 
+    @Given("a user has a unique email")
+    public void aUserHasAUniqueEmail() {
+        
+    }
 
+    @When("they enter their email and password")
+    public void theyEnterTheirEmailAndPassword() {
+        
+    }
 
-
-
-
+    @Then("the password and their information is stored in database")
+    public void thePasswordAndTheirInformationIsStoredInDatabase() {
+    }
 }
