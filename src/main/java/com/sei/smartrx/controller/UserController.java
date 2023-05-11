@@ -42,14 +42,12 @@ public class UserController {
         return userRepository.save(updatedUser);
     }
 
-
-//    @DeleteMapping(path = "users/{userId}")
-////    public User deleteUser(@PathVariable Long userId) {
-//    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
-//        User user = getUser(userId);
-//        userRepository.delete(user);
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
+    @DeleteMapping(path = "users/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
+        User user = getUser(userId);
+        userRepository.delete(user);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 }
