@@ -63,7 +63,8 @@ public class PrescriptionDataLoader implements CommandLineRunner {
 
 
             User user = new User("Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
-
+            User user2 = new User("Mike", "Harrington", "email1@email.com", currentDate, "password1", "seafood, iodine");
+            User user3 = new User("Bill", "Brown", "email2@email.com", currentDate, "password2", "latex, zinc, peanuts");
             Medication medication1 = new Medication(1L, "name", "genName", "contra", "sideEffects", "ingred");
             medicationRepository.save(medication1);
 
@@ -82,7 +83,9 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             user.setPrescriptionList(prescriptionList);
 
             // save data
-            userRepository.save(user);
+            userService.createUser(user);
+            userService.createUser(user2);
+            userService.createUser(user3);
             prescriptionRepository.saveAll(prescriptionList);
 
             System.out.println(user.getPrescriptionList());
