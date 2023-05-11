@@ -222,13 +222,7 @@ public class SpringBootCucumberTestDefinitions {
 
     @Given("a user has a unique email")
     public void aUserHasAUniqueEmail() {
-        String email = "email@email.com";
-
-    }
-
-    @When("they enter their email and password")
-    public void theyEnterTheirEmailAndPassword() {
-        try{
+        try {
             RestAssured.baseURI = BASE_URL;
             RequestSpecification request = RestAssured.given();
             JSONObject requestBody = new JSONObject();
@@ -241,9 +235,14 @@ public class SpringBootCucumberTestDefinitions {
         }
     }
 
+    @When("they enter their email and password")
+    public void theyEnterTheirEmailAndPassword() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
     @Then("the password and their information is stored in database")
     public void thePasswordAndTheirInformationIsStoredInDatabase() {
         Assert.assertNotNull(response.getBody());
-        Assert.assertEquals(200, response.getStatusCode());
+
     }
 }
