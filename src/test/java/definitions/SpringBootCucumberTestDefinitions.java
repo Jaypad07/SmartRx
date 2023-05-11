@@ -70,11 +70,12 @@ public class SpringBootCucumberTestDefinitions {
     /**
      * FEATURE 2
      */
+
     @Given("a user has a list of prescriptions")
     public void aUserHasAListOfPrescriptions() {
         Long userId = 1L;
         try {
-            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/" + userId , HttpMethod.GET, null, String.class);
+            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/1", HttpMethod.GET, null, String.class);
             List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
             System.out.println(prescriptions);
             Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
@@ -84,6 +85,19 @@ public class SpringBootCucumberTestDefinitions {
         }
     }
 
+
+    @Given("User has an active account")
+    public void userHasAnActiveAccount(){
+        try {
+            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
+                    HttpMethod.GET, null, String.class);   //checking to see if an account exists
+            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+        }
+    }
+
+//    #Put
     @When("user updates allergy information")
     public void userUpdatesAllergyInformation() throws JSONException {
         RestAssured.baseURI = BASE_URL;
@@ -94,38 +108,33 @@ public class SpringBootCucumberTestDefinitions {
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
     }
 
-//    @Given("User has an active account")
-//    public void userHasAnActiveAccount(){
-//        long userId =1L;
-//        try {
-//            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/" + userId,
-//                    HttpMethod.GET, null, String.class);   //checking to see if an account exists
-//            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-//        } catch (HttpClientErrorException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    @Then("the allergy information will be updated")
+    public void theAllergyInformationWillBeUpdated() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+
+// #Delete
+    @When("user removes their account by ID")
+    public void userRemovesTheirAccountByID() {
+        try {
+            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
+                    HttpMethod.DELETE, null, String.class);
+            Assert.assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT); //status code 204, no content shown when account is deleted
+        } catch (HttpClientErrorException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Then("the account is deleted")
+    public void theAccountIsDeleted() {
+        try {
+            // Send a GET request to the API to retrieve the user by ID and verify that the response status is 404 Not Found
+            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
+                    HttpMethod.GET, null, String.class);
+            Assert.assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);  //404 status, account has been deleted
+        } catch (HttpClientErrorException e) {
+            Assert.assertEquals(e.getStatusCode(), HttpStatus.NO_CONTENT); //verifying that the status code is 404
+        }
+    }
 }
-//    @Given("A list of prescriptions is available")
-//    public void aListOfPrescriptionsIsAvailable() {
-//        try {
-//            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/" + 1L , HttpMethod.GET, null, String.class);
-//            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
-//            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-//            Assert.assertTrue(prescriptions.size() > 0);
-//        }catch (HttpClientErrorException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//    @When("a user searches for their prescription history")
-//    public void aUserSearchesForTheirPrescriptionHistory() {
-//        RestAssured.baseURI = BASE_URL;
-//        RequestSpecification request = RestAssured.given();
-//        Long id = 1L;
-//        response = request.get(BASE_URL + port + "/api/prescriptions/1");
-//        System.out.println(response);
-//    }
-//
-//    @Then("a user should see a list of prescriptions")
-//    public void aUserShouldSeeAListOfPrescriptions() {
-//    }

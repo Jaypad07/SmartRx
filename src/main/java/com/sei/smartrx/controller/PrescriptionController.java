@@ -31,13 +31,13 @@ public class PrescriptionController {
      * Will need this URL for pharmacist later
      * @return
      */
-//    @GetMapping(path = "/prescriptions")
-//    public List<Prescription> getAllPrescriptions() {
-//        List<Prescription> prescriptionList = prescriptionRepository.findAll();
-//        if (prescriptionList.size() == 0) {
-//            throw new InformationNotFoundException("No previous prescriptions found.");
-//        }else return prescriptionList;
-//    }
+    @GetMapping(path = "/prescriptions")
+    public List<Prescription> getAllPrescriptions() {
+        List<Prescription> prescriptionList = prescriptionRepository.findAll();
+        if (prescriptionList.size() == 0) {
+            throw new InformationNotFoundException("No previous prescriptions found.");
+        }else return prescriptionList;
+    }
 
     /**
      * based on given userId, returns list of Prescriptions that userId = prescription.user_id
@@ -46,7 +46,8 @@ public class PrescriptionController {
      */
     @GetMapping(path = "/prescriptions/{userId}")
     public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
-        List<Prescription> prescriptionList = userRepository.getAllById(userId);
+        List<Prescription> prescriptionList = prescriptionRepository.getPrescriptionsByUserId(userId);
+        System.out.println(prescriptionList);
         if (prescriptionList.size() == 0) {
             throw new InformationNotFoundException("No previous prescriptions found.");
         } else return prescriptionList;

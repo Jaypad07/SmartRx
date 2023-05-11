@@ -5,12 +5,14 @@ import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 @RestController
-@RequestMapping(path = "/api/users")
+@RequestMapping(path = "/api")
 public class UserController {
 
     @Autowired
@@ -34,11 +36,20 @@ public class UserController {
     }
 
     @PutMapping(path = "/users/{userId}")
-    public User getUser(@PathVariable Long userId, @RequestBody User userObject) {
+    public User updateUserAllergy(@PathVariable Long userId, @RequestBody User userObject) {
         User updatedUser = getUser(userId);
         updatedUser.setAllergies(userObject.getAllergies());
         return userRepository.save(updatedUser);
     }
+
+
+//    @DeleteMapping(path = "users/{userId}")
+////    public User deleteUser(@PathVariable Long userId) {
+//    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
+//        User user = getUser(userId);
+//        userRepository.delete(user);
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
 
 }
