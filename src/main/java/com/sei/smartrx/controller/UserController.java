@@ -24,6 +24,11 @@ public class UserController {
         return userService.createUser(userObject);
     }
 
+    @PostMapping(path="/users/login")
+    public boolean loginUser(@RequestBody User userObject){
+        return userService.findUserByEmail(userObject.getEmail());
+    }
+
     @GetMapping(path = "/users/{userId}")
     public User getUser(@PathVariable Long userId) {
         return userService.getUser(userId);
