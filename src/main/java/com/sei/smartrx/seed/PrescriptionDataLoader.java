@@ -53,7 +53,7 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             prescription2.setUser(user);
             prescription3.setUser(user);
 
-            // many prescriptions belongs to one user
+            // many prescriptions belong to one user
             user.setPrescriptionList(prescriptionList);
 
             // save data

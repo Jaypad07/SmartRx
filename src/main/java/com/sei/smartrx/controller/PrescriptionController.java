@@ -1,18 +1,16 @@
 package com.sei.smartrx.controller;
 
 import com.sei.smartrx.exceptions.InformationNotFoundException;
+import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
+import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +23,9 @@ public class PrescriptionController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MedicationRepository medicationRepository;
 
     @GetMapping(path = "/hello-world")
     public String helloWorld() {
@@ -43,37 +44,17 @@ public class PrescriptionController {
         }else return prescriptionList;
     }
 
-//    /**
-//     * based on given userId, returns list of Prescriptions that userId = prescription.user_id
-//     * @param userId
-//     * @return List of Prescriptions
-//     */
-//    @GetMapping(path = "/prescriptions/{userId}")
-//    public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
-//        List<Prescription> prescriptionList = prescriptionRepository.getPrescriptionsByUserId(userId);
-//        System.out.println(prescriptionList);
-//        if (prescriptionList.size() == 0) {
-//            throw new InformationNotFoundException("No previous prescriptions found.");
-//        } else return prescriptionList;
-//    }
-
     /**
      * based on given userId, returns list of Prescriptions that userId = prescription.user_id
-     *
      * @param userId
-     * @return list of prescriptions
+     * @return List of Prescriptions
      */
     @GetMapping(path = "/prescriptions/{userId}")
-    public ResponseEntity<?> getAllPrescriptionsForUser(@PathVariable Long userId) {
-        Optional<List<Prescription>> prescriptionList = prescriptionRepository.findByUserId(userId);
-        if (prescriptionList.isPresent()) {
-            HashMap<String, Object> data = new HashMap<>();
-            data.put("data", prescriptionList.get());
-            data.put("user", userId);
-            return new ResponseEntity<>(data, HttpStatus.OK);
-        } else {
+    public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
+        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(userId).get();
+        if (prescriptionList.size() == 0) {
             throw new InformationNotFoundException("No previous prescriptions found.");
-        }
+        } else return prescriptionList;
     }
 
     @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
@@ -84,6 +65,17 @@ public class PrescriptionController {
         }
         else{
             return refillPrescription.get();
+        }
+    }
+
+    @GetMapping(path="/prescriptions/medications/{medicationId}")
+    public Medication seeAMedication(@PathVariable Long medicationId){
+        Optional<Medication> medication = medicationRepository.findById(medicationId);
+        if(medication.isEmpty()){
+            throw new InformationNotFoundException("There is no medication with id of " + medicationId);
+        }
+        else{
+            return medication.get();
         }
     }
 }
