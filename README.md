@@ -118,7 +118,10 @@ git clone <repository-url>
 
 3. Configure the Database
 
-Open the application.properties file located in the src/main/resources directory. Update the database configuration properties according to your PostgreSQL database setup. Make sure to provide the correct database URL, username, and password.
+Open the application.properties file located in the src/main/resources directory. 
+Update the database configuration properties according to your PostgreSQL database setup. 
+Make sure to provide the correct database URL, username, and password.
+
 
 4. Build the Application
 
