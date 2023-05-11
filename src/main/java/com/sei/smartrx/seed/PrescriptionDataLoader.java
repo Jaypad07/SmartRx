@@ -6,6 +6,7 @@ import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.repository.UserRepository;
+import com.sei.smartrx.service.UserService;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,14 +23,29 @@ public class PrescriptionDataLoader implements CommandLineRunner {
     LocalDate localDate = LocalDate.of(2023, 8, 1);
     LocalDate currentDate = localDate.now();
 
+
+    private PrescriptionRepository prescriptionRepository;
     @Autowired
-    PrescriptionRepository prescriptionRepository;
+    public void setPrescriptionRepository(PrescriptionRepository prescriptionRepository) {
+        this.prescriptionRepository = prescriptionRepository;
+    }
+
+    private MedicationRepository medicationRepository;
 
     @Autowired
-    MedicationRepository medicationRepository;
+    public void setMedicationRepository(MedicationRepository medicationRepository) {
+        this.medicationRepository = medicationRepository;
+    }
+
+    private UserRepository userRepository;
 
     @Autowired
-    UserRepository userRepository;
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -45,7 +61,9 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             Prescription prescription2 = new Prescription("Joan Hill", 2, currentDate, true);
             Prescription prescription3 = new Prescription("Eric Slack", 2, currentDate, false);
 
+
             User user = new User("Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
+
             Medication medication1 = new Medication(1L, "name", "genName", "contra", "sideEffects", "ingred");
             medicationRepository.save(medication1);
 
