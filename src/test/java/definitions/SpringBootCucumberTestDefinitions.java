@@ -1,5 +1,6 @@
 package definitions;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sei.smartrx.SmartRxApplication;
 import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
@@ -38,7 +39,7 @@ public class SpringBootCucumberTestDefinitions {
 
     LocalDate localDate = LocalDate.of(2023, 8, 1);
     LocalDate currentDate = localDate.now();
-    User user = new User(1L, "John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900", "aspirin, metformin");
+    User user = new User("John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900", "aspirin, metformin");
 
     /**
      * FEATURE 1
@@ -71,19 +72,31 @@ public class SpringBootCucumberTestDefinitions {
      * FEATURE 2
      */
 
+    /**
+     * FEATURE: a user can view their prescriptions
+     */
     @Given("a user has a list of prescriptions")
-    public void aUserHasAListOfPrescriptions() {
-        Long userId = 1L;
-        try {
-            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/1", HttpMethod.GET, null, String.class);
-            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
-            System.out.println(prescriptions);
-            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-            Assert.assertTrue(prescriptions.size() > 0);
-        }catch (HttpClientErrorException e) {
-            e.printStackTrace();
-        }
+    public void aUserHasAListOfPrescriptions() throws JsonProcessingException {
+        RestAssured.baseURI = BASE_URL;
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> jsonResponse = restTemplate.getForEntity(BASE_URL + port + "/api/prescriptions/{id}", String.class, Map.of("id", "1"));
+        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
+        Assert.assertEquals(1, userId);
     }
+
+//    @Given("a user has a list of prescriptions")
+//    public void aUserHasAListOfPrescriptions() {
+//        Long userId = 1L;
+//        try {
+//            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/1", HttpMethod.GET, null, String.class);
+//            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
+//            System.out.println(prescriptions);
+//            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
+//            Assert.assertTrue(prescriptions.size() > 0);
+//        }catch (HttpClientErrorException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     @Given("User has an active account")

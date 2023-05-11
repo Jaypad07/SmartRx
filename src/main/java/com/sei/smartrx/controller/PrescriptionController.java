@@ -3,9 +3,8 @@ package com.sei.smartrx.controller;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
-import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
-import com.sei.smartrx.repository.UserRepository;
+import com.sei.smartrx.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,27 +20,21 @@ public class PrescriptionController {
     @Autowired
     private PrescriptionRepository prescriptionRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+    private PrescriptionService prescriptionService;
 
     @Autowired
-    private MedicationRepository medicationRepository;
-
-    @GetMapping(path = "/hello-world")
-    public String helloWorld() {
-        return "hello World";
+    public void setPrescriptionService(PrescriptionService prescriptionService) {
+        this.prescriptionService = prescriptionService;
     }
 
     /**
      * Will need this URL for pharmacist later
      * @return
      */
+    // http://localhost:8080/api/prescriptions
     @GetMapping(path = "/prescriptions")
     public List<Prescription> getAllPrescriptions() {
-        List<Prescription> prescriptionList = prescriptionRepository.findAll();
-        if (prescriptionList.size() == 0) {
-            throw new InformationNotFoundException("No previous prescriptions found.");
-        }else return prescriptionList;
+      return prescriptionService.getAllPrescriptions();
     }
 
     /**
@@ -51,7 +44,7 @@ public class PrescriptionController {
      */
     @GetMapping(path = "/prescriptions/{userId}")
     public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
-        List<Prescription> prescriptionList = prescriptionRepository.getPrescriptionsByUserId(userId);
+        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(userId).get();
         if (prescriptionList.size() == 0) {
             throw new InformationNotFoundException("No previous prescriptions found.");
         } else return prescriptionList;

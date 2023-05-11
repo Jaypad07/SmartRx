@@ -31,8 +31,7 @@ public class Prescription {
      */
     public Prescription() {}
 
-    public Prescription(Long prescriptionId, String patientName, int refills, LocalDate endDate, Boolean status) {
-        this.prescriptionId = prescriptionId;
+    public Prescription(String patientName, int refills, LocalDate endDate, Boolean status) {
         this.patientName = patientName;
         this.refills = refills;
         this.endDate = endDate;
