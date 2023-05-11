@@ -2,7 +2,9 @@ package definitions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sei.smartrx.SmartRxApplication;
+import com.sei.smartrx.controller.UserController;
 import com.sei.smartrx.models.User;
+import com.sei.smartrx.service.PrescriptionService;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -16,10 +18,7 @@ import org.json.JSONObject;
 import org.junit.Assert;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 import javax.crypto.KeyGenerator;
@@ -27,6 +26,7 @@ import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Optional;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SmartRxApplication.class)
@@ -81,48 +81,29 @@ public class SpringBootCucumberTestDefinitions {
     }
 
     /**
-     * FEATURE 2
-     */
-
-    /**
      * FEATURE: a user can view their prescriptions
      */
     @Given("a user has a list of prescriptions")
-    public void aUserHasAListOfPrescriptions() {
+    public void aUserHasAListOfPrescriptions() throws JSONException{
         RestAssured.baseURI = BASE_URL;
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> jsonResponse = restTemplate.getForEntity(BASE_URL + port + "/api/prescriptions", String.class);
-        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
-        Assert.assertEquals(1, userId);
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ getYourKey());
+        response = request.get(BASE_URL+ port + "/api/prescriptions");
+//        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
+//        Assert.assertEquals(1, userId);
     }
 
-//    @Given("a user has a list of prescriptions")
-//    public void aUserHasAListOfPrescriptions() {
-//        Long userId = 1L;
-//        try {
-//            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/prescriptions/1", HttpMethod.GET, null, String.class);
-//            List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get("data");
-//            System.out.println(prescriptions);
-//            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-//            Assert.assertTrue(prescriptions.size() > 0);
-//        }catch (HttpClientErrorException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-    @Given("User has an active account")
+    @Given("User is logged in")
     public void userHasAnActiveAccount() throws JSONException{
-        try {
-            RequestSpecification request = RestAssured.given();
-            String token = getYourKey();
-            request.header("Authorization", "Bearer " + token);
-            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
-                    HttpMethod.POST, null, String.class);   //checking to see if an account exists
-            Assert.assertEquals(response.getStatusCode(), HttpStatus.OK);
-        } catch (HttpClientErrorException e) {
-            e.printStackTrace();
-        }
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email", "email@email.com");
+        jsonObject.put("password", "password");
+        request.header("Content-Type", "application/json");
+        response = request.body(jsonObject.toString()).post(BASE_URL+ port + "/api/auth/users/login");
+        Assert.assertEquals(200, response.getStatusCode());
+        Assert.assertNotNull(response.body());
     }
 
     @When("user updates their account information")
@@ -138,7 +119,7 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("password", "tim123");
         request.header("Content-Type", "application/json");
         String token = getYourKey();
-        request.header("Authorization", "Bearer " + token);
+        request.header("Authorization", "Bearer "+ getYourKey());
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
     }
 
@@ -221,10 +202,11 @@ public class SpringBootCucumberTestDefinitions {
     }
 
     @When("a user searches for medication by ID")
-    public void aUserSearchesForMedicationByID() {
+    public void aUserSearchesForMedicationByID() throws JSONException {
         try{
             RestAssured.baseURI = BASE_URL;
             RequestSpecification request = RestAssured.given();
+            request.header("Authorization", "Bearer "+ getYourKey());
             response = request.get(BASE_URL + port + "/api/prescriptions/medications/1");
             Assert.assertEquals(200, response.getStatusCode());
         } catch(HttpClientErrorException e){

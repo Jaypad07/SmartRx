@@ -23,7 +23,7 @@
   #Put ✅
   Feature: User able to update account information
   Scenario:
-    Given User has an active account
+    Given User is logged in
     When user updates their account information
     Then user information will be updated
 
