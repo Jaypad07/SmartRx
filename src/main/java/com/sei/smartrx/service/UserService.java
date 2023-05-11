@@ -74,7 +74,8 @@ public class UserService {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    public User findUserByEmail(String email) {
+    public User findUserByEmailAddress(String email) {
         return userRepository.findUserByEmail(email);
     }
+
 }

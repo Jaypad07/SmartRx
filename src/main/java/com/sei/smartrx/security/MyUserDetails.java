@@ -59,7 +59,7 @@ public class MyUserDetails implements UserDetails{
 
     //IMPORTANT METHOD!!
     public User getUser() {
-        return user; //grabs the credentials & returns the user object
+        return user;
     }
 
 

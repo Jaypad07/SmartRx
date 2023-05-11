@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 public class JWTUtils {
 
     Logger logger = Logger.getLogger(JWTUtils.class.getName());
-    //inserts our variables during runtime, not hardcoded into the app
     @Value("${jwt-secret}")
     private String jwtSecret;
 
@@ -21,8 +20,6 @@ public class JWTUtils {
     private int jwtExpirationMs;
 
     public String generateJwtToken(MyUserDetails myUserDetails) {
-        //inject userdetails, to get username. Sets the issue date. Then we set the expiration date. Create a secure signature with server security key that gets loaded
-        //during runtime. Compact means build token.
         return Jwts.builder()
                 .setSubject((myUserDetails.getUsername()))
                 .setIssuedAt(new Date())
@@ -30,7 +27,6 @@ public class JWTUtils {
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
-    //gets the subject/payload for token
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
     }

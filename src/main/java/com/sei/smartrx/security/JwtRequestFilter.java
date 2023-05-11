@@ -1,6 +1,5 @@
 package com.sei.smartrx.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -28,12 +27,9 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JWTUtils jwtUtils;
 
-    // "Authorization" : "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AYW9sLmNvbSIsImlhdCI6MTY4MjQ1MjU4NywiZXhwIjoxNjgyNTM4OTg3fQ.GtsCdU8VV8MFzTLPuXsQmbs6Nnovbdax0fbU8QDH04U"
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
         if (StringUtils.hasLength("headerAuth") && headerAuth.startsWith("Bearer")) {
-            // so we return JWT key
-            // eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsZW9AYW9sLmNvbSIsImlhdCI6MTY4MjQ1MjU4NywiZXhwIjoxNjgyNTM4OTg3fQ.GtsCdU8VV8MFzTLPuXsQmbs6Nnovbdax0fbU8QDH04U
             return headerAuth.substring(7);
         }
         return null;
@@ -44,16 +40,11 @@ public class JwtRequestFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         try {
             String jwt = parseJwt(request);
-            // check if the jwt key is valid and not null
             if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
-                // if valid get user email from the key
                 String username = jwtUtils.getUserNameFromJwtToken(jwt);
-                // load user details from the key
                 UserDetails userDetails = this.myUserDetailsService.loadUserByUsername(username);
-                // set username and password authentication token from user user details
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails, null, userDetails.getAuthorities());
-                // build request and get security content
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authentication);
             }
