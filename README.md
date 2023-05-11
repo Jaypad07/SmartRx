@@ -32,6 +32,8 @@ SmartRx REST API backend is a Java and Spring Boot application that provides a r
 - IntelliJ IDEA
 
 ### General Approach
+In our development process, we have adopted an agile approach with a focus on collaboration and iterative development. We have been utilizing pair programming extensively, both in duos and as a quad, to leverage the collective skills and expertise of our team members.
+
 
 #### User Stories and Link 
 #### ERD Diagram 
@@ -42,16 +44,16 @@ SmartRx REST API backend is a Java and Spring Boot application that provides a r
 
 ### Key Features
 ##### CRUD Operations: 
-The API allows users to perform Create, Read, Update, and Delete (CRUD) operations on prescription and medication data. Users can create new prescriptions, retrieve prescription details, update existing prescriptions, and delete prescriptions as needed.
+SmartRx allows users to perform Create, Read, Update, and Delete (CRUD) operations on prescription and medication data. Users can create new prescriptions, retrieve prescription details, update existing prescriptions, and delete prescriptions as needed.
 
 ##### Authentication and Authorization
-The API implements secure authentication and authorization mechanisms to ensure that only authorized users can access the protected endpoints. It enables user registration, login, and generates JSON Web Tokens (JWT) to authenticate and authorize API requests.
+SmartRx implements secure authentication and authorization mechanisms to ensure that only authorized users can access the protected endpoints. It enables user registration, login, and generates JSON Web Tokens (JWT) to authenticate and authorize API requests.
 
 ##### Validation and Error Handling:
-The backend API performs thorough validation of incoming data to ensure its integrity and consistency. It provides appropriate error responses with detailed error messages and status codes when invalid requests or exceptions occur, improving the user experience.
+SmartRx performs thorough validation of incoming data to ensure its integrity and consistency. It provides appropriate error responses with detailed error messages and status codes when invalid requests or exceptions occur, improving the user experience.
 
 ##### Testing and Quality Assurance:
-The backend application includes a suite of unit tests and integration tests to validate the functionality and behavior of the API. It follows coding best practices, adheres to code style guidelines, and undergoes rigorous testing to ensure high-quality and reliable software.
+SmartRx also includes a suite of unit tests and integration tests to validate the functionality and behavior of the API. It follows coding best practices, adheres to code style guidelines, and undergoes rigorous testing to ensure high-quality and reliable software.
 ### Installation Instructions For Dependencies 
 1. Open your project in an IDE or navigate to the project directory using the command line.
 2. Locate the pom.xml file in the root directory of your project.
