@@ -103,6 +103,7 @@ public class SpringBootCucumberTestDefinitions {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
+        requestBody.put("firstName", "Tim");
         requestBody.put("allergy", "watermelon");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");

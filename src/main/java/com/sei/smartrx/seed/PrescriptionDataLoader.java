@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 @Component
 public class PrescriptionDataLoader implements CommandLineRunner {
@@ -40,15 +39,17 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             Prescription prescription2 = new Prescription(2L, "Joan Hill", 2, currentDate, true);
             Prescription prescription3 = new Prescription(3L, "Eric Slack", 2, currentDate, false);
             User user1 = new User(1L, "Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
+            userRepository.save(user1);
 //            User user1 = userRepository.findById(1L).get();
             user1.setPrescriptionList(Arrays.asList(prescription1, prescription2, prescription3));
             prescription1.setUser(user1);
             prescription2.setUser(user1);
             prescription3.setUser(user1);
+
             prescriptionRepository.save(prescription1);
             prescriptionRepository.save(prescription2);
             prescriptionRepository.save(prescription3);
-            userRepository.save(user1);
+
             Medication med1 = new Medication(1L, "Ceftriaxone", "Rocephin", "poor kidney function", "pain at site, rash, loss of appetitie", "sodium chloride, ceftriaxone");
 //            User user1 = new User(1L, "Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
             arrayList.add(prescription1);
