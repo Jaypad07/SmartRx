@@ -32,17 +32,24 @@ public class UserController {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             return user.get();
-        }else throw new InformationNotFoundException("User with Id " + userId + "does not exist.");
+        }else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
     }
 
     @PutMapping(path = "/users/{userId}")
-    public User updateUserAllergy(@PathVariable Long userId, @RequestBody User userObject) {
+    public User updateUser(@PathVariable Long userId, @RequestBody User userObject) {
         User updatedUser = getUser(userId);
+        updatedUser.setFirstName(userObject.getFirstName());
+        updatedUser.setLastName(userObject.getLastName());
+        updatedUser.setEmail(userObject.getEmail());
+        updatedUser.setDob(userObject.getDob());
         updatedUser.setAllergies(userObject.getAllergies());
+        updatedUser.setPassword(userObject.getPassword());
         return userRepository.save(updatedUser);
     }
 
+
     @DeleteMapping(path = "users/{userId}")
+//    public User deleteUser(@PathVariable Long userId) {
     public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
         User user = getUser(userId);
         userRepository.delete(user);

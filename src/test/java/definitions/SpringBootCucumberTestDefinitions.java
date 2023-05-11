@@ -24,7 +24,6 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SmartRxApplication.class)
@@ -58,6 +57,7 @@ public class SpringBootCucumberTestDefinitions {
     @When("I enter my username and password")
     public void iEnterMyUsernameAndPassword() {
         JsonPath jsonObject = new JsonPath(response.asString());
+        System.out.println(response.getBody().asString());
         Assert.assertEquals(user.getEmail(), jsonObject.get("email"));
         Assert.assertEquals(user.getPassword(), jsonObject.get("password"));
     }
@@ -103,6 +103,7 @@ public class SpringBootCucumberTestDefinitions {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
+        requestBody.put("firstName", "Tim");
         requestBody.put("allergy", "watermelon");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
@@ -137,27 +138,36 @@ public class SpringBootCucumberTestDefinitions {
             Assert.assertEquals(e.getStatusCode(), HttpStatus.NO_CONTENT); //verifying that the status code is 404
         }
     }
-    
-    @Given("A specific medication ID")
-    public void aSpecificMedicationID() {
-        Long medicationId = 1L;
-        Assert.assertTrue(medicationId == 1L);
+
+    @Given("user is registered")
+    public void user_is_registered() {
+
+        User user = new User("user5", "password"); //create user object w/password
+        userService.registerUser(user);
     }
 
-    @When("a user searches for medication by ID")
-    public void aUserSearchesForMedicationByID() {
-        try{
-            RestAssured.baseURI = BASE_URL;
-            RequestSpecification request = RestAssured.given();
-            response = request.get(BASE_URL + port + "/api/prescriptions/medications/1");
-            Assert.assertEquals(200, response.getStatusCode());
-        } catch(HttpClientErrorException e){
-            e.printStackTrace();
-        }
+    @When("I enter my username and password")
+    public void enter_username_password() {
+
+        String username = "user5";
+        String password = "password";
+
     }
 
-    @Then("user should receive specific information about that medication")
-    public void userShouldReceiveSpecificInformationAboutThatMedication() {
-        Assert.assertNotNull(response);
+    @Then("I should be logged in successfully")
+    public void should_be_logged_in_successfully() {
+        ResponseEntity<User> response = restTemplate.getForEntity(BASE_URL + port + "/api/user", User.class); //verify if user is logged in
+        User loggedInUser = response.getBody();
+        Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assert.assertEquals("user5", loggedInUser.getUsername());  //may need to add exception handling w/ msg later
     }
+
+
+
+
+
+
+
+
+
 }
