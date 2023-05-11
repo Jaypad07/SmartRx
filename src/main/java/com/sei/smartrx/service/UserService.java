@@ -3,6 +3,8 @@ package com.sei.smartrx.service;
 import com.sei.smartrx.exceptions.InformationExistException;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.User;
+import com.sei.smartrx.models.request.LoginRequest;
+import com.sei.smartrx.models.response.LoginResponse;
 import com.sei.smartrx.repository.UserRepository;
 import com.sei.smartrx.security.JWTUtils;
 import com.sei.smartrx.security.MyUserDetails;
@@ -11,6 +13,8 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,9 +41,26 @@ public class UserService {
 
     public User createUser(User userObject){
         if (!userRepository.existsByEmail(userObject.getEmail())) {
-//            userObject.setPassword(userObject.getPassword());
+            userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
             return userRepository.save(userObject);
         }else throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
+    }
+
+    public User findUserByEmail(String email){
+        return userRepository.findUserByEmail(email);
+    }
+
+    public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
+        try {
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            myUserDetails = (MyUserDetails) authentication.getPrincipal();
+            final String JWT = jwUtils.generateJwtToken(myUserDetails);
+            return ResponseEntity.ok(new LoginResponse(JWT));
+        } catch(Exception e){
+            return ResponseEntity.ok(new LoginResponse("Error: username or password is incorrect"));
+        }
     }
 
     public User getUser(Long userId){
@@ -47,13 +68,6 @@ public class UserService {
         if (user.isPresent()) {
             return user.get();
         } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
-    }
-
-    public boolean getUserByEmail(String email){
-        if(userRepository.existsByEmail(email)){
-            return false;
-        }
-        return true;
     }
 
     public User updateUser(Long userId, User userObject) throws InformationNotFoundException{
@@ -72,9 +86,5 @@ public class UserService {
         User user = getUser(userId);
         userRepository.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
-    public User findUserByEmail(String email) {
-        return userRepository.findUserByEmail(email);
     }
 }
