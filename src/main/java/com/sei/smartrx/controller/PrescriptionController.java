@@ -1,7 +1,9 @@
 package com.sei.smartrx.controller;
 
 import com.sei.smartrx.exceptions.InformationNotFoundException;
+import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
+import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class PrescriptionController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private MedicationRepository medicationRepository;
 
     @GetMapping(path = "/hello-world")
     public String helloWorld() {
@@ -47,7 +52,6 @@ public class PrescriptionController {
     @GetMapping(path = "/prescriptions/{userId}")
     public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
         List<Prescription> prescriptionList = prescriptionRepository.getPrescriptionsByUserId(userId);
-        System.out.println(prescriptionList);
         if (prescriptionList.size() == 0) {
             throw new InformationNotFoundException("No previous prescriptions found.");
         } else return prescriptionList;
@@ -61,6 +65,17 @@ public class PrescriptionController {
         }
         else{
             return refillPrescription.get();
+        }
+    }
+
+    @GetMapping(path="/prescriptions/medications/{medicationId}")
+    public Medication seeAMedication(@PathVariable Long medicationId){
+        Optional<Medication> medication = medicationRepository.findById(medicationId);
+        if(medication.isEmpty()){
+            throw new InformationNotFoundException("There is no medication with id of " + medicationId);
+        }
+        else{
+            return medication.get();
         }
     }
 }

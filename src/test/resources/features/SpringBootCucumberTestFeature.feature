@@ -7,11 +7,11 @@
 
 
 #  #GET
-#  Feature: Get a medication
-#  Scenario:
-#    Given A specific user Id
-#    When user enters their medication ID number
-#    Then user should receive specific information about that medication
+  Feature: Get a medication
+  Scenario:
+    Given A specific medication ID
+    When a user searches for medication by ID
+    Then user should receive specific information about that medication
 
 #  #Post
 #  Feature: Create a prescription refill request

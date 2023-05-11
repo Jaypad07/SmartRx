@@ -33,13 +33,13 @@ public class Medication {
     public Medication() {
     }
 
-    public Medication(Long id, String name, String genericName, String contraIndication, String sideEffects, String indredients) {
+    public Medication(Long id, String name, String genericName, String contraIndication, String sideEffects, String ingredients) {
         this.id = id;
         this.name = name;
         this.genericName = genericName;
         this.contraIndication = contraIndication;
         this.sideEffects = sideEffects;
-        this.ingredients = indredients;
+        this.ingredients = ingredients;
     }
 
     public Long getId() {
