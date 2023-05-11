@@ -163,7 +163,28 @@ public class SpringBootCucumberTestDefinitions {
         Assert.assertEquals("user5", loggedInUser.getUsername());  //may need to add exception handling w/ msg later
     } */
 
+    @Given("A specific medication ID")
+    public void aSpecificMedicationID() {
+        Long medicationId = 1L;
+        Assert.assertTrue(medicationId == 1L);
+    }
 
+    @When("a user searches for medication by ID")
+    public void aUserSearchesForMedicationByID() {
+        try{
+            RestAssured.baseURI = BASE_URL;
+            RequestSpecification request = RestAssured.given();
+            response = request.get(BASE_URL + port + "/api/prescriptions/medications/1");
+            Assert.assertEquals(200, response.getStatusCode());
+        } catch(HttpClientErrorException e){
+            e.printStackTrace();
+        }
+    }
+
+    @Then("user should receive specific information about that medication")
+    public void userShouldReceiveSpecificInformationAboutThatMedication() {
+        Assert.assertNotNull(response);
+    }
 
 
 
