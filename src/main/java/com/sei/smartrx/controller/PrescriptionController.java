@@ -37,14 +37,14 @@ public class PrescriptionController {
 
     /**
      * based on given userId, returns list of Prescriptions that userId = prescription.user_id
-     * @param userId
+//     * @param userId
      * @return List of Prescriptions
      */
     // http://localhost:8080/api/prescriptions/1
-    @GetMapping(path = "/prescriptions/{userId}")
-    public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
-        return prescriptionService.getAllPrescriptionsForUser(userId);
-    }
+//    @GetMapping(path = "/prescriptions/{userId}")
+//    public List<Prescription> getAllPrescriptionsForUser(@PathVariable Long userId)  {
+//        return prescriptionService.getAllPrescriptionsForUser(userId);
+//    }
 
     // http://localhost:8080/api/newRequest/prescriptions/1
     @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
