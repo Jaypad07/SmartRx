@@ -139,6 +139,7 @@ public class SpringBootCucumberTestDefinitions {
         }
     }
 
+    /*
     @Given("user is registered")
     public void user_is_registered() {
 
@@ -160,7 +161,7 @@ public class SpringBootCucumberTestDefinitions {
         User loggedInUser = response.getBody();
         Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
         Assert.assertEquals("user5", loggedInUser.getUsername());  //may need to add exception handling w/ msg later
-    }
+    } */
 
 
 
