@@ -3,6 +3,7 @@ package com.sei.smartrx.seed;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.models.User;
+import com.sei.smartrx.models.UserProfile;
 import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.repository.UserRepository;
@@ -63,11 +64,16 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             Prescription prescription4 = new Prescription("Another name", 6, currentDate, true);
             Prescription prescription5 = new Prescription("Patient A", 0, currentDate, false);
 
+            Medication medication1 = new Medication(1L, "name", "genName", "contra", "sideEffects", "ingred");
+
             User user = new User("Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
             User user2 = new User("Mike", "Harrington", "email1@email.com", currentDate, "password1", "seafood, iodine");
             User user3 = new User("Bill", "Brown", "email2@email.com", currentDate, "password2", "latex, zinc, peanuts");
-            Medication medication1 = new Medication(1L, "name", "genName", "contra", "sideEffects", "ingred");
-            medicationRepository.save(medication1);
+            User user4 = new User("Crosby", " Marsh", "pharmacist@cvs.com", currentDate, "password", "NKDA");
+
+            //creating authorized pharmacist profile, setting user 4 userProfile to pharmacist.
+            UserProfile pharmacistProfile = new UserProfile("ROLE_PHARMACIST");
+            user4.setUserProfile(pharmacistProfile);
 
             // user can have many prescriptions
             List<Prescription> prescriptionList = new ArrayList<>();
@@ -91,9 +97,11 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             userService.createUser(user);
             userService.createUser(user2);
             userService.createUser(user3);
+            userService.createUser(user4);
             prescriptionRepository.saveAll(prescriptionList);
             prescriptionRepository.saveAll(prescriptionList2);
-            System.out.println(user.getPrescriptionList());
+            medicationRepository.save(medication1);
+
         }
     }
 }

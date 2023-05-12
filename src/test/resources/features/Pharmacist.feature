@@ -1,4 +1,3 @@
-#  GET Pharmacist
 Feature: If user has pharmacist role, can create, read, update, and delete prescriptions.
   Scenario:
     Given a User had authorization role of pharmacist
