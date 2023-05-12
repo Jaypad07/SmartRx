@@ -82,7 +82,7 @@ public class UserService {
         updatedUser.setEmail(userObject.getEmail());
         updatedUser.setDob(userObject.getDob());
         updatedUser.setAllergies(userObject.getAllergies());
-        updatedUser.setPassword(userObject.getPassword());
+        updatedUser.setPassword(passwordEncoder.encode(userObject.getPassword()));
         return userRepository.save(updatedUser);
 
     }

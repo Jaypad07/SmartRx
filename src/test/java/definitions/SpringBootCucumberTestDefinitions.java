@@ -19,8 +19,6 @@ import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Map;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SmartRxApplication.class)
@@ -100,6 +98,7 @@ public class SpringBootCucumberTestDefinitions {
     public void iShouldBeLoggedInSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
     /**
      * FEATURE: When a user is logged in, user can update their account information and delete their account.
      * @throws JSONException
@@ -116,21 +115,6 @@ public class SpringBootCucumberTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
         Assert.assertNotNull(response.body());
     }
-
-    @When("user searches for their prescriptions")
-    public void userSearchesForTheirPrescriptions() throws JSONException {
-        RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.get(BASE_URL+ port + "/api/prescriptions");
-        List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get();
-    }
-
-    @Then("they should see only the prescriptions that belong to them")
-    public void theyShouldSeeOnlyThePrescriptionsThatBelongToThem() {
-
-    }
-
     @When("user updates their account information")
     public void userUpdatesTheirAccountInformation() throws JSONException {
         RestAssured.baseURI = BASE_URL;
@@ -138,13 +122,13 @@ public class SpringBootCucumberTestDefinitions {
         JSONObject requestBody = new JSONObject();
         requestBody.put("firstName", "Tim");
         requestBody.put("lastName", "Rodriguez");
-        requestBody.put("email", "Tim@yahoo.com");
+        requestBody.put("email", "email@email.com");
         requestBody.put("dob", "1983-03-06");
         requestBody.put("allergies", "apples");
-        requestBody.put("password", "tim123");
+        requestBody.put("password", "password");
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
     }
     @Then("user information will be updated")
     public void userInformationWillBeUpdated() {
@@ -156,7 +140,7 @@ public class SpringBootCucumberTestDefinitions {
             RestAssured.baseURI = BASE_URL + port;
             RequestSpecification request = RestAssured.given();
             request.header("Authorization", "Bearer "+ getYourKey());
-            response = request.delete("/api/users");
+            response = request.delete("/api/users/1");
             //status code 204, no content shown when account is deleted
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
@@ -177,7 +161,10 @@ public class SpringBootCucumberTestDefinitions {
      */
     @Given("a user has a list of prescriptions")
     public void aUserHasAListOfPrescriptions() throws JSONException{
-
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ getYourKey());
+        response = request.get(BASE_URL+ port + "/api/prescriptions");
 //        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
 //        Assert.assertEquals(1, userId);
     }
@@ -207,6 +194,37 @@ public class SpringBootCucumberTestDefinitions {
         Assert.assertNotNull(response);
     }
 
+    @When("a pharmacist searches for a list of prescriptions")
+    public void aPharmacistSearchesForAListOfPrescriptions() {
 
+    }
 }
+
+
+
+
+
+
+//    @Given("user is registered")
+//    public void user_is_registered() {
+//
+//        User user = new User("user5", "password"); //create user object w/password
+//        userService.registerUser(user);
+//    }
+//
+//    @When("I enter my username and password")
+//    public void enter_username_password() {
+//
+//        String username = "user5";
+//        String password = "password";
+//
+//    }
+//
+//    @Then("I should be logged in successfully")
+//    public void should_be_logged_in_successfully() {
+//        ResponseEntity<User> response = restTemplate.getForEntity(BASE_URL + port + "/api/user", User.class); //verify if user is logged in
+//        User loggedInUser = response.getBody();
+//        Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
+//        Assert.assertEquals("user5", loggedInUser.getUsername());  //may need to add exception handling w/ msg later
+//    }
 
