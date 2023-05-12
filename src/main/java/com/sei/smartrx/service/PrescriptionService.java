@@ -1,11 +1,13 @@
 package com.sei.smartrx.service;
 
+import com.sei.smartrx.exceptions.InformationExistException;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
+import com.sei.smartrx.repository.UserRepository;
 import com.sei.smartrx.security.MyUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,8 +20,9 @@ import java.util.Optional;
 public class PrescriptionService {
     private PrescriptionRepository prescriptionRepository;
 
-    @Autowired
     private MedicationRepository medicationRepository;
+
+    private UserRepository userRepository;
 
     @Autowired
     public void setMedicationRepository(MedicationRepository medicationRepository) {
@@ -30,6 +33,12 @@ public class PrescriptionService {
     public void setPrescriptionRepository(PrescriptionRepository prescriptionRepository) {
         this.prescriptionRepository = prescriptionRepository;
     }
+
+    @Autowired
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
     //---------------------------------------------
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -69,6 +78,10 @@ public class PrescriptionService {
         else{
             return refillPrescription.get();
         }
+    }
+
+    public Prescription createPrescription(Prescription prescriptionObject) {
+        Prescription prescription =
     }
 
 
