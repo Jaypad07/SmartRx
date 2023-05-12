@@ -19,6 +19,8 @@ import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SmartRxApplication.class)
@@ -114,6 +116,21 @@ public class SpringBootCucumberTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
         Assert.assertNotNull(response.body());
     }
+
+    @When("user searches for their prescriptions")
+    public void userSearchesForTheirPrescriptions() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ getYourKey());
+        response = request.get(BASE_URL+ port + "/api/prescriptions");
+        List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get();
+    }
+
+    @Then("they should see only the prescriptions that belong to them")
+    public void theyShouldSeeOnlyThePrescriptionsThatBelongToThem() {
+
+    }
+
     @When("user updates their account information")
     public void userUpdatesTheirAccountInformation() throws JSONException {
         RestAssured.baseURI = BASE_URL;
@@ -191,18 +208,6 @@ public class SpringBootCucumberTestDefinitions {
     }
 
 
-    @When("user searches for their prescriptions")
-    public void userSearchesForTheirPrescriptions() throws JSONException {
-        RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.get(BASE_URL+ port + "/api/prescriptions");
-    }
-
-    @Then("they should see a list of only their prescriptions")
-    public void theyShouldSeeAListOfOnlyTheirPrescriptions() {
-        System.out.println(response.getBody().peek());
-    }
 }
 
 
