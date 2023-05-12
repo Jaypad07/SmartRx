@@ -1,10 +1,7 @@
 package definitions;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sei.smartrx.SmartRxApplication;
-import com.sei.smartrx.controller.UserController;
 import com.sei.smartrx.models.User;
-import com.sei.smartrx.service.PrescriptionService;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -20,13 +17,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
-import javax.crypto.KeyGenerator;
-import javax.crypto.SecretKey;
-import java.security.NoSuchAlgorithmException;
+
 import java.time.LocalDate;
-import java.util.Map;
-import java.util.Optional;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SmartRxApplication.class)
@@ -75,19 +67,16 @@ public class SpringBootCucumberTestDefinitions {
             throw new RuntimeException(e);
         }
     }
-
     @When("they enter their email and password")
     public void theyEnterTheirEmailAndPassword() {
         Assert.assertEquals(200, response.getStatusCode());
     }
-
     @Then("the password and their information is stored in database")
     public void thePasswordAndTheirInformationIsStoredInDatabase() {
         Assert.assertNotNull(response.getBody());
     }
     /**
-     * User registration, a JSON request body is created with the user email and password. It is sent to the
-     * "/api/users/register" URL endpoint in the user controller
+     * FEATURE: a registered user can enter their email and password to login authentically.
      * @throws JSONException
      */
     @Given("user is registered")
@@ -99,21 +88,19 @@ public class SpringBootCucumberTestDefinitions {
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/auth/users/register");
     }
-
     @When("I enter my username and password")
     public void iEnterMyUsernameAndPassword() {
         JsonPath jsonObject = new JsonPath(response.asString());
         Assert.assertEquals("email@email.com", jsonObject.get("email"));
         Assert.assertNotNull(jsonObject);
     }
-
     @Then("I should be logged in successfully")
     public void iShouldBeLoggedInSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
 
     /**
-     *
+     * FEATURE: When a user is logged in, user can update their account information and delete their account.
      * @throws JSONException
      */
     @Given("User is logged in")
@@ -128,7 +115,6 @@ public class SpringBootCucumberTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
         Assert.assertNotNull(response.body());
     }
-
     @When("user updates their account information")
     public void userUpdatesTheirAccountInformation() throws JSONException {
         RestAssured.baseURI = BASE_URL;
@@ -144,12 +130,10 @@ public class SpringBootCucumberTestDefinitions {
         request.header("Authorization", "Bearer "+ getYourKey());
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
     }
-
     @Then("user information will be updated")
     public void userInformationWillBeUpdated() {
         Assert.assertEquals(200, response.getStatusCode());
     }
-
     @When("user removes their account by ID")
     public void userRemovesTheirAccountByID() throws JSONException {
         try {
@@ -162,7 +146,6 @@ public class SpringBootCucumberTestDefinitions {
             e.printStackTrace();
         }
     }
-
     @Then("the account is deleted")
     public void theAccountIsDeleted() throws JSONException{
         try {
@@ -186,12 +169,14 @@ public class SpringBootCucumberTestDefinitions {
 //        Assert.assertEquals(1, userId);
     }
 
+    /**
+     * FEATURE: a user can view a medication by medication ID.
+     */
     @Given("A specific medication ID")
     public void aSpecificMedicationID() {
         Long medicationId = 1L;
         Assert.assertTrue(medicationId == 1L);
     }
-
     @When("a user searches for medication by ID")
     public void aUserSearchesForMedicationByID() throws JSONException {
         try{
@@ -204,11 +189,14 @@ public class SpringBootCucumberTestDefinitions {
             e.printStackTrace();
         }
     }
-
     @Then("user should receive specific information about that medication")
     public void userShouldReceiveSpecificInformationAboutThatMedication() {
         Assert.assertNotNull(response);
     }
+}
+
+
+
 
 
 
@@ -234,8 +222,4 @@ public class SpringBootCucumberTestDefinitions {
 //        Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
 //        Assert.assertEquals("user5", loggedInUser.getUsername());  //may need to add exception handling w/ msg later
 //    }
-
-
-    }
-
 

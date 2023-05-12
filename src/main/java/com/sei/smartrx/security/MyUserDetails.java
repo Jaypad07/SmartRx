@@ -10,10 +10,8 @@ import java.util.HashSet;
 public class MyUserDetails implements UserDetails{
     /**
      * UserDetails is an interface that Spring Security uses for user authentication.
-     * this method is important because it allows you to access the user's details and custom
-     properties.
+     * this class is important because it allows you to access the user's details and custom properties.
      * This class will be used to create a UserDetails object that will be used by Spring Security.
-     * override the methods in the UserDetails interface.
      */
 
     private final User user;
@@ -57,10 +55,8 @@ public class MyUserDetails implements UserDetails{
         return true;
     }
 
-    //IMPORTANT METHOD!!
     public User getUser() {
         return user;
     }
-
 
 }
