@@ -16,10 +16,18 @@ import java.util.Optional;
 
 @Service
 public class PrescriptionService {
+    @Autowired
     private PrescriptionRepository prescriptionRepository;
 
     @Autowired
     private MedicationRepository medicationRepository;
+
+
+
+    public PrescriptionService(PrescriptionRepository prescriptionRepository) {
+        this.prescriptionRepository = prescriptionRepository;
+    }
+
 
     @Autowired
     public void setMedicationRepository(MedicationRepository medicationRepository) {
@@ -69,6 +77,25 @@ public class PrescriptionService {
         else{
             return refillPrescription.get();
         }
+    }
+
+
+
+    public Prescription addPrescription(Prescription prescription) {
+        // Implement the logic to add a prescription
+        // You can perform any necessary validation or business logic here
+        // For example, you can check if the prescription is valid before adding it
+
+        // Save the prescription using the prescriptionRepository
+        return prescriptionRepository.save(prescription);
+    }
+
+    public Prescription deletePrescription(Long prescriptionId) {
+//        Prescription prescription =
+                prescriptionRepository.deleteById(prescriptionId);
+                //return prescription;
+
+
     }
 
 
