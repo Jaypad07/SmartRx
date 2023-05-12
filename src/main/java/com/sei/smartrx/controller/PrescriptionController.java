@@ -23,7 +23,7 @@ public class PrescriptionController {
     }
 
     /**
-     * GET: endpoint http://localhost:8080/api/prescriptions/1
+     * GET: endpoint http://localhost:8080/api/prescriptions
      * @return List of Prescriptions for a specific user
      */
 

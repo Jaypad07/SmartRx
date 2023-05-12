@@ -20,14 +20,14 @@
 #    When user submits a prescription refill
 #    Then the prescription is filled
 
-  #Put ✅ ☑️ //why aren't these running together??
+  #Put ✅ ☑️ //This Works Now!!! Happy!
   Feature: User able to register, login, update their information including their allergies as well as delete their account
   Scenario:
-#    Given User is logged in
-#    When user updates their account information
-#    Then user information will be updated
-#    When user removes their account by ID
-#    Then the account is deleted
+  Given User is logged in
+   When user updates their account information
+   Then user information will be updated
+    When user removes their account by ID
+  Then the account is deleted
 
 
 
