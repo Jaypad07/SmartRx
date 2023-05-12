@@ -81,14 +81,7 @@ public class PrescriptionService {
 
 
 
-    public Prescription addPrescription(Prescription prescription) {
-        // Implement the logic to add a prescription
-        // You can perform any necessary validation or business logic here
-        // For example, you can check if the prescription is valid before adding it
 
-        // Save the prescription using the prescriptionRepository
-        return prescriptionRepository.save(prescription);
-    }
 
     public Prescription deletePrescription(Long prescriptionId) {
 //        Prescription prescription =

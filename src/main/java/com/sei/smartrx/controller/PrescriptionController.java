@@ -50,8 +50,8 @@ public class PrescriptionController {
     }
 
 @DeleteMapping(path = "/prescriptions/{prescriptionId}")
-    public void deletePrescription(@PathVariable Long prescriptionId ) {
+    public Prescription deletePrescription(@PathVariable Long prescriptionId ) {
         // Implement the logic to delete the prescription
-        return prescriptionService.delete(prescriptionId);
+        return prescriptionService.deletePrescription(prescriptionId);
     }
 }
