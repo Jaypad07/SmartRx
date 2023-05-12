@@ -61,6 +61,15 @@ public class SpringBootCucumberTestDefinitions {
       return response.jsonPath().getString("message");
     }
 
+    public String getJWTAsPharmacist() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("email", "pharmacist@cvs.com");
+        jsonObject.put("password", "password");
+        request.header("Content-Type", "application/json");
+        response = request.body(jsonObject.toString()).post(BASE_URL + port + "/api/auth/users/login");
+        return response.jsonPath().getString("message");
+    }
     /**
      *  A person can register as a user with a unique email
      */
@@ -216,7 +225,7 @@ public class SpringBootCucumberTestDefinitions {
     @When("a pharmacist searches for a list of prescription")
     public void aPharmacistSearchesForAListOfPrescription() throws JSONException {
         HttpHeaders authenticationHeader = new HttpHeaders();
-        authenticationHeader.set("Authorization","Bearer "+ getYourKey());
+        authenticationHeader.set("Authorization","Bearer "+ getJWTAsPharmacist());
         HttpEntity<String> httpEntity = new HttpEntity<>(authenticationHeader);
         ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL+port+"/api/pharmacist/prescriptions", HttpMethod.GET, httpEntity, String.class);
         List<Map<String, String>> allPrescriptions = JsonPath.from(String.valueOf(response.getBody())).get();
@@ -253,6 +262,23 @@ public class SpringBootCucumberTestDefinitions {
     public void thePrescriptionIsUpdated() {
 
 
+    }
+
+
+    @When("a pharmacist searches for a prescription by id")
+    public void aPharmacistSearchesForAPrescriptionById() throws JSONException {
+        HttpHeaders authenticationHeader = new HttpHeaders();
+        authenticationHeader.set("Authorization","Bearer "+ getJWTAsPharmacist());
+        HttpEntity<String> httpEntity = new HttpEntity<>(authenticationHeader);
+        ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL+port+"/api/pharmacist/prescriptions/1", HttpMethod.GET, httpEntity, String.class);
+        Map<String, String> onePrescription = JsonPath.from(String.valueOf(response.getBody())).get();
+        Assert.assertNotNull(onePrescription);
+
+    }
+
+    @Then("a pharmacist should see that one prescription")
+    public void aPharmacistShouldSeeThatOnePrescription() {
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
 
