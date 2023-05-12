@@ -12,7 +12,9 @@ import org.springframework.stereotype.Service;
 
 
 public class MyUserDetailsService implements UserDetailsService {
-
+    /**
+     * UserDetailsService requires one read-only method, which finds a User by the unique email and stores in MyUserDetails
+     */
     private UserService userService;
 
     @Autowired
