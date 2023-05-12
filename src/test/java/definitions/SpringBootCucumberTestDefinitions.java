@@ -153,26 +153,22 @@ public class SpringBootCucumberTestDefinitions {
     @When("user removes their account by ID")
     public void userRemovesTheirAccountByID() throws JSONException {
         try {
-            RestAssured.baseURI = BASE_URL;
+            RestAssured.baseURI = BASE_URL + port;
             RequestSpecification request = RestAssured.given();
             request.header("Authorization", "Bearer "+ getYourKey());
-            response = request.delete(BASE_URL + port + "/api/users/1");
-//            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
-//                    HttpMethod.DELETE, null, String.class);
-
-            Assert.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode()); //status code 204, no content shown when account is deleted
+            response = request.delete("/api/users/1");
+            //status code 204, no content shown when account is deleted
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
         }
     }
 
     @Then("the account is deleted")
-    public void theAccountIsDeleted() {
+    public void theAccountIsDeleted() throws JSONException{
         try {
+            Assert.assertEquals(204, response.getStatusCode());
             // Send a GET request to the API to retrieve the user by ID and verify that the response status is 404 Not Found
-            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
-                    HttpMethod.GET, null, String.class);
-            Assert.assertEquals(response.getStatusCode(), HttpStatus.NOT_FOUND);  //404 status, account has been deleted
+          //404 status, account has been deleted
         } catch (HttpClientErrorException e) {
             Assert.assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND); //verifying that the status code is 404
         }
@@ -202,8 +198,8 @@ public class SpringBootCucumberTestDefinitions {
             RestAssured.baseURI = BASE_URL;
             RequestSpecification request = RestAssured.given();
             request.header("Authorization", "Bearer "+ getYourKey());
-            response = request.get(BASE_URL + port + "/api/prescriptions/medications/1");
-            Assert.assertEquals(200, response.getStatusCode());
+            Response response1 = request.get(BASE_URL + port + "/api/prescriptions/medications/1");
+            Assert.assertEquals(200, response1.getStatusCode());
         } catch(HttpClientErrorException e){
             e.printStackTrace();
         }
