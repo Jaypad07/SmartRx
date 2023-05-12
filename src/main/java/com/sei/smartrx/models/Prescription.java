@@ -58,7 +58,7 @@ public class Prescription {
         this.medicationList = medicationList;
     }
     /**
-     * Prescriptions have a Many-To-One relationship with the User
+     * Prescriptions have a Many-To-One relationship with the User, joined by column user_id on prescriptions.
      */
     @ManyToOne
     @JsonIgnore

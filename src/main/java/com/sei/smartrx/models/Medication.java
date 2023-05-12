@@ -82,11 +82,11 @@ public class Medication {
         this.sideEffects = sideEffects;
     }
 
-    public String getIndredients() {
+    public String getIngredients() {
         return ingredients;
     }
 
-    public void setIndredients(String indredients) {
-        this.ingredients = indredients;
+    public void setIngredients(String ingredients) {
+        this.ingredients = ingredients;
     }
 }
