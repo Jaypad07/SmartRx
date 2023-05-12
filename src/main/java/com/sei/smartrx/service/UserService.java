@@ -79,10 +79,10 @@ public class UserService {
         User updatedUser = getUser();
         updatedUser.setFirstName(userObject.getFirstName());
         updatedUser.setLastName(userObject.getLastName());
-        updatedUser.setEmail(userObject.getEmail());
+        updatedUser.setEmail(getCurrentLoggedInUser().getEmail());
         updatedUser.setDob(userObject.getDob());
         updatedUser.setAllergies(userObject.getAllergies());
-        updatedUser.setPassword(passwordEncoder.encode(userObject.getPassword()));
+        updatedUser.setPassword(getCurrentLoggedInUser().getPassword());
         return userRepository.save(updatedUser);
 
     }
