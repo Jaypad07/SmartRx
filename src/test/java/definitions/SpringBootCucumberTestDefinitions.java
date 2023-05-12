@@ -128,10 +128,8 @@ public class SpringBootCucumberTestDefinitions {
         JSONObject requestBody = new JSONObject();
         requestBody.put("firstName", "Tim");
         requestBody.put("lastName", "Rodriguez");
-        requestBody.put("email", "Tim@yahoo.com");
         requestBody.put("dob", "1983-03-06");
         requestBody.put("allergies", "apples");
-        requestBody.put("password", "tim123");
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer "+ getYourKey());
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users");

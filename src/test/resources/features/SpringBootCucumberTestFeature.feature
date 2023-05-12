@@ -26,11 +26,10 @@
   Given User is logged in
     When user searches for their prescriptions
     Then a user should see a list of only their prescriptions
-    When user removes their account by ID
-    Then the account is deleted
     When user updates their account information
     Then user information will be updated
-
+    When user removes their account by ID
+    Then the account is deleted
 
 
 
