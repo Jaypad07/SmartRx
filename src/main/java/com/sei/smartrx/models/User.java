@@ -35,7 +35,7 @@ public class User {
     @Column
     private String allergies;
 
-    @OneToOne(cascade = CascadeType.ALL)//pull the user and the profile as well
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id", referencedColumnName = "id")
     private UserProfile userProfile;
 

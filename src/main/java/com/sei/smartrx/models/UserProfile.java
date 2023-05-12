@@ -14,6 +14,9 @@ public class UserProfile {
     @Column
     private String role;
 
+    /**
+     * One-To-One UserProfile to User. Every user gets a user profile that holds information like role, that gives user specific authorizations
+     */
     @JsonIgnore
     @OneToOne(mappedBy = "userProfile")
     private User user;
