@@ -202,5 +202,25 @@ public class SpringBootCucumberTestDefinitions {
         Assert.assertEquals(200, response.getStatusCode());
 
     }
+
+    @Given("a User had authorization role of pharmacist")
+    public void aUserHadAuthorizationRoleOfPharmacist() {
+    }
+
+
+    @When("a pharmacist searches for a list of prescription")
+    public void aPharmacistSearchesForAListOfPrescription() throws JSONException {
+        HttpHeaders authenticationHeader = new HttpHeaders();
+        authenticationHeader.set("Authorization","Bearer "+ getYourKey());
+        HttpEntity<String> httpEntity = new HttpEntity<>(authenticationHeader);
+        ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL+port+"/api/pharmacist/prescriptions", HttpMethod.GET, httpEntity, String.class);
+        List<Map<String, String>> allPrescriptions = JsonPath.from(String.valueOf(response.getBody())).get();
+        Assert.assertNotNull(allPrescriptions);
+    }
+
+    @Then("a pharmacist should see a list of prescriptions")
+    public void aPharmacistShouldSeeAListOfPrescriptions() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
 

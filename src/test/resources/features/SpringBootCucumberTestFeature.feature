@@ -14,7 +14,11 @@
 #    Then the prescription is filled
 
   #Put ✅ ☑️ //This Works Now!!! Happy!
+<<<<<<< HEAD
 #  Feature: User able to register, login, update their information including their allergies as well as delete their account
+=======
+# Feature: User able to register, login, update their information including their allergies as well as delete their account
+>>>>>>> 22a4304b1adb2bdbf7c50aa7cf67958d21c8e6a4
 #  Scenario:
 #  Given User is logged in
 #    When user searches for their prescriptions
@@ -26,7 +30,11 @@
 #
 #
 #
+<<<<<<< HEAD
 
+=======
+#
+>>>>>>> 22a4304b1adb2bdbf7c50aa7cf67958d21c8e6a4
 
 
 
