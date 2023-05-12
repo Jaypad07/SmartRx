@@ -1,6 +1,7 @@
 package com.sei.smartrx.service;
 
 import com.sei.smartrx.exceptions.InformationNotFoundException;
+import com.sei.smartrx.exceptions.NoAuthorizationException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.models.User;
@@ -39,15 +40,15 @@ public class PrescriptionService {
     //---------------------------------------------
 
     public List<Prescription> getAllPrescriptions() {
-        Optional<UserProfile> userProfile = Optional.of(getCurrentLoggedInUser().getUserProfile());
-        if(userProfile.isPresent() && userProfile.get().getRole() == "ROLE_PHARMACIST"){
+        Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
+        if(userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")){
             List<Prescription> prescriptionList = prescriptionRepository.findAll();
             if (prescriptionList.size() == 0) {
                 throw new InformationNotFoundException("No previous prescriptions found.");
             } else return prescriptionList;
         }
         else{
-            throw new InformationNotFoundException("You are not authorized to pull all prescriptions");
+            throw new NoAuthorizationException("You are not authorized to pull all prescriptions");
         }
     }
 
