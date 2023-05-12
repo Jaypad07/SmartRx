@@ -51,6 +51,17 @@ public class PrescriptionController {
         return prescriptionService.seeAMedication(medicationId);
     }
 
+    @GetMapping (path="/pharmacist/prescriptions")
+    public List<Prescription> allPrescriptions(){
+        return prescriptionService.getAllPrescriptions();
+    }
+
+    @GetMapping (path="/pharmacist/prescriptions/{prescriptionId}")
+    public Prescription allPrescriptions(@PathVariable Long prescriptionId){
+        return prescriptionService.getAPrescriptionsById(prescriptionId);
+    }
+
+
     @PostMapping(path = "pharmacist/prescriptions/{prescriptionId}/{userId}")
     public Prescription createPrescription(@PathVariable Long prescriptionId, @PathVariable Long userId, @RequestBody Prescription prescriptionObject) {
         return prescriptionService.createPrescription(prescriptionId, userId, prescriptionObject);
