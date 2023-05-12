@@ -195,31 +195,3 @@ public class SpringBootCucumberTestDefinitions {
     }
 }
 
-
-
-
-
-
-//    @Given("user is registered")
-//    public void user_is_registered() {
-//
-//        User user = new User("user5", "password"); //create user object w/password
-//        userService.registerUser(user);
-//    }
-//
-//    @When("I enter my username and password")
-//    public void enter_username_password() {
-//
-//        String username = "user5";
-//        String password = "password";
-//
-//    }
-//
-//    @Then("I should be logged in successfully")
-//    public void should_be_logged_in_successfully() {
-//        ResponseEntity<User> response = restTemplate.getForEntity(BASE_URL + port + "/api/user", User.class); //verify if user is logged in
-//        User loggedInUser = response.getBody();
-//        Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-//        Assert.assertEquals("user5", loggedInUser.getUsername());  //may need to add exception handling w/ msg later
-//    }
-
