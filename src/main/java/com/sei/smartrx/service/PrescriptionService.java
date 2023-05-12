@@ -70,7 +70,7 @@ public class PrescriptionService {
     }
 
     public Prescription requestPrescriptionRefill(Long prescriptionId){
-        Optional<Prescription> refillPrescription = Optional.of(prescriptionRepository.getById(prescriptionId));
+        Optional<Prescription> refillPrescription = prescriptionRepository.findById(prescriptionId);
         if(refillPrescription.isEmpty()){
             throw new InformationNotFoundException("There is no prescription with this id present");
         }
@@ -79,6 +79,18 @@ public class PrescriptionService {
         }
     }
 
-
-
+    public Prescription getAPrescriptionsById(Long prescriptionId) {
+        Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
+        if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
+            Optional<Prescription> onePrescription = prescriptionRepository.findById(prescriptionId);
+            if (onePrescription.isEmpty()) {
+                throw new InformationNotFoundException("There is no prescription with this id present");
+            } else {
+                return onePrescription.get();
+            }
+        }
+        else{
+            throw new NoAuthorizationException("Not authorized to view this prescription");
+        }
+    }
 }
