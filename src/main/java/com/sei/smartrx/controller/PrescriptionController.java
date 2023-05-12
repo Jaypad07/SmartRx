@@ -15,9 +15,6 @@ import java.util.List;
 @RequestMapping(path = "/api")
 public class PrescriptionController {
 
-    @Autowired
-    private PrescriptionRepository prescriptionRepository;
-
     private PrescriptionService prescriptionService;
 
     @Autowired
@@ -37,7 +34,7 @@ public class PrescriptionController {
 
     /**
      * based on given userId, returns list of Prescriptions that userId = prescription.user_id
-//     * @param userId
+     * @param userId
      * @return List of Prescriptions
      */
      //http://localhost:8080/api/prescriptions/1
