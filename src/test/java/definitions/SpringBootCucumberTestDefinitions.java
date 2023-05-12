@@ -59,6 +59,33 @@ public class SpringBootCucumberTestDefinitions {
     }
 
     /**
+     *  A person can register as a user with a unique email
+     */
+    @Given("a user has a unique email")
+    public void aUserHasAUniqueEmail() {
+        try {
+            RestAssured.baseURI = BASE_URL;
+            RequestSpecification request = RestAssured.given();
+            JSONObject requestBody = new JSONObject();
+            requestBody.put("email", "email@email.com");
+            requestBody.put("password", "password");
+            request.header("Content-Type", "application/json");
+            response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/auth/users/login");
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @When("they enter their email and password")
+    public void theyEnterTheirEmailAndPassword() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("the password and their information is stored in database")
+    public void thePasswordAndTheirInformationIsStoredInDatabase() {
+        Assert.assertNotNull(response.getBody());
+    }
+    /**
      * User registration, a JSON request body is created with the user email and password. It is sent to the
      * "/api/users/register" URL endpoint in the user controller
      * @throws JSONException
@@ -84,6 +111,11 @@ public class SpringBootCucumberTestDefinitions {
     public void iShouldBeLoggedInSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    /**
+     *
+     * @throws JSONException
+     */
     @Given("User is logged in")
     public void userHasAnActiveAccount() throws JSONException{
         RestAssured.baseURI = BASE_URL;
@@ -109,7 +141,6 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("allergies", "apples");
         requestBody.put("password", "tim123");
         request.header("Content-Type", "application/json");
-        String token = getYourKey();
         request.header("Authorization", "Bearer "+ getYourKey());
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
     }
@@ -118,47 +149,18 @@ public class SpringBootCucumberTestDefinitions {
     public void userInformationWillBeUpdated() {
         Assert.assertEquals(200, response.getStatusCode());
     }
-    /**
-     * FEATURE: a user can view their prescriptions
-     */
-    @Given("a user has a list of prescriptions")
-    public void aUserHasAListOfPrescriptions() throws JSONException{
-        RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.get(BASE_URL+ port + "/api/prescriptions");
-//        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
-//        Assert.assertEquals(1, userId);
-    }
 
-
-
-
-
-//    #Put
-    @When("user updates allergy information")
-    public void userUpdatesAllergyInformation() throws JSONException {
-        RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
-        JSONObject requestBody = new JSONObject();
-        requestBody.put("allergy", "watermelon");
-        request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
-    }
-
-    @Then("the allergy information will be updated")
-    public void theAllergyInformationWillBeUpdated() {
-        Assert.assertEquals(200, response.getStatusCode());
-    }
-
-
-// #Delete
     @When("user removes their account by ID")
-    public void userRemovesTheirAccountByID() {
+    public void userRemovesTheirAccountByID() throws JSONException {
         try {
-            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
-                    HttpMethod.DELETE, null, String.class);
-            Assert.assertEquals(response.getStatusCode(), HttpStatus.NO_CONTENT); //status code 204, no content shown when account is deleted
+            RestAssured.baseURI = BASE_URL;
+            RequestSpecification request = RestAssured.given();
+            request.header("Authorization", "Bearer "+ getYourKey());
+            response = request.delete(BASE_URL + port + "/api/users/1");
+//            ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL + port + "/api/users/1",
+//                    HttpMethod.DELETE, null, String.class);
+
+            Assert.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode()); //status code 204, no content shown when account is deleted
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
         }
@@ -175,30 +177,18 @@ public class SpringBootCucumberTestDefinitions {
             Assert.assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND); //verifying that the status code is 404
         }
     }
-
-
-//    @Given("user is registered")
-//    public void user_is_registered() {
-//
-//        User user = new User("user5", "password"); //create user object w/password
-//        userService.registerUser(user);
-//    }
-//
-//    @When("I enter my username and password")
-//    public void enter_username_password() {
-//
-//        String username = "user5";
-//        String password = "password";
-//
-//    }
-//
-//    @Then("I should be logged in successfully")
-//    public void should_be_logged_in_successfully() {
-//        ResponseEntity<User> response = restTemplate.getForEntity(BASE_URL + port + "/api/user", User.class); //verify if user is logged in
-//        User loggedInUser = response.getBody();
-//        Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
-//        Assert.assertEquals("user5", loggedInUser.getUsername());  //may need to add exception handling w/ msg later
-//    }
+    /**
+     * FEATURE: a user can view their prescriptions
+     */
+    @Given("a user has a list of prescriptions")
+    public void aUserHasAListOfPrescriptions() throws JSONException{
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ getYourKey());
+        response = request.get(BASE_URL+ port + "/api/prescriptions");
+//        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
+//        Assert.assertEquals(1, userId);
+    }
 
     @Given("A specific medication ID")
     public void aSpecificMedicationID() {
@@ -225,29 +215,31 @@ public class SpringBootCucumberTestDefinitions {
     }
 
 
-    @Given("a user has a unique email")
-    public void aUserHasAUniqueEmail() {
-        try {
-            RestAssured.baseURI = BASE_URL;
-            RequestSpecification request = RestAssured.given();
-            JSONObject requestBody = new JSONObject();
-            requestBody.put("email", "email@email.com");
-            requestBody.put("password", "password");
-            request.header("Content-Type", "application/json");
-            response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/auth/users/login");
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
+
+//    @Given("user is registered")
+//    public void user_is_registered() {
+//
+//        User user = new User("user5", "password"); //create user object w/password
+//        userService.registerUser(user);
+//    }
+//
+//    @When("I enter my username and password")
+//    public void enter_username_password() {
+//
+//        String username = "user5";
+//        String password = "password";
+//
+//    }
+//
+//    @Then("I should be logged in successfully")
+//    public void should_be_logged_in_successfully() {
+//        ResponseEntity<User> response = restTemplate.getForEntity(BASE_URL + port + "/api/user", User.class); //verify if user is logged in
+//        User loggedInUser = response.getBody();
+//        Assert.assertEquals(HttpStatus.OK, response.getStatusCode());
+//        Assert.assertEquals("user5", loggedInUser.getUsername());  //may need to add exception handling w/ msg later
+//    }
+
+
     }
 
-    @When("they enter their email and password")
-    public void theyEnterTheirEmailAndPassword() {
-        Assert.assertEquals(200, response.getStatusCode());
-    }
 
-    @Then("the password and their information is stored in database")
-    public void thePasswordAndTheirInformationIsStoredInDatabase() {
-        Assert.assertNotNull(response.getBody());
-
-    }
-}
