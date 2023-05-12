@@ -4,6 +4,7 @@ import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.models.User;
+import com.sei.smartrx.models.UserProfile;
 import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.security.MyUserDetails;
@@ -38,17 +39,23 @@ public class PrescriptionService {
     //---------------------------------------------
 
     public List<Prescription> getAllPrescriptions() {
-        List<Prescription> prescriptionList = prescriptionRepository.findAll();
-        if (prescriptionList.size() == 0) {
-            throw new InformationNotFoundException("No previous prescriptions found.");
-        }else return prescriptionList;
+        Optional<UserProfile> userProfile = Optional.of(getCurrentLoggedInUser().getUserProfile());
+        if(userProfile.isPresent() && userProfile.get().getRole() == "ROLE_PHARMACIST"){
+            List<Prescription> prescriptionList = prescriptionRepository.findAll();
+            if (prescriptionList.size() == 0) {
+                throw new InformationNotFoundException("No previous prescriptions found.");
+            } else return prescriptionList;
+        }
+        else{
+            throw new InformationNotFoundException("You are not authorized to pull all prescriptions");
+        }
     }
 
     public List<Prescription> getAllPrescriptionsForUser() {
-        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(getCurrentLoggedInUser().getId()).get();
-        if (prescriptionList.size() == 0) {
-            throw new InformationNotFoundException("No previous prescriptions found for user with id of " + getCurrentLoggedInUser().getId());
-        } else return prescriptionList;
+            List<Prescription> prescriptionList = prescriptionRepository.findByUserId(getCurrentLoggedInUser().getId()).get();
+            if (prescriptionList.size() == 0) {
+                throw new InformationNotFoundException("No previous prescriptions found for user with id of " + getCurrentLoggedInUser().getId());
+            } else return prescriptionList;
     }
 
     public Medication seeAMedication(Long medicationId){
