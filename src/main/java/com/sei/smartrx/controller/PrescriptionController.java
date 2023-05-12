@@ -23,33 +23,29 @@ public class PrescriptionController {
     }
 
     /**
-     * Will need this URL for pharmacist later
-     * @return
+     * GET: endpoint http://localhost:8080/api/prescriptions/1
+     * @return List of Prescriptions for a specific user
      */
-//    // http://localhost:8080/api/prescriptions
-//    @GetMapping(path = "/prescriptions")
-//    public List<Prescription> getAllPrescriptions() {
-//      return prescriptionService.getAllPrescriptions();
-//    }
 
-    /**
-     * based on given userId, returns list of Prescriptions that userId = prescription.user_id
-     * @param userId
-     * @return List of Prescriptions
-     */
-     //http://localhost:8080/api/prescriptions/1
     @GetMapping(path = "/prescriptions")
     public List<Prescription> getAllPrescriptionsForUser()  {
         return prescriptionService.getAllPrescriptionsForUser();
     }
 
-    // http://localhost:8080/api/newRequest/prescriptions/1
+    /**
+     * GET: endpoint http://localhost:8080/api/newRequest/prescriptions/1
+     * @return Prescription the user has requested to be refilled with updates refill #
+     */
     @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
     public Prescription requestPrescriptionRefill(@PathVariable Long prescriptionId){
         return prescriptionService.requestPrescriptionRefill(prescriptionId);
     }
 
-    // http://localhost:8080/api/prescriptions/medications/1
+    /**
+     * GET: endpoint http://localhost:8080/api/prescriptions/medications/1
+     * @param medicationID
+     * @return a Medication object
+     */
     @GetMapping(path="/prescriptions/medications/{medicationId}")
     public Medication seeAMedication(@PathVariable Long medicationId){
         return prescriptionService.seeAMedication(medicationId);
