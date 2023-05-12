@@ -24,8 +24,7 @@ public class UserProfile {
     public UserProfile() {
     }
 
-    public UserProfile(Long id, String role) {
-        this.id = id;
+    public UserProfile(String role) {
         this.role = role;
     }
 
