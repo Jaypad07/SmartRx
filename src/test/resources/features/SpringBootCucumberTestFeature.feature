@@ -1,9 +1,10 @@
 #GET ✅
-  Feature: A user can get all of their prescriptions
-    Scenario:
-    Given a user has a list of prescriptions
-    When a user searches for their prescriptions
-    Then a user should see a list of only their prescriptions
+#  Feature: A user can get all of their prescriptions
+#    Scenario:
+#    Given a user has a list of prescriptions
+#    When a user searches for their prescriptions
+#    Then a user should see a list of only their prescriptions
+
 
   #GET ✅ ☑️
 #  Feature: Get a medication
@@ -19,16 +20,14 @@
 #    When user submits a prescription refill
 #    Then the prescription is filled
 
-#  #Put ✅ ☑️ //why aren't these running together??
-#Feature: User able to register, login, update their information including their allergies as well as delete their account
+  #Put ✅ ☑️ //This Works Now!!! Happy!
+  Feature: User able to register, login, update their information including their allergies as well as delete their account
   Scenario:
-    Given User is logged in
-     When user searches for their prescriptions
-    Then they should see only the prescriptions that belong to them
-#    When user updates their account information
-#    Then user information will be updated
-#    When user removes their account by ID
-#    Then the account is deleted
+  Given User is logged in
+   When user updates their account information
+   Then user information will be updated
+    When user removes their account by ID
+  Then the account is deleted
 
 
 
