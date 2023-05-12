@@ -13,16 +13,18 @@ import java.util.logging.Logger;
 public class JWTUtils {
 
     Logger logger = Logger.getLogger(JWTUtils.class.getName());
-    //inserts our variables during runtime, not hardcoded into the app
     @Value("${jwt-secret}")
     private String jwtSecret;
 
     @Value("${jwt-expiration-ms}")
     private int jwtExpirationMs;
 
+    /**
+     * @param myUserDetails
+     * sets JWT subject from UserDetails, sets the issuedAt and expirationAt for JWT, creates JWT signature with jwtSecret to verify authenticity.
+     * @return a String representation of JWT using compact(), known as a 'token'
+     */
     public String generateJwtToken(MyUserDetails myUserDetails) {
-        //inject userdetails, to get username. Sets the issue date. Then we set the expiration date. Create a secure signature with server security key that gets loaded
-        //during runtime. Compact means build token.
         return Jwts.builder()
                 .setSubject((myUserDetails.getUsername()))
                 .setIssuedAt(new Date())
@@ -30,11 +32,21 @@ public class JWTUtils {
                 .signWith(SignatureAlgorithm.HS256, jwtSecret)
                 .compact();
     }
-    //gets the subject/payload for token
+
+    /**
+     * @param token, String representation of JWT
+     * uses jwtSecret key to confirm signature, calls build method to parse data from String such as payload and then the subject(username)
+     * @return JWT subject, username, as a String.
+     */
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parserBuilder().setSigningKey(jwtSecret).build().parseClaimsJws(token).getBody().getSubject();
     }
 
+    /**
+     * @param authToken
+     * uses jwtSecret key to confirm signature, then parses the claims/payload
+     * @return true if token has valid signature and payload, indicates JWT is valid. If neither is true, responds with specific exception error
+     */
     public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);

@@ -27,6 +27,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     @Autowired
     private JWTUtils jwtUtils;
 
+    /**
+     * method takes a request, gets specific header by key "Authorization"
+     * if the String has length/not null and starts with correct "Bearer"
+     * returns substring that is only key and has Bearer removed.
+     * returns String token key
+     */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
         if (StringUtils.hasLength("headerAuth") && headerAuth.startsWith("Bearer")) {
@@ -35,6 +41,14 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         return null;
     }
 
+    /**
+     * @param request
+     * @param response
+     * @param filterChain
+     * filters HTTP request using FilterChain object, parses the JWT from the request, then loads the UserProfile with username and authentication details.
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
