@@ -50,4 +50,9 @@ public class PrescriptionController {
     public Medication seeAMedication(@PathVariable Long medicationId){
         return prescriptionService.seeAMedication(medicationId);
     }
+
+    @GetMapping (path="/pharmacist/prescriptions")
+    public List<Prescription> allPrescriptions(){
+        return prescriptionService.getAllPrescriptions();
+    }
 }
