@@ -5,7 +5,7 @@ Feature: If user has pharmacist role, can create, read, update, and delete presc
     Then a pharmacist should see a list of prescriptions
 #    When a pharmacist adds a prescription
 #    Then the prescription is added
-#    When the pharmacist updates a prescription
-#    Then the prescription is updated
+    When the pharmacist updates a prescription
+    Then the prescription is updated
 #    When the pharmacist deletes a prescription
 #    Then the prescription is deleted

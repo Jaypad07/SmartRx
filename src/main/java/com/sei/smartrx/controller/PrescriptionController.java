@@ -2,13 +2,12 @@ package com.sei.smartrx.controller;
 
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
+import com.sei.smartrx.models.User;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
@@ -55,4 +54,11 @@ public class PrescriptionController {
     public List<Prescription> allPrescriptions(){
         return prescriptionService.getAllPrescriptions();
     }
+
+
+    @PutMapping(path="/pharmacist")
+    public Prescription updatePrescription(@RequestBody Prescription prescriptionObject) {
+        return prescriptionService.updatePrescription(prescriptionObject);
+    }
+
 }

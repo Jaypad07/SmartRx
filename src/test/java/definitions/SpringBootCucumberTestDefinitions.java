@@ -222,5 +222,21 @@ public class SpringBootCucumberTestDefinitions {
     public void aPharmacistShouldSeeAListOfPrescriptions() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @When("the pharmacist updates a prescription")
+    public void thePharmacistUpdatesAPrescription(boolean status) {
+        updatedStatus = Boolean.valueOf(status);
+        prescription.setStatus(updatedStatus);
+        prescriptionRepository.save(prescription);
+
+
+
+    }
+
+    @Then("the prescription is updated")
+    public void thePrescriptionIsUpdated() {
+
+
+    }
 }
 
