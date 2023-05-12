@@ -51,8 +51,8 @@ public class PrescriptionController {
         return prescriptionService.seeAMedication(medicationId);
     }
 
-    @PostMapping(path = "pharmacist/prescriptions/")
-    public Prescription createPrescription(@RequestBody Prescription prescriptionObject) {
-        return prescriptionService.createPrescription(prescriptionObject);
+    @PostMapping(path = "pharmacist/prescriptions/{prescriptionId}/{userId}")
+    public Prescription createPrescription(@PathVariable Long prescriptionId, @PathVariable Long userId, @RequestBody Prescription prescriptionObject) {
+        return prescriptionService.createPrescription(prescriptionId, userId, prescriptionObject);
     }
 }

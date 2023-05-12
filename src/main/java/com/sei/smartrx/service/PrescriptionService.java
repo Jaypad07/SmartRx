@@ -80,8 +80,12 @@ public class PrescriptionService {
         }
     }
 
-    public Prescription createPrescription(Prescription prescriptionObject) {
-        Prescription prescription =
+    public Prescription createPrescription(Long prescriptionId, Long userId, Prescription prescriptionObject) {
+        Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
+        if (prescription.isPresent()) {
+            throw new InformationExistException("Prescription with " + prescriptionId + "already exists.");
+        }else prescriptionObject.setUser(userRepository.findById(userId).get());
+        return prescriptionRepository.save(prescriptionObject);
     }
 
 
