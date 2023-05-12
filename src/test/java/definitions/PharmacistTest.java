@@ -1,8 +1,9 @@
 package definitions;
 
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.When;
 
 public class PharmacistTest {
-
+    @Given("a User had authorization role of pharmacist")
+    public void aUserHadAuthorizationRoleOfPharmacist() {
+    }
 }
