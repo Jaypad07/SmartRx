@@ -45,9 +45,9 @@ public class PrescriptionService {
     }
 
     public List<Prescription> getAllPrescriptionsForUser() {
-        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(PrescriptionService.getCurrentLoggedInUser().getId()).get();
+        List<Prescription> prescriptionList = prescriptionRepository.findByUserId(getCurrentLoggedInUser().getId()).get();
         if (prescriptionList.size() == 0) {
-            throw new InformationNotFoundException("No previous prescriptions found.");
+            throw new InformationNotFoundException("No previous prescriptions found for user with id of " + getCurrentLoggedInUser().getId());
         } else return prescriptionList;
     }
 

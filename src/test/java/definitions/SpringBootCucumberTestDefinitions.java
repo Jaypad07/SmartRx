@@ -98,7 +98,6 @@ public class SpringBootCucumberTestDefinitions {
     public void iShouldBeLoggedInSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
-
     /**
      * FEATURE: When a user is logged in, user can update their account information and delete their account.
      * @throws JSONException
@@ -168,7 +167,6 @@ public class SpringBootCucumberTestDefinitions {
 //        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
 //        Assert.assertEquals(1, userId);
     }
-
     /**
      * FEATURE: a user can view a medication by medication ID.
      */
@@ -197,6 +195,19 @@ public class SpringBootCucumberTestDefinitions {
     @When("a pharmacist searches for a list of prescriptions")
     public void aPharmacistSearchesForAListOfPrescriptions() {
 
+    }
+
+    @When("user searches for their prescriptions")
+    public void userSearchesForTheirPrescriptions() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ getYourKey());
+        response = request.get(BASE_URL+ port + "/api/prescriptions");
+    }
+
+    @Then("they should see a list of only their prescriptions")
+    public void theyShouldSeeAListOfOnlyTheirPrescriptions() {
+        System.out.println(response.getBody().peek());
     }
 }
 
