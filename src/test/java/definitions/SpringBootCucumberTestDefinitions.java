@@ -122,10 +122,10 @@ public class SpringBootCucumberTestDefinitions {
         JSONObject requestBody = new JSONObject();
         requestBody.put("firstName", "Tim");
         requestBody.put("lastName", "Rodriguez");
-        requestBody.put("email", "Tim@yahoo.com");
+        requestBody.put("email", "email@email.com");
         requestBody.put("dob", "1983-03-06");
         requestBody.put("allergies", "apples");
-        requestBody.put("password", "tim123");
+        requestBody.put("password", "password");
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer "+ getYourKey());
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
@@ -192,6 +192,11 @@ public class SpringBootCucumberTestDefinitions {
     @Then("user should receive specific information about that medication")
     public void userShouldReceiveSpecificInformationAboutThatMedication() {
         Assert.assertNotNull(response);
+    }
+
+    @When("a pharmacist searches for a list of prescriptions")
+    public void aPharmacistSearchesForAListOfPrescriptions() {
+
     }
 }
 
