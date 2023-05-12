@@ -38,31 +38,30 @@ public class UserController {
         return userService.loginUser(loginRequest);
     }
     /**
-     * GET: http://localhost:8080/api/users/{userId}
-     * @param Long userId
+     * GET: http://localhost:8080/api/users
      * @return model User
      */
-    @GetMapping(path = "/users/{userId}")
-    public User getUser(@PathVariable Long userId) {
-        return userService.getUser(userId);
+    @GetMapping(path = "/users")
+    public User getUser() {
+        return userService.getUser();
     }
     /**
-     * PUT: http://localhost:8080/api/users/{userId}
+     * PUT: http://localhost:8080/api/users
      * @param Long userId, RequestBody UserObject
      * @return model User
      */
-    @PutMapping(path = "/users/{userId}")
-    public User updateUser(@PathVariable Long userId, @RequestBody User userObject) {
-       return userService.updateUser(userId, userObject);
+    @PutMapping(path = "/users")
+    public User updateUser(@RequestBody User userObject) {
+       return userService.updateUser(userObject);
     }
     /**
-     * DELETE: http://localhost:8080/api/users/{userId}
+     * DELETE: http://localhost:8080/api/users
      * @param Long userId
      * @return ResponseEntity that allows developer to access status codes, headers, and response body.
      */
-    @DeleteMapping(path = "/users/{userId}")
-    public ResponseEntity<?> deleteUser(@PathVariable Long userId) {
-        return userService.deleteUser(userId);
+    @DeleteMapping(path = "/users")
+    public ResponseEntity<?> deleteUser() {
+        return userService.deleteUser();
     }
 
 }
