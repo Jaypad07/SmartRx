@@ -1,6 +1,7 @@
 package com.sei.smartrx.service;
 
 import com.sei.smartrx.exceptions.InformationNotFoundException;
+import com.sei.smartrx.exceptions.PrescriptionNotFoundException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.models.User;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 public class PrescriptionService {
@@ -72,4 +75,36 @@ public class PrescriptionService {
     }
 
 
-}
+    /**
+     * this method allows a pharmacist to update a prescription.
+     * the method first checks if if the prescription exists in the database.
+     * if the prescription is found, the prescription fields will be updated with
+     * values from the prescription object.
+     * a PrescriptionNotFoundException thrown if prescription not found
+     * @param prescriptionObject
+     * @return prescriptionObject
+     */
+    public Prescription updatePrescription(Prescription prescriptionObject, Long prescriptionId) {
+        Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
+        if (prescription.isPresent()) {
+            Prescription existingPrescription = prescription.get();
+            existingPrescription.setPatientName(prescriptionObject.getPatientName());
+            existingPrescription.setRefills(prescriptionObject.getRefills());
+            existingPrescription.setEndDate(prescriptionObject.getEndDate());
+            existingPrescription.setStatus(prescriptionObject.getStatus());
+            prescriptionRepository.save(existingPrescription); //need to save the object by using .save method
+            return existingPrescription;
+        } else {  //custom exception thrown if prescription is not found in the database
+            throw new PrescriptionNotFoundException("Prescription:" + id + "could not be found. " + prescriptionObject.getPrescriptionId());
+
+        }
+    }
+
+
+
+
+
+
+    }
+
+

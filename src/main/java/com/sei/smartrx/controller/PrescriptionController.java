@@ -56,9 +56,10 @@ public class PrescriptionController {
     }
 
 
-    @PutMapping(path="/pharmacist")
-    public Prescription updatePrescription(@RequestBody Prescription prescriptionObject) {
-        return prescriptionService.updatePrescription(prescriptionObject);
+    @PutMapping(path="/pharmacist/prescription/{prescriptionId}")
+    public Prescription updatePrescription(@RequestBody Prescription prescriptionObject,
+                                           @PathVariable Long prescriptionId) {
+        return prescriptionService.updatePrescription(prescriptionObject, prescriptionId);
     }
 
 }
