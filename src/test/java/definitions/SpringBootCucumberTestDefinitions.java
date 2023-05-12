@@ -98,7 +98,6 @@ public class SpringBootCucumberTestDefinitions {
     public void iShouldBeLoggedInSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
-
     /**
      * FEATURE: When a user is logged in, user can update their account information and delete their account.
      * @throws JSONException
@@ -128,7 +127,7 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("password", "tim123");
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users");
     }
     @Then("user information will be updated")
     public void userInformationWillBeUpdated() {
@@ -140,7 +139,7 @@ public class SpringBootCucumberTestDefinitions {
             RestAssured.baseURI = BASE_URL + port;
             RequestSpecification request = RestAssured.given();
             request.header("Authorization", "Bearer "+ getYourKey());
-            response = request.delete("/api/users/1");
+            response = request.delete("/api/users");
             //status code 204, no content shown when account is deleted
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
@@ -168,7 +167,6 @@ public class SpringBootCucumberTestDefinitions {
 //        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
 //        Assert.assertEquals(1, userId);
     }
-
     /**
      * FEATURE: a user can view a medication by medication ID.
      */
@@ -193,6 +191,7 @@ public class SpringBootCucumberTestDefinitions {
     public void userShouldReceiveSpecificInformationAboutThatMedication() {
         Assert.assertNotNull(response);
     }
+
 }
 
 

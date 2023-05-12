@@ -23,9 +23,9 @@
   #Put ✅ ☑️ //why aren't these running together??
   Feature: User able to register, login, update their information including their allergies as well as delete their account
   Scenario:
-#    Given User is logged in
-#    When user updates their account information
-#    Then user information will be updated
+    Given User is logged in
+    When user updates their account information
+    Then user information will be updated
 #    When user removes their account by ID
 #    Then the account is deleted
 
