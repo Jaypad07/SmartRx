@@ -39,6 +39,11 @@ public class UserService {
         this.myUserDetails = myUserDetails;
     }
 
+    public static User getCurrentLoggedInUser() {
+        MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return userDetails.getUser();
+    }
+
     public User createUser(User userObject){
         if (!userRepository.existsByEmail(userObject.getEmail())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
@@ -63,15 +68,15 @@ public class UserService {
         }
     }
 
-    public User getUser(Long userId){
-        Optional<User> user = userRepository.findById(userId);
+    public User getUser(){
+        Optional<User> user = userRepository.findById(getCurrentLoggedInUser().getId());
         if (user.isPresent()) {
             return user.get();
-        } else throw new InformationNotFoundException("User with Id " + userId + " does not exist.");
+        } else throw new InformationNotFoundException("User with Id " + getCurrentLoggedInUser().getId() + " does not exist.");
     }
 
-    public User updateUser(Long userId, User userObject) throws InformationNotFoundException{
-        User updatedUser = getUser(userId);
+    public User updateUser(User userObject) throws InformationNotFoundException{
+        User updatedUser = getUser();
         updatedUser.setFirstName(userObject.getFirstName());
         updatedUser.setLastName(userObject.getLastName());
         updatedUser.setEmail(userObject.getEmail());
@@ -82,8 +87,8 @@ public class UserService {
 
     }
 
-    public ResponseEntity<?> deleteUser(Long userId) {
-        User user = getUser(userId);
+    public ResponseEntity<?> deleteUser() {
+        User user = getUser();
         userRepository.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
