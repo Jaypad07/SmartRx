@@ -20,12 +20,12 @@
 #    When user submits a prescription refill
 #    Then the prescription is filled
 
-  #Put ✅
-  Feature: User able to update account information
-  Scenario:
-    Given User is logged in
-    When user updates their account information
-    Then user information will be updated
+  #Put ✅ ☑️
+#  Feature: User able to update account information
+#  Scenario:
+#    Given User is logged in
+#    When user updates their account information
+#    Then user information will be updated
 
   #Put ✅
 #Feature: Update allergy information

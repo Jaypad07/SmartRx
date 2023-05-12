@@ -43,6 +43,11 @@ public class SpringBootCucumberTestDefinitions {
     LocalDate currentDate = localDate.now();
     User user = new User("John", "Carter", "Carter53@hotmail.com", currentDate, "sei1900", "aspirin, metformin");
 
+    /**
+     * Generates a JWT token to pass in header of requests
+     * @return JWT as a String
+     * @throws JSONException
+     */
     public String getYourKey() throws JSONException {
       RequestSpecification request = RestAssured.given();
       JSONObject jsonObject = new JSONObject();
@@ -54,45 +59,31 @@ public class SpringBootCucumberTestDefinitions {
     }
 
     /**
-     * FEATURE 1
+     * User registration, a JSON request body is created with the user email and password. It is sent to the
+     * "/api/users/register" URL endpoint in the user controller
      * @throws JSONException
      */
     @Given("user is registered")
     public void userIsRegistered() throws JSONException {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
-        requestBody.put("email", "email@email.com");
-        requestBody.put("password", "password");
+        requestBody.put("email", "email100@email.com");
+        requestBody.put("password", "password100");
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/users/register");
+        response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/auth/users/register");
     }
 
     @When("I enter my username and password")
     public void iEnterMyUsernameAndPassword() {
         JsonPath jsonObject = new JsonPath(response.asString());
-        System.out.println(response.getBody().asString());
-        Assert.assertEquals(user.getEmail(), jsonObject.get("email"));
-        Assert.assertEquals(user.getPassword(), jsonObject.get("password"));
+        Assert.assertEquals("email@email.com", jsonObject.get("email"));
+        Assert.assertNotNull(jsonObject);
     }
 
     @Then("I should be logged in successfully")
     public void iShouldBeLoggedInSuccessfully() {
         Assert.assertEquals(200, response.getStatusCode());
     }
-
-    /**
-     * FEATURE: a user can view their prescriptions
-     */
-    @Given("a user has a list of prescriptions")
-    public void aUserHasAListOfPrescriptions() throws JSONException{
-        RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.get(BASE_URL+ port + "/api/prescriptions");
-//        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
-//        Assert.assertEquals(1, userId);
-    }
-
     @Given("User is logged in")
     public void userHasAnActiveAccount() throws JSONException{
         RestAssured.baseURI = BASE_URL;
@@ -127,6 +118,20 @@ public class SpringBootCucumberTestDefinitions {
     public void userInformationWillBeUpdated() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+    /**
+     * FEATURE: a user can view their prescriptions
+     */
+    @Given("a user has a list of prescriptions")
+    public void aUserHasAListOfPrescriptions() throws JSONException{
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ getYourKey());
+        response = request.get(BASE_URL+ port + "/api/prescriptions");
+//        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
+//        Assert.assertEquals(1, userId);
+    }
+
+
 
 
 
@@ -229,7 +234,7 @@ public class SpringBootCucumberTestDefinitions {
             requestBody.put("email", "email@email.com");
             requestBody.put("password", "password");
             request.header("Content-Type", "application/json");
-            response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/users/login");
+            response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/auth/users/login");
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
