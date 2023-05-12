@@ -160,13 +160,11 @@ public class SpringBootCucumberTestDefinitions {
      */
     @Given("a user has a list of prescriptions")
     public void aUserHasAListOfPrescriptions() throws JSONException{
-        RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.get(BASE_URL+ port + "/api/prescriptions");
+
 //        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
 //        Assert.assertEquals(1, userId);
     }
+
     /**
      * FEATURE: a user can view a medication by medication ID.
      */
@@ -192,5 +190,18 @@ public class SpringBootCucumberTestDefinitions {
         Assert.assertNotNull(response);
     }
 
+
+    @When("user searches for their prescriptions")
+    public void userSearchesForTheirPrescriptions() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization", "Bearer "+ getYourKey());
+        response = request.get(BASE_URL+ port + "/api/prescriptions");
+    }
+
+    @Then("they should see a list of only their prescriptions")
+    public void theyShouldSeeAListOfOnlyTheirPrescriptions() {
+        System.out.println(response.getBody().peek());
+    }
 }
 
