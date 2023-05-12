@@ -1,5 +1,7 @@
 package definitions;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sei.smartrx.SmartRxApplication;
 import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
@@ -17,8 +19,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = SmartRxApplication.class)
@@ -128,7 +134,7 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("password", "tim123");
         request.header("Content-Type", "application/json");
         request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users/1");
+        response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users");
     }
     @Then("user information will be updated")
     public void userInformationWillBeUpdated() {
@@ -140,7 +146,7 @@ public class SpringBootCucumberTestDefinitions {
             RestAssured.baseURI = BASE_URL + port;
             RequestSpecification request = RestAssured.given();
             request.header("Authorization", "Bearer "+ getYourKey());
-            response = request.delete("/api/users/1");
+            response = request.delete("/api/users");
             //status code 204, no content shown when account is deleted
         } catch (HttpClientErrorException e) {
             e.printStackTrace();
@@ -156,19 +162,6 @@ public class SpringBootCucumberTestDefinitions {
             Assert.assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND); //verifying that the status code is 404
         }
     }
-    /**
-     * FEATURE: a user can view their prescriptions
-     */
-    @Given("a user has a list of prescriptions")
-    public void aUserHasAListOfPrescriptions() throws JSONException{
-        RestAssured.baseURI = BASE_URL;
-        RequestSpecification request = RestAssured.given();
-        request.header("Authorization", "Bearer "+ getYourKey());
-        response = request.get(BASE_URL+ port + "/api/prescriptions");
-//        int userId = JsonPath.from(String.valueOf(jsonResponse.getBody())).get("user");
-//        Assert.assertEquals(1, userId);
-    }
-
     /**
      * FEATURE: a user can view a medication by medication ID.
      */
@@ -192,6 +185,24 @@ public class SpringBootCucumberTestDefinitions {
     @Then("user should receive specific information about that medication")
     public void userShouldReceiveSpecificInformationAboutThatMedication() {
         Assert.assertNotNull(response);
+    }
+    /**
+     * FEATURE: a user can view their prescriptions
+     */
+    @When("user searches for their prescriptions")
+    public void userSearchesForTheirPrescriptions() throws JSONException, JsonProcessingException {
+       HttpHeaders authenticationHeader = new HttpHeaders();
+       authenticationHeader.set("Authorization","Bearer "+getYourKey());
+       HttpEntity<String> httpEntity = new HttpEntity<>(authenticationHeader);
+       ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL+port+"/api/prescriptions", HttpMethod.GET, httpEntity, String.class);
+        List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get();
+       Assert.assertNotNull(prescriptions);
+    }
+
+    @Then("a user should see a list of only their prescriptions")
+    public void aUserShouldSeeAListOfOnlyTheirPrescriptions() {
+        Assert.assertEquals(200, response.getStatusCode());
+
     }
 }
 
