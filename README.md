@@ -71,6 +71,30 @@ Here are some key aspects of our general approach:
 
 #### Unsolved Problems and Hurdles Tackled
 
+### References
+[Security Feature Doc Strings](https://docs.spring.io/spring-security/site/docs/current/api/index.html)
+
+[Add JWT to Header for use with RestTemplate](https://stackoverflow.com/questions/20186497/what-is-the-resttemplate-exchange-method-for...and)
+
+[Git Stashing](https://www.gitkraken.com/learn/git/git-stash#:~:text=Git%20Stash%20List&text=The%20Git%20stash%20list%20command,stash%40%20and%20the%20desired%20index)
+
+[Git Merging - Source: Atlassian](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
+
+[Git Branching - Source: git-scm.com](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging)
+
+[Rest Assured - Source: github.com](https://github.com/rest-assured/rest-assured/wiki/GettingStarted)
+
+[For ERD  - dbdiagram.com](https://dbdiagram.io/)
+
+[HTTP Status Codes - Source: Mozilla.org](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+
+[Cucumber School - Source: Cucumber.io](https://school.cucumber.io/courses/take/bdd-with-cucumber-java/lessons/9588457-add-a-scenario-wire-it-up)
+
+[Gherkin Syntax - Cucumber.io](https://cucumber.io/docs/gherkin/)
+
+[JSON Jwt Tokens - JWT.io](https://jwt.io)
+
+
 ### Key Features
 ##### CRUD Operations: 
 SmartRx allows users to perform Create, Read, Update, and Delete (CRUD) operations on prescription and medication data. Users can create new prescriptions, retrieve prescription details, update existing prescriptions, and delete prescriptions as needed.
