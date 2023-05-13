@@ -26,7 +26,6 @@ public class PrescriptionController {
      * GET: endpoint http://localhost:8080/api/prescriptions
      * @return List of Prescriptions for a specific user
      */
-
     @GetMapping(path = "/prescriptions")
     public List<Prescription> getAllPrescriptionsForUser()  {
         return prescriptionService.getAllPrescriptionsForUser();
@@ -34,6 +33,7 @@ public class PrescriptionController {
 
     /**
      * GET: endpoint http://localhost:8080/api/newRequest/prescriptions/1
+     * @param Long medicationID
      * @return Prescription the user has requested to be refilled with updates refill #
      */
     @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
@@ -43,7 +43,8 @@ public class PrescriptionController {
 
     /**
      * GET: endpoint http://localhost:8080/api/prescriptions/medications/1
-     * @param
+     * GET ONE MEDICATION, gets a medication by its ID.
+     * @param Long medicationID
      * @return a Medication object
      */
     @GetMapping(path="/prescriptions/medications/{medicationId}")
@@ -51,11 +52,21 @@ public class PrescriptionController {
         return prescriptionService.seeAMedication(medicationId);
     }
 
+    /**
+     * GET: endpoint http://localhost:8080/api/pharmacist/prescriptions
+     * GET ALL PRESCRIPTIONS, must have pharmacist userprofile role to access this through user servide.
+     * @return a list of all prescriptions
+     */
     @GetMapping (path="/pharmacist/prescriptions")
     public List<Prescription> allPrescriptions(){
         return prescriptionService.getAllPrescriptions();
     }
 
+    /**
+     *GET A SPECIFIC PRESCRIPTION BY ID. Must be a pharmacist to see any prescription, verifies in prescription service.
+     * @param Long prescriptionId
+     * @return Prescription
+     */
     @GetMapping (path="/pharmacist/prescriptions/{prescriptionId}")
     public Prescription getAPrescriptionId(@PathVariable Long prescriptionId){
         return prescriptionService.getAPrescriptionsById(prescriptionId);
