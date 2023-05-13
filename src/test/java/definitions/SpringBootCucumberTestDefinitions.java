@@ -245,21 +245,22 @@ public class SpringBootCucumberTestDefinitions {
      */
     @When("the pharmacist updates a prescription")
     public void thePharmacistUpdatesAPrescription() throws JSONException {
-        Long prescriptionId = 1L;
-        HttpHeaders authenticationHeader = new HttpHeaders();
-        authenticationHeader.set("Authorization","Bearer "+ getYourKey());
-        HttpEntity<String> httpEntity = new HttpEntity<>(authenticationHeader);
+        //Long prescriptionId = 1L;
+
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject(); //JSON object with the updated prescription status
-        requestBody.put("status", "updated"); //Put request to update the prescription status
-        Response response = request.body(requestBody.toString()).put("/pharmacist/prescription/" + prescriptionId);
+        requestBody.put("status", true); //Put request to update the prescription status
+        request.header("Authorization","Bearer "+ getJWTAsPharmacist());
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL+ port + "/api/pharmacist/prescription/1");
         int statusCode = response.getStatusCode();
         assertEquals(200, response.getStatusCode());
     }
 
     @Then("the prescription is updated")
     public void thePrescriptionIsUpdated() {
+        assertEquals(200, response.getStatusCode());
 
 
     }
