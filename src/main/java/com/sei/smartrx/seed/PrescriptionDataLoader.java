@@ -94,10 +94,10 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             user.setPrescriptionList(prescriptionList);
             user2.setPrescriptionList(prescriptionList2);
             // save data
-            userService.createUser(user);
-            userService.createUser(user2);
-            userService.createUser(user3);
-            userService.createUser(user4);
+            userService.registerUser(user);
+            userService.registerUser(user2);
+            userService.registerUser(user3);
+            userService.registerUser(user4);
             prescriptionRepository.saveAll(prescriptionList);
             prescriptionRepository.saveAll(prescriptionList2);
             medicationRepository.save(medication1);

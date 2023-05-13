@@ -43,7 +43,6 @@ public class Prescription {
      * joined by column "prescription_medication, where that id is equal to medication ID
      */
     @ManyToMany
-    @JsonIgnore
     @JoinTable(name = "prescription_medication", joinColumns = @JoinColumn(name = "prescription_id"), inverseJoinColumns = @JoinColumn(name = "medication_id"))
     private List<Medication> medicationList;
 

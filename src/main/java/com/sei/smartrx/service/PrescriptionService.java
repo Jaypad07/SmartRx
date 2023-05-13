@@ -16,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -71,7 +73,7 @@ public class PrescriptionService {
             }else throw new InformationNotFoundException("Could not find a list for current logged in user.");
     }
 
-    public Medication seeAMedication(Long medicationId){
+    public Medication getAMedication(Long medicationId){
         Optional<Medication> medication = medicationRepository.findById(medicationId);
         if(medication.isEmpty()){
             throw new InformationNotFoundException("There is no medication with id of " + medicationId);
@@ -104,13 +106,12 @@ public class PrescriptionService {
             throw new NoAuthorizationException("Not authorized to view this prescription");
         }
     }
-    public Prescription createPrescriptionForUser(Long prescriptionId, Long userId, Prescription prescriptionObject) {
+    public Prescription createPrescriptionForUser(Long userId, Long medicationId, Prescription prescriptionObject) {
         Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
         if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
-            Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
-            if (prescription.isPresent()) {
-                throw new InformationExistException("Prescription with " + prescriptionId + "already exists.");
-            } else {
+            List<Medication> medications = new ArrayList<>();
+            medications.add(getAMedication(medicationId));
+//            List<Long> listLongIds = Arrays.asList(1L);
                 Optional<User> user = userRepository.findById(userId);
                 if (user.isPresent()) {
                     prescriptionObject.setUser(user.get());
@@ -118,12 +119,24 @@ public class PrescriptionService {
                     prescriptionObject.setRefills(prescriptionObject.getRefills());
                     prescriptionObject.setEndDate(prescriptionObject.getEndDate());
                     prescriptionObject.setStatus(prescriptionObject.getStatus());
-                    prescriptionObject.setMedicationList(prescriptionObject.getMedicationList()); //May delete for medication method.
+                    prescriptionObject.setMedicationList(medications); //May delete for medication method.
                     return prescriptionRepository.save(prescriptionObject);
                 } else throw new InformationNotFoundException("User with ID " + userId + " does not exist.");
-            }
+
         } else throw new NoAuthorizationException("Not authorized to create a prescription");
     }///build a method that sets medication to prescription list. THen another that sets prescription list to medication
+
+    public Medication addMedication(Medication medicationObject) {
+        Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
+        if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
+            medicationObject.setName(medicationObject.getName());
+            medicationObject.setGenericName(medicationObject.getGenericName());
+            medicationObject.setContraIndication(medicationObject.getContraIndication());
+            medicationObject.setSideEffects(medicationObject.getSideEffects());
+            medicationObject.setIngredients(medicationObject.getIngredients());
+           return medicationRepository.save(medicationObject);
+        }  throw new NoAuthorizationException("Not authorized to view this prescription");
+    }
 
     public Prescription deletePrescription(Long prescriptionId) {
         Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
