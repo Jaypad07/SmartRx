@@ -2,6 +2,7 @@ package com.sei.smartrx.service;
 
 import com.sei.smartrx.exceptions.InformationExistException;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
+import com.sei.smartrx.exceptions.PrescriptionNotFoundException;
 import com.sei.smartrx.exceptions.NoAuthorizationException;
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
@@ -133,4 +134,33 @@ public class PrescriptionService {
             return prescription.get();
         }
     }
-}
+
+    /**
+     * this method allows a pharmacist to update a prescription.
+     * the method first checks if if the prescription exists in the database.
+     * if the prescription is found, the prescription fields will be updated with
+     * values from the prescription object.
+     * a PrescriptionNotFoundException thrown if prescription not found
+     * @param prescriptionObject
+     * @return prescriptionObject
+     */
+    public Prescription updatePrescription(Prescription prescriptionObject, Long prescriptionId) {
+        Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
+        if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
+            Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
+            if (prescription.isPresent()) {
+                Prescription existingPrescription = prescription.get();
+                existingPrescription.setPatientName(prescriptionObject.getPatientName());
+                existingPrescription.setRefills(prescriptionObject.getRefills());
+                existingPrescription.setEndDate(prescriptionObject.getEndDate());
+                existingPrescription.setStatus(prescriptionObject.getStatus());
+                prescriptionRepository.save(existingPrescription);
+                return existingPrescription;
+            } else {
+                throw new PrescriptionNotFoundException("Prescription with id " + prescriptionId + " not found.");
+            }
+        } else {
+            throw new NoAuthorizationException("User not authorized to update prescription.");
+        }
+      }
+   }

@@ -2,6 +2,8 @@ package definitions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.sei.smartrx.SmartRxApplication;
+import com.sei.smartrx.exceptions.PrescriptionNotFoundException;
+import com.sei.smartrx.models.Prescription;
 import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -23,6 +25,9 @@ import org.springframework.web.client.RestTemplate;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 
 @CucumberContextConfiguration
@@ -229,6 +234,34 @@ public class SpringBootCucumberTestDefinitions {
     @Then("a pharmacist should see a list of prescriptions")
     public void aPharmacistShouldSeeAListOfPrescriptions() {
         Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    /**
+     * this method sends a PUT request to update a prescription by prescriptionID.
+     * the request body is given the updated prescription status and added to the
+     * authorization header.
+     * @throws JSONException
+     */
+    @When("the pharmacist updates a prescription")
+    public void thePharmacistUpdatesAPrescription() throws JSONException {
+        //Long prescriptionId = 1L;
+
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject(); //JSON object with the updated prescription status
+        requestBody.put("status", true); //Put request to update the prescription status
+        request.header("Authorization","Bearer "+ getJWTAsPharmacist());
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).put(BASE_URL+ port + "/api/pharmacist/prescription/1");
+        int statusCode = response.getStatusCode();
+        assertEquals(200, response.getStatusCode());
+    }
+
+    @Then("the prescription is updated")
+    public void thePrescriptionIsUpdated() {
+        assertEquals(200, response.getStatusCode());
+
+
     }
 
 

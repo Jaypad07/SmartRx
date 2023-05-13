@@ -67,6 +67,14 @@ public class PrescriptionController {
      * @param Long prescriptionId
      * @return Prescription
      */
+
+    @PutMapping(path="/pharmacist/prescription/{prescriptionId}")
+    public Prescription updatePrescription(@RequestBody Prescription prescriptionObject,
+                                           @PathVariable Long prescriptionId) {
+        return prescriptionService.updatePrescription(prescriptionObject, prescriptionId);
+    }
+
+
     @GetMapping (path="/pharmacist/prescriptions/{prescriptionId}")
     public Prescription getAPrescriptionId(@PathVariable Long prescriptionId){
         return prescriptionService.getAPrescriptionsById(prescriptionId);
