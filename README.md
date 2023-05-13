@@ -71,28 +71,6 @@ Here are some key aspects of our general approach:
 
 #### Unsolved Problems and Hurdles Tackled
 
-### References
-[Security Feature Doc Strings](https://docs.spring.io/spring-security/site/docs/current/api/index.html)
-
-[Add JWT to Header for use with RestTemplate](https://stackoverflow.com/questions/20186497/what-is-the-resttemplate-exchange-method-for...and)
-
-[Git Stashing](https://www.gitkraken.com/learn/git/git-stash#:~:text=Git%20Stash%20List&text=The%20Git%20stash%20list%20command,stash%40%20and%20the%20desired%20index)
-
-[Git Merging - Source: Atlassian](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
-
-[Git Branching - Source: git-scm.com](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging)
-
-[Rest Assured - Source: github.com](https://github.com/rest-assured/rest-assured/wiki/GettingStarted)
-
-[For ERD  - dbdiagram.com](https://dbdiagram.io/)
-
-[HTTP Status Codes - Source: Mozilla.org](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
-
-[Cucumber School - Source: Cucumber.io](https://school.cucumber.io/courses/take/bdd-with-cucumber-java/lessons/9588457-add-a-scenario-wire-it-up)
-
-[Gherkin Syntax - Cucumber.io](https://cucumber.io/docs/gherkin/)
-
-[JSON Jwt Tokens - JWT.io](https://jwt.io)
 
 
 ### Key Features
@@ -107,6 +85,26 @@ SmartRx performs thorough validation of incoming data to ensure its integrity an
 
 ##### Testing and Quality Assurance:
 SmartRx also includes a suite of unit tests and integration tests to validate the functionality and behavior of the API. It follows coding best practices, adheres to code style guidelines, and undergoes rigorous testing to ensure high-quality and reliable software.
+
+
+## Test Driven Development (TDD)
+
+This project follows the Test Driven Development (TDD) approach to ensure the reliability and correctness of the codebase. TDD involves writing tests before implementing the actual code logic.
+
+Here's an overview of the TDD process followed in this project:
+
+1. **Write Tests**: Tests are written in the form of Cucumber feature files using Gherkin syntax. Each feature file describes a specific functionality or scenario to be tested. Test scenarios are written in a user-friendly language that captures the expected behavior of the system.
+
+2. **Run Tests**: The Cucumber tests are executed using the TestRunner and Test Definitions. These files contain the necessary configurations and definitions for running the tests. Tests can be run locally or integrated with a CI/CD system for automated testing on each code commit.
+
+3. **Implement Code**: After writing the tests, the corresponding code implementation is done to make the tests pass. The implementation follows the principles of SOLID design and clean code practices. The tests act as a guide to ensure that the code meets the desired functionality.
+
+4. **Refactor Code**: Once the tests pass, the code is refactored to improve its design, readability, and maintainability. Refactoring involves making changes to the code without altering its behavior. The goal is to enhance the code's structure, eliminate duplication, and improve overall code quality.
+
+**Re-run Tests**: After refactoring the code, the tests are re-run to ensure that the changes have not introduced any regressions or unexpected behavior. This step verifies that the code still adheres to the desired functionality defined by the tests.
+
+
+
 ### Installation Instructions For Dependencies 
 1. Open your project in an IDE or navigate to the project directory using the command line.
 2. Locate the pom.xml file in the root directory of your project.
@@ -191,3 +189,27 @@ Our Instructors:
 
 Their dedication and expertise have greatly contributed to the success of this project. We are grateful for their valuable insights and efforts.
 
+
+
+### References
+[Security Feature Doc Strings](https://docs.spring.io/spring-security/site/docs/current/api/index.html)
+
+[Add JWT to Header for use with RestTemplate](https://stackoverflow.com/questions/20186497/what-is-the-resttemplate-exchange-method-for...and)
+
+[Git Stashing](https://www.gitkraken.com/learn/git/git-stash#:~:text=Git%20Stash%20List&text=The%20Git%20stash%20list%20command,stash%40%20and%20the%20desired%20index)
+
+[Git Merging - Source: Atlassian](https://www.atlassian.com/git/tutorials/using-branches/git-merge)
+
+[Git Branching - Source: git-scm.com](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging)
+
+[Rest Assured - Source: github.com](https://github.com/rest-assured/rest-assured/wiki/GettingStarted)
+
+[For ERD  - dbdiagram.com](https://dbdiagram.io/)
+
+[HTTP Status Codes - Source: Mozilla.org](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+
+[Cucumber School - Source: Cucumber.io](https://school.cucumber.io/courses/take/bdd-with-cucumber-java/lessons/9588457-add-a-scenario-wire-it-up)
+
+[Gherkin Syntax - Cucumber.io](https://cucumber.io/docs/gherkin/)
+
+[JSON Jwt Tokens - JWT.io](https://jwt.io)
