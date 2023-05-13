@@ -42,7 +42,7 @@ In our development process, we have adopted an agile approach with a focus on co
 
 Here are some key aspects of our general approach:
 
-1. Kanban Board: We maintain a Kanban board to visualize our workflow and track the progress of tasks. The board consists of columns representing different stages of the development cycle, such as "To Do," "In Progress," "Review," and "Done." This board helps us visualize the work in progress and maintain a smooth flow of tasks.![image](images/image.png)
+1. Kanban Board: We maintain a Kanban board to visualize our workflow and track the progress of tasks. The board consists of columns representing different stages of the development cycle, such as "To Do," "In Progress," "Review," and "Done." This board helps us visualize the work in progress and maintain a smooth flow of tasks.![image](images/Kanban.png)
 
 2. Collaborative Environment: We foster a collaborative environment where every team member actively participates and contributes to the project. Pair programming allows us to work closely together, share knowledge, and make collective decisions.
 
@@ -55,7 +55,7 @@ Here are some key aspects of our general approach:
 5. Roles and Responsibilities: Within each pair or quad, we assign roles and responsibilities. We have a designated driver who actively writes the code, while the navigator provides guidance, reviews the code, and ensures adherence to best practices. We periodically rotate these roles to promote equal participation and knowledge sharing.
 
 
-6. Effective Communication: Communication is vital in our pairing sessions. We engage in open and frequent communication, discussing ideas, brainstorming solutions, and seeking clarifications. We value active listening and constructive feedback, which enables us to make informed decisions and deliver high-quality code.![image](images/image.png)
+6. Effective Communication: Communication is vital in our pairing sessions. We engage in open and frequent communication, discussing ideas, brainstorming solutions, and seeking clarifications. We value active listening and constructive feedback, which enables us to make informed decisions and deliver high-quality code.![image](images/Comm2.png)
 
 
 7. Continuous Learning: Pair programming serves as a platform for continuous learning and skill development. We actively share insights, coding techniques, and best practices with each other. This collaborative learning environment helps us grow individually and as a team.
@@ -68,10 +68,10 @@ Here are some key aspects of our general approach:
 
 #### User Stories 
 [Link to User Stories]()
-![image](images/image.png)
+![image](images/BronzeUS.png)
 #### ERD Diagram 
 [Link to ERD DIAGRAM]()
-![image](images/image.png)
+![image](images/ERD.png)
 
 #### Planning Documentation 
 [Link to Planning and Schedule]()
