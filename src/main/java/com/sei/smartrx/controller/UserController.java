@@ -27,8 +27,8 @@ public class UserController {
      * @return model User
      */
     @PostMapping (path = "/auth/users/register")
-    public User createUser(@RequestBody User userObject) {
-        return userService.createUser(userObject);
+    public User registerUser(@RequestBody User userObject) {
+        return userService.registerUser(userObject);
     }
     /**
      * POST: endpoint http://localhost:8080/api/auth/users/login
@@ -45,16 +45,17 @@ public class UserController {
      */
     @GetMapping(path = "/users")
     public User getUser() {
-        return userService.getUser();
+        return userService.getCurrentUser();
     }
+
     /**
      * PUT: http://localhost:8080/api/users
      * @param Long userId, RequestBody UserObject
      * @return model User
      */
     @PutMapping(path = "/users")
-    public User updateUser(@RequestBody User userObject) {
-       return userService.updateUser(userObject);
+    public User updateCurrentUser(@RequestBody User userObject) {
+       return userService.updateCurrentUser(userObject);
     }
     /**
      * DELETE: http://localhost:8080/api/users
@@ -65,7 +66,4 @@ public class UserController {
     public ResponseEntity<?> deleteUser() {
         return userService.deleteUser();
     }
-
-
-
 }

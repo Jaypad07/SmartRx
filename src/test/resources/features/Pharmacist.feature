@@ -11,3 +11,5 @@ Feature: If user has pharmacist role, can create, read, update, and delete presc
 #    Then the prescription is updated
 #    When the pharmacist deletes a prescription
 #    Then the prescription is deleted
+#    When the pharmacist updates a user
+#    Then the user is updated

@@ -3,6 +3,7 @@ package com.sei.smartrx.service;
 import com.sei.smartrx.exceptions.InformationExistException;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.models.User;
+import com.sei.smartrx.models.UserProfile;
 import com.sei.smartrx.models.request.LoginRequest;
 import com.sei.smartrx.models.response.LoginResponse;
 import com.sei.smartrx.repository.UserRepository;
@@ -44,9 +45,10 @@ public class UserService {
         return userDetails.getUser();
     }
 
-    public User createUser(User userObject){
+    public User registerUser(User userObject){
         if (!userRepository.existsByEmail(userObject.getEmail())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
+            userObject.setUserProfile(new UserProfile()); // Adding a new User Profile should set automatically increase the ID, and we can use setRole to set user privileges.
             return userRepository.save(userObject);
         }else throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
     }
@@ -68,15 +70,15 @@ public class UserService {
         }
     }
 
-    public User getUser(){
+    public User getCurrentUser(){
         Optional<User> user = userRepository.findById(getCurrentLoggedInUser().getId());
         if (user.isPresent()) {
             return user.get();
         } else throw new InformationNotFoundException("User with Id " + getCurrentLoggedInUser().getId() + " does not exist.");
     }
 
-    public User updateUser(User userObject) throws InformationNotFoundException{
-        User updatedUser = getUser();
+    public User updateCurrentUser(User userObject) throws InformationNotFoundException{
+        User updatedUser = getCurrentUser();
         updatedUser.setFirstName(userObject.getFirstName());
         updatedUser.setLastName(userObject.getLastName());
         updatedUser.setEmail(getCurrentLoggedInUser().getEmail());
@@ -87,8 +89,8 @@ public class UserService {
 
     }
 
-    public ResponseEntity<?> deleteUser() {
-        User user = getUser();
+    public ResponseEntity<?> deleteCurrentUser() {
+        User user = getCurrentUser();
         userRepository.delete(user);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

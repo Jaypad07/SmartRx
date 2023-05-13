@@ -62,10 +62,12 @@ public class PrescriptionService {
     }
 
     public List<Prescription> getAllPrescriptionsForUser() {
-            List<Prescription> prescriptionList = prescriptionRepository.findByUserId(getCurrentLoggedInUser().getId()).get();
-            if (prescriptionList.size() == 0) {
-                throw new InformationNotFoundException("No previous prescriptions found for user with id of " + getCurrentLoggedInUser().getId());
-            } else return prescriptionList;
+        Optional<List<Prescription>> prescriptionList = prescriptionRepository.findByUserId(getCurrentLoggedInUser().getId());
+            if (prescriptionList.isPresent()) {
+                if (prescriptionList.get().size() == 0) {
+                    throw new InformationNotFoundException("No previous prescriptions found for user with id of " + getCurrentLoggedInUser().getId());
+                }else return prescriptionList.get();
+            }else throw new InformationNotFoundException("Could not find a list for current logged in user.");
     }
 
     public Medication seeAMedication(Long medicationId){
@@ -97,21 +99,28 @@ public class PrescriptionService {
             } else {
                 return onePrescription.get();
             }
-        }
-        else{
+        } else{
             throw new NoAuthorizationException("Not authorized to view this prescription");
         }
     }
     public Prescription createPrescriptionForUser(Long prescriptionId, Long userId, Prescription prescriptionObject) {
-        Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
-        if (prescription.isPresent()) {
-            throw new InformationExistException("Prescription with " + prescriptionId + "already exists.");
-        }else {
-            prescriptionObject.setUser(userRepository.findById(userId).get());
-        }
-        return prescriptionRepository.save(prescriptionObject);
-    }
-
-
-
+        Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
+        if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
+            Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
+            if (prescription.isPresent()) {
+                throw new InformationExistException("Prescription with " + prescriptionId + "already exists.");
+            } else {
+                Optional<User> user = userRepository.findById(userId);
+                if (user.isPresent()) {
+                    prescriptionObject.setUser(user.get());
+                    prescriptionObject.setPatientName(user.get().getFirstName() + " " + user.get().getLastName());
+                    prescriptionObject.setRefills(prescriptionObject.getRefills());
+                    prescriptionObject.setEndDate(prescriptionObject.getEndDate());
+                    prescriptionObject.setStatus(prescriptionObject.getStatus());
+                    prescriptionObject.setMedicationList(prescriptionObject.getMedicationList()); //May delete for medication method.
+                    return prescriptionRepository.save(prescriptionObject);
+                } else throw new InformationNotFoundException("User with ID " + userId + " does not exist.");
+            }
+        } else throw new NoAuthorizationException("Not authorized to create a prescription");
+    }///build a method that sets medication to prescription list. THen another that sets prescription list to medication
 }
