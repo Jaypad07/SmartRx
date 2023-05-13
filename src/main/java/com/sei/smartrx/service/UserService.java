@@ -93,14 +93,25 @@ public class UserService {
         }
     }
 
-    
 
+    /**
+     * Retrieves the current user.
+     * @return the User object representing the current user
+     * @throws InformationNotFoundException if the user with the current logged-in user's ID does not exist.
+     */
     public User getUser(){
         Optional<User> user = userRepository.findById(getCurrentLoggedInUser().getId());
         if (user.isPresent()) {
             return user.get();
         } else throw new InformationNotFoundException("User with Id " + getCurrentLoggedInUser().getId() + " does not exist.");
     }
+
+    /**
+     * Updates a user's details.
+     * @param userObject the User object containing updated user details
+     * @return the updated User object
+     * @throws InformationNotFoundException if the current user does not exist
+     */
 
     public User updateUser(User userObject) throws InformationNotFoundException{
         User updatedUser = getUser();
@@ -113,6 +124,12 @@ public class UserService {
         return userRepository.save(updatedUser);
 
     }
+
+    /**
+     * Deletes the current user.
+     *
+     * @return a ResponseEntity indicating the success of the delete operation
+     */
 
     public ResponseEntity<?> deleteUser() {
         User user = getUser();
