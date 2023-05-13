@@ -126,7 +126,11 @@ public class PrescriptionService {
 
     public Prescription deletePrescription(Long prescriptionId) {
         Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
-        prescriptionRepository.deleteById(prescriptionId);
-        return prescription.get();
+        if (prescription.isEmpty()) {
+            throw new InformationNotFoundException("Prescription with " + prescriptionId + " does not exist.");
+        }else {
+            prescriptionRepository.deleteById(prescriptionId);
+            return prescription.get();
+        }
     }
 }
