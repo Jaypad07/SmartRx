@@ -22,9 +22,16 @@ import org.springframework.web.context.WebApplicationContext;
 public class SecurityConfiguration {
 
     private MyUserDetailsService myUserDetailsService;
+
+    /**
+     * Sets the MyUserDetailsService dependency.
+     *
+     * @param myUserDetailsService the MyUserDetailsService instance to be injected
+     */
     @Autowired
     public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService){ this.myUserDetailsService = myUserDetailsService;}
 
+    
     @Bean
     public JwtRequestFilter authJwtRequestFilter(){return new JwtRequestFilter();}
     @Bean
