@@ -81,12 +81,12 @@ public class PrescriptionController {
     }
 
 
-    @PostMapping(path = "pharmacist/prescriptions/{userId}/{medicationId}")
+    @PostMapping(path = "/pharmacist/prescriptions/{userId}/{medicationId}")
     public Prescription createPrescriptionForUser(@PathVariable Long userId, @PathVariable Long medicationId, @RequestBody Prescription prescriptionObject) {
         return prescriptionService.createPrescriptionForUser(userId, medicationId, prescriptionObject);
     }
 
-@DeleteMapping(path = "/prescriptions/{prescriptionId}")
+    @DeleteMapping(path = "/pharmacist/prescriptions/{prescriptionId}")
     public Prescription deletePrescription(@PathVariable Long prescriptionId ) {
         return prescriptionService.deletePrescription(prescriptionId);
     }

@@ -1,6 +1,8 @@
 package com.sei.smartrx.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -43,16 +45,10 @@ public class Prescription {
      * joined by column "prescription_medication, where that id is equal to medication ID
      */
     @ManyToMany
+    @LazyCollection(LazyCollectionOption.FALSE)
     @JoinTable(name = "prescription_medication", joinColumns = @JoinColumn(name = "prescription_id"), inverseJoinColumns = @JoinColumn(name = "medication_id"))
     private List<Medication> medicationList;
 
-    public List<Medication> getMedicationList() {
-        return medicationList;
-    }
-
-    public void setMedicationList(List<Medication> medicationList) {
-        this.medicationList = medicationList;
-    }
     /**
      * Prescriptions have a Many-To-One relationship with the User, joined by column user_id on prescriptions.
      */
@@ -110,6 +106,14 @@ public class Prescription {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public void setMedicationList(List<Medication> medicationList) {
+        this.medicationList = medicationList;
+    }
+
+    public List<Medication> getMedicationList() {
+        return medicationList;
     }
 
     @Override

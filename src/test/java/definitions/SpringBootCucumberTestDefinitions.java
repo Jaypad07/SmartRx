@@ -280,5 +280,20 @@ public class SpringBootCucumberTestDefinitions {
     public void aPharmacistShouldSeeThatOnePrescription() {
         Assert.assertEquals(200, response.getStatusCode());
     }
+
+    @When("the pharmacist deletes a prescription")
+    public void thePharmacistDeletesAPrescription() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Content-Type", "application/json");
+        request.header("Authorization","Bearer "+ getJWTAsPharmacist());
+        response = request.delete(BASE_URL + port + "/api/pharmacist/prescriptions/1");
+    }
+
+
+    @Then("the prescription is deleted")
+    public void thePrescriptionIsDeleted() {
+        Assert.assertEquals(200, response.getStatusCode());
+    }
 }
 
