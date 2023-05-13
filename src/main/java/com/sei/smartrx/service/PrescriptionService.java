@@ -1,5 +1,6 @@
 package com.sei.smartrx.service;
 
+import com.sei.smartrx.exceptions.InformationExistException;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.exceptions.PrescriptionNotFoundException;
 import com.sei.smartrx.exceptions.NoAuthorizationException;
@@ -108,24 +109,22 @@ public class PrescriptionService {
      * @return prescriptionObject
      */
     public Prescription updatePrescription(Prescription prescriptionObject, Long prescriptionId) {
-        Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
-        if (prescription.isPresent()) {
-            Prescription existingPrescription = prescription.get();
-            existingPrescription.setPatientName(prescriptionObject.getPatientName());
-            existingPrescription.setRefills(prescriptionObject.getRefills());
-            existingPrescription.setEndDate(prescriptionObject.getEndDate());
-            existingPrescription.setStatus(prescriptionObject.getStatus());
-            prescriptionRepository.save(existingPrescription); //need to save the object by using .save method
-            return existingPrescription;
-        } else {  //custom exception thrown if prescription is not found in the database
-            throw new PrescriptionNotFoundException("Prescription:" + id + "could not be found. " + prescriptionObject.getPrescriptionId());
-
+        Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
+        if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
+            Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
+            if (prescription.isPresent()) {
+                Prescription existingPrescription = prescription.get();
+                existingPrescription.setPatientName(prescriptionObject.getPatientName());
+                existingPrescription.setRefills(prescriptionObject.getRefills());
+                existingPrescription.setEndDate(prescriptionObject.getEndDate());
+                existingPrescription.setStatus(prescriptionObject.getStatus());
+                prescriptionRepository.save(existingPrescription);
+                return existingPrescription;
+            } else {
+                throw new PrescriptionNotFoundException("Prescription with id " + prescriptionId + " not found.");
+            }
+        } else {
+            throw new NoAuthorizationException("User not authorized to update prescription.");
         }
-    }
-
-
-
-
-
-
-    }
+      }
+   }
