@@ -87,7 +87,7 @@ public class PrescriptionService {
         }
     }
 
-    public Prescription getAPrescriptionsById(Long prescriptionId) {
+    public Prescription getAPrescriptionById(Long prescriptionId) {
         Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
         if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
             Optional<Prescription> onePrescription = prescriptionRepository.findById(prescriptionId);
@@ -106,9 +106,9 @@ public class PrescriptionService {
 
 
     public Prescription deletePrescription(Long prescriptionId) {
-//        Prescription prescription =
+        Prescription prescription = getAPrescriptionById(prescriptionId);
                 prescriptionRepository.deleteById(prescriptionId);
-                //return prescription;
+                return prescription;
 
 
     }

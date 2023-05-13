@@ -44,11 +44,11 @@ private Prescription prescriptionToAdd;
     public void aUserHadAuthorizationRoleOfPharmacist() {
     }
 
-    @Given("a prescription exists")
-    public void aPrescriptionExists() {
-        // Add a prescription to the database or use a test helper method to create a prescription
-        prescriptionToAdd = prescriptionService.addPrescription(new Prescription());
-    }
+//    @Given("a prescription exists")
+//    public void aPrescriptionExists() {
+//        // Add a prescription to the database or use a test helper method to create a prescription
+//        prescriptionToAdd = prescriptionService.addPrescription(new Prescription());
+//    }
 
     @When("the pharmacist deletes a prescription")
     public void thePharmacistDeletesAPrescription() {

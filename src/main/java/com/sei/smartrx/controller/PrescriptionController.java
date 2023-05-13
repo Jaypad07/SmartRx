@@ -52,8 +52,9 @@ public class PrescriptionController {
 
 @DeleteMapping(path = "/prescriptions/{prescriptionId}")
     public Prescription deletePrescription(@PathVariable Long prescriptionId ) {
-        // Implement the logic to delete the prescription
-        return prescriptionService.deletePrescription(prescriptionId);
+    // Implement the logic to delete the prescription
+    return prescriptionService.deletePrescription(prescriptionId);
+}
 
     @GetMapping (path="/pharmacist/prescriptions")
     public List<Prescription> allPrescriptions(){
@@ -62,7 +63,7 @@ public class PrescriptionController {
     }
 
     @GetMapping (path="/pharmacist/prescriptions/{prescriptionId}")
-    public Prescription allPrescriptions(@PathVariable Long prescriptionId){
-        return prescriptionService.getAPrescriptionsById(prescriptionId);
+    public Prescription getAPrescription(@PathVariable Long prescriptionId){
+        return prescriptionService.getAPrescriptionById(prescriptionId);
     }
 }
