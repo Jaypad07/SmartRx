@@ -63,7 +63,7 @@ public class UserController {
      * @return ResponseEntity that allows developer to access status codes, headers, and response body.
      */
     @DeleteMapping(path = "/users")
-    public ResponseEntity<?> deleteUser() {
-        return userService.deleteUser();
+    public ResponseEntity<?> deleteCurrentUser() {
+        return userService.deleteCurrentUser();
     }
 }

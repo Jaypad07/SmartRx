@@ -66,4 +66,9 @@ public class PrescriptionController {
     public Prescription createPrescriptionForUser(@PathVariable Long prescriptionId, @PathVariable Long userId, @RequestBody Prescription prescriptionObject) {
         return prescriptionService.createPrescriptionForUser(prescriptionId, userId, prescriptionObject);
     }
+
+@DeleteMapping(path = "/prescriptions/{prescriptionId}")
+    public Prescription deletePrescription(@PathVariable Long prescriptionId ) {
+        return prescriptionService.deletePrescription(prescriptionId);
+    }
 }

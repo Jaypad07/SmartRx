@@ -123,4 +123,10 @@ public class PrescriptionService {
             }
         } else throw new NoAuthorizationException("Not authorized to create a prescription");
     }///build a method that sets medication to prescription list. THen another that sets prescription list to medication
+
+    public Prescription deletePrescription(Long prescriptionId) {
+        Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
+        prescriptionRepository.deleteById(prescriptionId);
+        return prescription.get();
+    }
 }

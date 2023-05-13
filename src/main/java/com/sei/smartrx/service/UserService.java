@@ -86,7 +86,6 @@ public class UserService {
         updatedUser.setAllergies(userObject.getAllergies());
         updatedUser.setPassword(getCurrentLoggedInUser().getPassword());
         return userRepository.save(updatedUser);
-
     }
 
     public ResponseEntity<?> deleteCurrentUser() {
