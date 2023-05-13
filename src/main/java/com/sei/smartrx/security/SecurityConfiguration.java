@@ -31,7 +31,11 @@ public class SecurityConfiguration {
     @Autowired
     public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService){ this.myUserDetailsService = myUserDetailsService;}
 
-    
+    /**
+     * Creates and returns an instance of JwtRequestFilter
+     *
+     * @return the JwtRequestFilter instance
+     */
     @Bean
     public JwtRequestFilter authJwtRequestFilter(){return new JwtRequestFilter();}
     @Bean
