@@ -248,9 +248,9 @@ public class SpringBootCucumberTestDefinitions {
 
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
+        request.header("Authorization","Bearer "+ getJWTAsPharmacist());
         JSONObject requestBody = new JSONObject(); //JSON object with the updated prescription status
         requestBody.put("status", true); //Put request to update the prescription status
-        request.header("Authorization","Bearer "+ getJWTAsPharmacist());
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).put(BASE_URL+ port + "/api/pharmacist/prescription/1");
         int statusCode = response.getStatusCode();
@@ -260,8 +260,6 @@ public class SpringBootCucumberTestDefinitions {
     @Then("the prescription is updated")
     public void thePrescriptionIsUpdated() {
         assertEquals(200, response.getStatusCode());
-
-
     }
 
 
@@ -273,7 +271,6 @@ public class SpringBootCucumberTestDefinitions {
         ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL+port+"/api/pharmacist/prescriptions/1", HttpMethod.GET, httpEntity, String.class);
         Map<String, String> onePrescription = JsonPath.from(String.valueOf(response.getBody())).get();
         Assert.assertNotNull(onePrescription);
-
     }
 
     @Then("a pharmacist should see that one prescription")
@@ -285,8 +282,8 @@ public class SpringBootCucumberTestDefinitions {
     public void thePharmacistDeletesAPrescription() throws JSONException {
         RestAssured.baseURI = BASE_URL;
         RequestSpecification request = RestAssured.given();
-        request.header("Content-Type", "application/json");
         request.header("Authorization","Bearer "+ getJWTAsPharmacist());
+        request.header("Content-Type", "application/json");
         response = request.delete(BASE_URL + port + "/api/pharmacist/prescriptions/1");
     }
 
@@ -294,6 +291,23 @@ public class SpringBootCucumberTestDefinitions {
     @Then("the prescription is deleted")
     public void thePrescriptionIsDeleted() {
         Assert.assertEquals(200, response.getStatusCode());
+    }
+
+    @When("a pharmacist creates a prescription")
+    public void aPharmacistCreatesAPrescription() throws JSONException {
+        RestAssured.baseURI = BASE_URL;
+        RequestSpecification request = RestAssured.given();
+        request.header("Authorization","Bearer "+ getJWTAsPharmacist());
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("patientName", "Stacey Smith");
+        requestBody.put("refills", 3);
+        requestBody.put("endDate", "2023-09-06");
+        requestBody.put("status", true);
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/pharmacist/prescriptions/1/1");
+    }
+
+    @Then("the prescription is created")
+    public void thePrescriptionIsCreated() {
     }
 }
 
