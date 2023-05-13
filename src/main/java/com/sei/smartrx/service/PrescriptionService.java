@@ -102,11 +102,13 @@ public class PrescriptionService {
             throw new NoAuthorizationException("Not authorized to view this prescription");
         }
     }
-    public Prescription createPrescription(Long prescriptionId, Long userId, Prescription prescriptionObject) {
+    public Prescription createPrescriptionForUser(Long prescriptionId, Long userId, Prescription prescriptionObject) {
         Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
         if (prescription.isPresent()) {
             throw new InformationExistException("Prescription with " + prescriptionId + "already exists.");
-        }else prescriptionObject.setUser(userRepository.findById(userId).get());
+        }else {
+            prescriptionObject.setUser(userRepository.findById(userId).get());
+        }
         return prescriptionRepository.save(prescriptionObject);
     }
 

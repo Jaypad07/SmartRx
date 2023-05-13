@@ -43,7 +43,7 @@ public class PrescriptionController {
 
     /**
      * GET: endpoint http://localhost:8080/api/prescriptions/medications/1
-     * @param medicationID
+     * @param
      * @return a Medication object
      */
     @GetMapping(path="/prescriptions/medications/{medicationId}")
@@ -57,13 +57,13 @@ public class PrescriptionController {
     }
 
     @GetMapping (path="/pharmacist/prescriptions/{prescriptionId}")
-    public Prescription allPrescriptions(@PathVariable Long prescriptionId){
+    public Prescription getAPrescriptionId(@PathVariable Long prescriptionId){
         return prescriptionService.getAPrescriptionsById(prescriptionId);
     }
 
 
     @PostMapping(path = "pharmacist/prescriptions/{prescriptionId}/{userId}")
-    public Prescription createPrescription(@PathVariable Long prescriptionId, @PathVariable Long userId, @RequestBody Prescription prescriptionObject) {
-        return prescriptionService.createPrescription(prescriptionId, userId, prescriptionObject);
+    public Prescription createPrescriptionForUser(@PathVariable Long prescriptionId, @PathVariable Long userId, @RequestBody Prescription prescriptionObject) {
+        return prescriptionService.createPrescriptionForUser(prescriptionId, userId, prescriptionObject);
     }
 }

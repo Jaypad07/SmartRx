@@ -1,7 +1,6 @@
 package definitions;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sei.smartrx.SmartRxApplication;
 import com.sei.smartrx.models.User;
 import io.cucumber.java.en.Given;
@@ -46,7 +45,7 @@ public class SpringBootCucumberTestDefinitions {
      * @return JWT as a String
      * @throws JSONException
      */
-    public String getYourKey() throws JSONException {
+    public String getYourJWT() throws JSONException {
       RequestSpecification request = RestAssured.given();
       JSONObject jsonObject = new JSONObject();
       jsonObject.put("email", "email@email.com");
@@ -140,7 +139,7 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("dob", "1983-03-06");
         requestBody.put("allergies", "apples");
         request.header("Content-Type", "application/json");
-        request.header("Authorization", "Bearer "+ getYourKey());
+        request.header("Authorization", "Bearer "+ getYourJWT());
         response = request.body(requestBody.toString()).put(BASE_URL + port + "/api/users");
     }
     @Then("user information will be updated")
@@ -152,7 +151,7 @@ public class SpringBootCucumberTestDefinitions {
         try {
             RestAssured.baseURI = BASE_URL + port;
             RequestSpecification request = RestAssured.given();
-            request.header("Authorization", "Bearer "+ getYourKey());
+            request.header("Authorization", "Bearer "+ getYourJWT());
             response = request.delete("/api/users");
             //status code 204, no content shown when account is deleted
         } catch (HttpClientErrorException e) {
@@ -182,7 +181,7 @@ public class SpringBootCucumberTestDefinitions {
         try{
             RestAssured.baseURI = BASE_URL;
             RequestSpecification request = RestAssured.given();
-            request.header("Authorization", "Bearer "+ getYourKey());
+            request.header("Authorization", "Bearer "+ getYourJWT());
             Response response1 = request.get(BASE_URL + port + "/api/prescriptions/medications/1");
             Assert.assertEquals(200, response1.getStatusCode());
         } catch(HttpClientErrorException e){
@@ -199,7 +198,7 @@ public class SpringBootCucumberTestDefinitions {
     @When("user searches for their prescriptions")
     public void userSearchesForTheirPrescriptions() throws JSONException, JsonProcessingException {
        HttpHeaders authenticationHeader = new HttpHeaders();
-       authenticationHeader.set("Authorization","Bearer "+getYourKey());
+       authenticationHeader.set("Authorization","Bearer "+ getYourJWT());
        HttpEntity<String> httpEntity = new HttpEntity<>(authenticationHeader);
        ResponseEntity<String> response = new RestTemplate().exchange(BASE_URL+port+"/api/prescriptions", HttpMethod.GET, httpEntity, String.class);
         List<Map<String, String>> prescriptions = JsonPath.from(String.valueOf(response.getBody())).get();
