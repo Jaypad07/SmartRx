@@ -32,6 +32,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
      * if the String has length/not null and starts with correct "Bearer"
      * returns substring that is only key and has Bearer removed.
      * returns String token key
+     * @param request the HTTP request
+     * @return the JWT token extracted from the request, or null if not found
      */
     private String parseJwt(HttpServletRequest request) {
         String headerAuth = request.getHeader("Authorization");
