@@ -137,12 +137,17 @@ public class PrescriptionService {
 
     /**
      * this method allows a pharmacist to update a prescription.
-     * the method first checks if if the prescription exists in the database.
-     * if the prescription is found, the prescription fields will be updated with
-     * values from the prescription object.
-     * a PrescriptionNotFoundException thrown if prescription not found
+     * the method starts by checking if the current logged-in user is a
+     * pharmacist to update the prescription. If the user is a pharmacist, then
+     * the code checks if the prescription exists in the database by its
+     * prescriptionId. If the prescription exists, then the code updates the
+     * prescription with the new information, saves it to the system, and finally returns
+     * the updated prescription. If the user is not a pharmacist or does not have the
+     * authorization to update the prescription, then the code throws a not authorized
+     * exception. If the prescription does not exist in the system, then the code throws
+     * prescription could not be found exception.
+     * @param prescriptionId
      * @param prescriptionObject
-     * @return prescriptionObject
      */
     public Prescription updatePrescription(Prescription prescriptionObject, Long prescriptionId) {
         Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
