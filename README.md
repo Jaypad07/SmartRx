@@ -172,3 +172,22 @@ http://localhost:8080
 You can now explore and interact with the application.
 
 7. API Documentation
+
+
+
+
+## Credits
+
+We would like to extend our gratitude to the following individuals for their contributions to this project:
+
+- [Edgar Zambrana](https://github.com/johndoe) - [LinkedIn](https://www.linkedin.com/in/johndoe)
+- [Lorena Rojas](https://github.com/janesmith) - [LinkedIn](https://www.linkedin.com/in/janesmith)
+- [Maksym Zinchenko](https://github.com/alexjohnson) - [LinkedIn](https://www.linkedin.com/in/alexjohnson)
+
+Our Instructors:
+- [Edgar Zambrana](https://github.com/johndoe) - [LinkedIn](https://www.linkedin.com/in/johndoe)
+- [Lorena Rojas](https://github.com/janesmith) - [LinkedIn](https://www.linkedin.com/in/janesmith)
+- [Maksym Zinchenko](https://github.com/alexjohnson) - [LinkedIn](https://www.linkedin.com/in/alexjohnson)
+
+Their dedication and expertise have greatly contributed to the success of this project. We are grateful for their valuable insights and efforts.
+
