@@ -22,10 +22,21 @@ import org.springframework.web.context.WebApplicationContext;
 public class SecurityConfiguration {
 
     private MyUserDetailsService myUserDetailsService;
+
+    /**
+     * Sets the MyUserDetailsService dependency.
+     *
+     * @param myUserDetailsService the MyUserDetailsService instance to be injected
+     */
     @Autowired
     public void setMyUserDetailsService(MyUserDetailsService myUserDetailsService){ this.myUserDetailsService = myUserDetailsService;}
 
-    @Bean //creates a singleton, makes one object for entire application. Instead of multiple instances!
+    /**
+     * Creates and returns an instance of JwtRequestFilter
+     *
+     * @return the JwtRequestFilter instance
+     */
+    @Bean
     public JwtRequestFilter authJwtRequestFilter(){return new JwtRequestFilter();}
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
@@ -34,9 +45,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers(
-                        "/auth/users/register",
-                        "/auth/users/login"
-                ).permitAll() //any other requests besides the ones above, require session and authentication
+                        "/api/auth/users/register",
+                        "/api/auth/users/login"
+                ).permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -63,5 +74,4 @@ public class SecurityConfiguration {
         return (MyUserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
     }
-
 }
