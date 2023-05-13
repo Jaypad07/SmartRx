@@ -45,12 +45,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     }
 
     /**
-     * @param request
-     * @param response
-     * @param filterChain
-     * filters HTTP request using FilterChain object, parses the JWT from the request, then loads the UserProfile with username and authentication details.
-     * @throws ServletException
-     * @throws IOException
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @param filterChain the filter chain for invoking the next filter
+     * filters HTTP request using FilterChain object, parses the JWT from the request, then loads the UserProfile with username and authentication details and authenticates the user if a valid JWT token is present.
+     *
+     * @throws ServletException if an error occurs during the servlet handling
+     * @throws IOException if an I/O error occurs during the servlet handling
      */
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
