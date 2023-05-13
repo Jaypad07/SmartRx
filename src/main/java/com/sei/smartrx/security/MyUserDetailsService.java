@@ -17,11 +17,23 @@ public class MyUserDetailsService implements UserDetailsService {
      */
     private UserService userService;
 
+    /**
+     * Sets the UserService dependency.
+     *
+     * @param userService the UserService instance to be injected
+     */
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
+    /**
+     * Loads a user by the given email and returns UserDetails.
+     *
+     * @param email the email of the user to load
+     * @return the UserDetails of the loaded user
+     * @throws UsernameNotFoundException if the user with the given email is not found
+     */
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = userService.findUserByEmail(email);
