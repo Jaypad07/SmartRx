@@ -39,10 +39,23 @@ public class UserService {
         this.myUserDetails = myUserDetails;
     }
 
+    /**
+     * Retrives the current logged-in user.
+     *
+     * @return the User instance representing the current logged-in user.
+     */
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUser();
     }
+
+    /**
+     * Creates a new user.
+     *
+     * @param userObject the User object containing user details
+     * @return the created User object
+     * @throws InformationNotFoundException if a user with the provided email already exists.
+     */
 
     public User createUser(User userObject){
         if (!userRepository.existsByEmail(userObject.getEmail())) {
@@ -51,9 +64,21 @@ public class UserService {
         }else throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
     }
 
+    /**
+     * Finds a user by their email.
+     * @param email the email of the user to find
+     * @return the User object corresponding to the provided email
+     */
     public User findUserByEmail(String email){
         return userRepository.findUserByEmail(email);
     }
+
+
+    /**
+     * Logs in a user with the provided credentials
+     * @param loginRequest the LoginRequest object containing login credentials
+     * @return a ResponseEntity containing a login response
+     */
 
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
         try {
@@ -67,6 +92,8 @@ public class UserService {
             return ResponseEntity.ok(new LoginResponse("Error: username or password is incorrect"));
         }
     }
+
+    
 
     public User getUser(){
         Optional<User> user = userRepository.findById(getCurrentLoggedInUser().getId());
