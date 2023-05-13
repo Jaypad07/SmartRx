@@ -38,10 +38,23 @@ public class SecurityConfiguration {
      */
     @Bean
     public JwtRequestFilter authJwtRequestFilter(){return new JwtRequestFilter();}
+
+    /**
+     * Creates and returns an instance of BCryptPasswordEncoder
+     * @return the BCryptPasswordEncoder instance
+     *
+     */
     @Bean
     public BCryptPasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
+
+    /**
+     * Configures the security filter chain.
+     * @param http the HTTPSecurity instance to configure
+     * @return the configured SecurityFilterChain
+     * @throws Exception if an error occurs during configuratoin
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         http.authorizeRequests().antMatchers(
@@ -55,11 +68,22 @@ public class SecurityConfiguration {
         http.addFilterBefore(authJwtRequestFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
+
+    /**
+     * Creates and returns an instance of AuthenticationManager
+     * @param authConfig the AuthenticationConfiguration instance
+     * @return the AuthenticationManager instance
+     * @throws Exception if an error occurs during creation
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+    /**
+     * Creates and returns an instance of DaoAuthenticationProvier
+     * @return the DaoAuthenticationProvider instance
+     */
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -67,6 +91,12 @@ public class SecurityConfiguration {
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
+
+    /**
+     * Creates and returns an instance of MyUserDetails within scoped proxy mode.
+     *
+     * @return the MyUserDetails instance
+     */
 
     @Bean
     @Scope(value = WebApplicationContext.SCOPE_REQUEST, proxyMode = ScopedProxyMode.TARGET_CLASS)
