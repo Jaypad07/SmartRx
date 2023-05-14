@@ -303,11 +303,13 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("refills", 3);
         requestBody.put("endDate", "2023-09-06");
         requestBody.put("status", true);
+        request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/pharmacist/prescriptions/1/1");
     }
 
     @Then("the prescription is created")
     public void thePrescriptionIsCreated() {
+        Assert.assertEquals(200, response.getStatusCode());
     }
 }
 

@@ -106,12 +106,11 @@ public class PrescriptionService {
             throw new NoAuthorizationException("Not authorized to view this prescription");
         }
     }
-    public Prescription createPrescriptionForUser(Long userId, Long medicationId, Prescription prescriptionObject) {
+    public Prescription createPrescriptionForUser(Long userId, List<Long> medicationIds, Prescription prescriptionObject) {
         Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
         if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
-            List<Medication> medications = new ArrayList<>();
-            medications.add(getAMedication(medicationId));
-//            List<Long> listLongIds = Arrays.asList(1L);
+//            List<Medication> medications = new ArrayList<>();
+//            medications.add(getAMedication(medicationIds));
                 Optional<User> user = userRepository.findById(userId);
                 if (user.isPresent()) {
                     prescriptionObject.setUser(user.get());
@@ -119,14 +118,18 @@ public class PrescriptionService {
                     prescriptionObject.setRefills(prescriptionObject.getRefills());
                     prescriptionObject.setEndDate(prescriptionObject.getEndDate());
                     prescriptionObject.setStatus(prescriptionObject.getStatus());
-                    prescriptionObject.setMedicationList(medications); //May delete for medication method.
+                    prescriptionObject.setMedicationList(medicationRepository.findAllById(medicationIds));
                     return prescriptionRepository.save(prescriptionObject);
                 } else throw new InformationNotFoundException("User with ID " + userId + " does not exist.");
-
         } else throw new NoAuthorizationException("Not authorized to create a prescription");
-    }///build a method that sets medication to prescription list. THen another that sets prescription list to medication
+    }
 
-    public Medication addMedication(Medication medicationObject) {
+//    public Medication addAMedicationToAnExistingPrescription(Long prescriptionId, Prescription prescriptionObject) {
+//        List<Medication> medications = new ArrayList<>();
+//        prescriptionObject.setMedicationList(medications);
+//    }
+
+    public Medication addMedicationToDataBase(Medication medicationObject) {
         Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
         if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
             medicationObject.setName(medicationObject.getName());

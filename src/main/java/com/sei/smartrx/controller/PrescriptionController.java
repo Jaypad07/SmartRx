@@ -67,7 +67,6 @@ public class PrescriptionController {
      * @param Long prescriptionId
      * @return Prescription
      */
-
     @PutMapping(path="/pharmacist/prescription/{prescriptionId}")
     public Prescription updatePrescription(@RequestBody Prescription prescriptionObject,
                                            @PathVariable Long prescriptionId) {
@@ -81,9 +80,9 @@ public class PrescriptionController {
     }
 
 
-    @PostMapping(path = "/pharmacist/prescriptions/{userId}/{medicationId}")
-    public Prescription createPrescriptionForUser(@PathVariable Long userId, @PathVariable Long medicationId, @RequestBody Prescription prescriptionObject) {
-        return prescriptionService.createPrescriptionForUser(userId, medicationId, prescriptionObject);
+    @PostMapping(path = "/pharmacist/prescriptions/{userId}")
+    public Prescription createPrescriptionForUser(@PathVariable Long userId, @RequestParam("ids") List<Long> medicationIds, @RequestBody Prescription prescriptionObject) {
+        return prescriptionService.createPrescriptionForUser(userId, medicationIds, prescriptionObject);
     }
 
     @DeleteMapping(path = "/pharmacist/prescriptions/{prescriptionId}")

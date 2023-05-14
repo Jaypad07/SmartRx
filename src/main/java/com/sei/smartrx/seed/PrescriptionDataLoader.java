@@ -64,7 +64,9 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             Prescription prescription4 = new Prescription("Another name", 6, currentDate, true);
             Prescription prescription5 = new Prescription("Patient A", 0, currentDate, false);
 
-            Medication medication1 = new Medication(1L, "name", "genName", "contra", "sideEffects", "ingred");
+            Medication medication1 = new Medication(1L, "name", "genName", "contra", "sideEffects", "ingredients");
+            Medication medication2 = new Medication(2L, "name2", "genName2", "contra2", "sideEffects2", "ingredients2");
+            Medication medication3 = new Medication(3L, "name3", "genName3", "contra3", "sideEffects3", "ingredients3");
 
             User user = new User("Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
             User user2 = new User("Mike", "Harrington", "email1@email.com", currentDate, "password1", "seafood, iodine");
@@ -101,7 +103,8 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             prescriptionRepository.saveAll(prescriptionList);
             prescriptionRepository.saveAll(prescriptionList2);
             medicationRepository.save(medication1);
-
+            medicationRepository.save(medication2);
+            medicationRepository.save(medication3);
         }
     }
 }
