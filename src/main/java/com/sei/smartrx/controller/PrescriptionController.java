@@ -79,7 +79,7 @@ public class PrescriptionController {
     /**
      * GET: endpoint http://localhost:8080/api/pharmacist/prescriptions/1
      * GET A SPECIFIC PRESCRIPTION BY ID. Must be a pharmacist to see any prescription, verifies in prescription service.
-     * @param prescriptionId prescriptionId
+     * @param prescriptionId Long
      * @return Prescription
      */
     @GetMapping (path="/pharmacist/prescriptions/{prescriptionId}")
@@ -91,10 +91,10 @@ public class PrescriptionController {
      * POST: endpoint http://localhost:8080/api/pharmacist/prescriptions/1?ids=1,2,3
      * The @PathVariable annotation is used to retrieve the userId from the path,
      * and the @RequestParam annotation is used to retrieve the ids request parameter, which represents a list of medication IDs.
-     * @param userId
-     * @param medicationIds
-     * @param prescriptionObject
-     * @return
+     * @param userId The ID of the user for whom the prescriptions are being updated.
+     * @param medicationIds A list of medication IDs associated with the prescriptions.
+     * @param prescriptionObject An object representing the updated prescription's data.
+     * @return a prescription filled with a set user and medication List
      */
     @PostMapping(path = "/pharmacist/prescriptions/{userId}")
     public Prescription createPrescriptionForUser(@PathVariable Long userId, @RequestParam("ids") List<Long> medicationIds, @RequestBody Prescription prescriptionObject) {
