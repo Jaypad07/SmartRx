@@ -2,9 +2,6 @@ package com.sei.smartrx.controller;
 
 import com.sei.smartrx.models.Medication;
 import com.sei.smartrx.models.Prescription;
-import com.sei.smartrx.models.User;
-import com.sei.smartrx.models.request.LoginRequest;
-import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.service.PrescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +30,7 @@ public class PrescriptionController {
 
     /**
      * GET: endpoint http://localhost:8080/api/newRequest/prescriptions/1
-     * @param Long medicationID
+     * @param prescriptionId medicationID
      * @return Prescription the user has requested to be refilled with updates refill #
      */
     @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
@@ -64,12 +61,11 @@ public class PrescriptionController {
 
     /**
      *GET A SPECIFIC PRESCRIPTION BY ID. Must be a pharmacist to see any prescription, verifies in prescription service.
-     * @param Long prescriptionId
+     * @param prescriptionId prescriptionObject
      * @return Prescription
      */
     @PutMapping(path="/pharmacist/prescription/{prescriptionId}")
-    public Prescription updatePrescription(@RequestBody Prescription prescriptionObject,
-                                           @PathVariable Long prescriptionId) {
+    public Prescription updatePrescription(@PathVariable Long prescriptionId, @RequestBody Prescription prescriptionObject) {
         return prescriptionService.updatePrescription(prescriptionObject, prescriptionId);
     }
 
@@ -79,7 +75,14 @@ public class PrescriptionController {
         return prescriptionService.getAPrescriptionsById(prescriptionId);
     }
 
-
+    /**
+     * The @PathVariable annotation is used to retrieve the userId from the path,
+     * and the @RequestParam annotation is used to retrieve the ids request parameter, which represents a list of medication IDs.
+     * @param userId
+     * @param medicationIds
+     * @param prescriptionObject
+     * @return
+     */
     @PostMapping(path = "/pharmacist/prescriptions/{userId}")
     public Prescription createPrescriptionForUser(@PathVariable Long userId, @RequestParam("ids") List<Long> medicationIds, @RequestBody Prescription prescriptionObject) {
         return prescriptionService.createPrescriptionForUser(userId, medicationIds, prescriptionObject);

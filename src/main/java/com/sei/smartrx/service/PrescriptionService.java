@@ -1,6 +1,5 @@
 package com.sei.smartrx.service;
 
-import com.sei.smartrx.exceptions.InformationExistException;
 import com.sei.smartrx.exceptions.InformationNotFoundException;
 import com.sei.smartrx.exceptions.PrescriptionNotFoundException;
 import com.sei.smartrx.exceptions.NoAuthorizationException;
@@ -16,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +47,12 @@ public class PrescriptionService {
     public void setPrescriptionRepository(PrescriptionRepository prescriptionRepository) {
         this.prescriptionRepository = prescriptionRepository;
     }
+
+    /**
+     * sets the PrescriptionRepository dependency.
+     *
+     * @param userRepository the UserRepository
+     */
 
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
@@ -138,6 +141,12 @@ public class PrescriptionService {
         }
     }
 
+    /**
+     * Allows a user with the Pharmacist role to retrieve a prescription from the user ID provided.
+     * @param prescriptionId
+     * @return the Prescription instance corresponding to the ID provided
+     */
+
     public Prescription getAPrescriptionsById(Long prescriptionId) {
         Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
         if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
@@ -151,11 +160,21 @@ public class PrescriptionService {
             throw new NoAuthorizationException("Not authorized to view this prescription");
         }
     }
+
+    /**
+     * Allows a user with the Pharmacist role to create a prescription. It begins with checking that the user
+     * is of the Pharmacist role. After this, it confirms that the user exists in the user database. Once it has
+     * confirmed that a user exists, it will set that user as the owner of this prescription and will then continue
+     * to set the all prescription details set by the Pharmacist. Lastly, it will search the medication database to find
+     * all ID's linked to the medications, and set this list of medications to the prescription.
+     * @param userId
+     * @param medicationIds
+     * @param prescriptionObject
+     * @return This will save return a completed prescription form set with medications.
+     */
     public Prescription createPrescriptionForUser(Long userId, List<Long> medicationIds, Prescription prescriptionObject) {
         Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
         if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
-//            List<Medication> medications = new ArrayList<>();
-//            medications.add(getAMedication(medicationIds));
                 Optional<User> user = userRepository.findById(userId);
                 if (user.isPresent()) {
                     prescriptionObject.setUser(user.get());
@@ -169,11 +188,11 @@ public class PrescriptionService {
         } else throw new NoAuthorizationException("Not authorized to create a prescription");
     }
 
-//    public Medication addAMedicationToAnExistingPrescription(Long prescriptionId, Prescription prescriptionObject) {
-//        List<Medication> medications = new ArrayList<>();
-//        prescriptionObject.setMedicationList(medications);
-//    }
-
+    /**
+     * This method will add new medications to the medication database
+     * @param medicationObject
+     * @return medication to be added to the database
+     */
     public Medication addMedicationToDataBase(Medication medicationObject) {
         Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
         if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
@@ -183,13 +202,22 @@ public class PrescriptionService {
             medicationObject.setSideEffects(medicationObject.getSideEffects());
             medicationObject.setIngredients(medicationObject.getIngredients());
            return medicationRepository.save(medicationObject);
-        }  throw new NoAuthorizationException("Not authorized to view this prescription");
+        } else throw new NoAuthorizationException("Unauthorized user. Unable to add medications to the database");
     }
 
+
+    /**
+     * This allows the Pharmacist to delete a prescription
+     * @param prescriptionId
+     * @return a 204 No content status code
+     */
     public Prescription deletePrescription(Long prescriptionId) {
-        Prescription prescription = getAPrescriptionsById(prescriptionId);
-        prescriptionRepository.deleteById(prescriptionId);
-        return prescription;
+        Optional<UserProfile> userProfile = Optional.ofNullable(getCurrentLoggedInUser().getUserProfile());
+        if (userProfile.isPresent() && userProfile.get().getRole().equals("ROLE_PHARMACIST")) {
+            Prescription prescription = getAPrescriptionsById(prescriptionId);
+            prescriptionRepository.deleteById(prescriptionId);
+            return prescription;
+        } else throw new NoAuthorizationException("Unauthorized user. Unable to remove prescription");
     }
 
     /**
