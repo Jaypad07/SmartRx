@@ -21,7 +21,7 @@ SmartRx REST API backend is a Java and Spring Boot application that provides a r
 - Contributing
 - Credits
 - References
-- 
+
 
 
 
