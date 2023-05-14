@@ -137,23 +137,29 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             medicationRepository.save(medication9);
             medicationRepository.save(medication10);
             //many medications belong to many prescriptions
-            List<Medication> medicationsForPrescription2 = new ArrayList<>();
-            medicationsForPrescription2.add(medication1);
-            medicationsForPrescription2.add(medication6);
-            medicationsForPrescription2.add(medication7);
-            medicationsForPrescription2.add(medication8);
-            medicationsForPrescription2.add(medication10);
             List<Medication> medicationsForPrescription1 = new ArrayList<>();
             medicationsForPrescription1.add(medication2);
             medicationsForPrescription1.add(medication5);
             medicationsForPrescription1.add(medication6);
             medicationsForPrescription1.add(medication8);
+            List<Medication> medicationsForPrescription2 = new ArrayList<>();
+            medicationsForPrescription2.add(medication6);
+            medicationsForPrescription2.add(medication10);
             List<Medication> medicationsForPrescription3 = new ArrayList<>();
             medicationsForPrescription3.add(medication9);
+            List<Medication> medicationsForPrescription4 = new ArrayList<>();
+            medicationsForPrescription4.add(medication3);
+            List<Medication> medicationsForPrescription5 = new ArrayList<>();
+            medicationsForPrescription5.add(medication5);
+            List<Medication> medicationsForPrescription6 = new ArrayList<>();
+            medicationsForPrescription6.add(medication7);
             //set the list of medications to the prescription object
             prescription1.setMedicationList(medicationsForPrescription1);
-            prescription4.setMedicationList(medicationsForPrescription2);
+            prescription2.setMedicationList(medicationsForPrescription2);
             prescription3.setMedicationList(medicationsForPrescription3);
+            prescription4.setMedicationList(medicationsForPrescription4);
+            prescription5.setMedicationList(medicationsForPrescription5);
+            prescription6.setMedicationList(medicationsForPrescription6);
 
             // save data
             userService.registerUser(user);
