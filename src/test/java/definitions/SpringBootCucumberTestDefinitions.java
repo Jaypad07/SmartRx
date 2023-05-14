@@ -414,7 +414,7 @@ public class SpringBootCucumberTestDefinitions {
         requestBody.put("endDate", "2023-09-06");
         requestBody.put("status", true);
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/pharmacist/prescriptions/1/1");
+        response = request.body(requestBody.toString()).post(BASE_URL + port + "/api/pharmacist/prescriptions/1?ids=1,2,3");
     }
 
     @Then("the prescription is created")
