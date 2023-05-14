@@ -246,7 +246,7 @@ To maintain consistency within the project, please adhere to the following code 
 - Write unit tests for new features or modifications to existing code.
 
 ### Code of Conduct
-We expect all contributors to adhere to the project's Code of Conduct. Please be respectful and considerate of others throughout the process.
+We expect all contributors to adhere to the project's [Code of Conduct](CODE_OF_CONDUCT.md). Please be respectful and considerate of others throughout the process.
 
 Thank you for your interest in contributing to this project! Your contributions are highly appreciated, and together we can make this project even better.
 
