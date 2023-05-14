@@ -139,12 +139,13 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             medicationsForPrescription2.add(medication8);
             medicationsForPrescription2.add(medication10);
             List<Medication> medicationsForPrescription1 = new ArrayList<>();
-            medicationsForPrescription2.add(medication2);
-            medicationsForPrescription2.add(medication5);
-            medicationsForPrescription2.add(medication6);
-            medicationsForPrescription2.add(medication8);
-            prescription2.setMedicationList(medicationsForPrescription2);
-            prescription1.setMedicationList(medicationsForPrescription1);
+            medicationsForPrescription1.add(medication2);
+            medicationsForPrescription1.add(medication5);
+            medicationsForPrescription1.add(medication6);
+            medicationsForPrescription1.add(medication8);
+            List<Medication> medicationsForPrescription3 = new ArrayList<>();
+            medicationsForPrescription3.add(medication9);
+            prescription3.setMedicationList(medicationsForPrescription3);
             // many prescriptions belong to one user
             user.setPrescriptionList(prescriptionList);
             user2.setPrescriptionList(prescriptionList2);
