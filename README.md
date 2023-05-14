@@ -1,28 +1,32 @@
 # SmartRx
 
+### Description
+SmartRx REST API backend is a Java and Spring Boot application that provides a robust and scalable solution for managing prescription and medication data. It serves as a reliable and efficient backend system to support various client applications such as web, mobile, or desktop applications.
+
 ## Table of Contents
-- Description
-- Tools and Technologies
+- Product Overview
+- Key Features
 - General Approach
 - Planning Documentation
-- ERD Diagram
-- MVC Diagram
-- Relationships
-
 - User Stories
+- ERD Diagram
 - Unsolved Problems & Hurdles Tackled
+- Testing (TDD Process)
+- Tools and Technologies
+- API Endpoints - User
+- API Endpoints - Pharmacist
 - Usage
 - Installation Instructions for Dependencies
 - How To Install and Run this Application on your own Machine
 - Contributing
 - Credits
+- References
+- 
 
 
-#### Description
-SmartRx REST API backend is a Java and Spring Boot application that provides a robust and scalable solution for managing prescription and medication data. It serves as a reliable and efficient backend system to support various client applications such as web, mobile, or desktop applications.
 
-
-### Key Features
+## Product Overview
+### Key Product Features
 ##### CRUD Operations:
 SmartRx allows users to perform Create, Read, Update, and Delete (CRUD) operations on prescription and medication data. Users can create new prescriptions, retrieve prescription details, update existing prescriptions, and delete prescriptions as needed.
 
@@ -66,16 +70,20 @@ Here are some key aspects of our general approach:
 
 9. Adaptability and Agility: We value adaptability and embrace changes throughout the development process. We regularly reflect on our progress, discuss lessons learned, and make adjustments to our approach as needed. This iterative mindset allows us to respond to evolving project requirements effectively.
 
-#### User Stories 
-[Link to User Stories]()
+
+### Planning Documentation
+
+#### User Stories
 ![image](images/BronzeUS.png)
-#### ERD Diagram 
-[Link to ERD DIAGRAM]()
+
+#### ERD Diagram
 ![image](images/ERD.png)
 
-#### Planning Documentation 
-[Link to Planning and Schedule]()
-![image]()
+##### External Links to Planning Documents
+- [Link to Planning and Schedule]()
+- [Link to ERD DIAGRAM]()
+- [Link to User Stories]()
+
 #### Unsolved Problems and Hurdles Tackled
 ![image](images/image.png)
 
@@ -86,6 +94,7 @@ Here are some key aspects of our general approach:
 This project follows the Test Driven Development (TDD) approach to ensure the reliability and correctness of the codebase. TDD involves writing tests before implementing the actual code logic.
 
 Here's an overview of the TDD process followed in this project:
+![image](images/TDDchart.png)
 
 1. **Write Tests**: Tests are written in the form of Cucumber feature files using Gherkin syntax. Each feature file describes a specific functionality or scenario to be tested. Test scenarios are written in a user-friendly language that captures the expected behavior of the system.
 
@@ -95,7 +104,7 @@ Here's an overview of the TDD process followed in this project:
 
 4. **Refactor Code**: Once the tests pass, the code is refactored to improve its design, readability, and maintainability. Refactoring involves making changes to the code without altering its behavior. The goal is to enhance the code's structure, eliminate duplication, and improve overall code quality.
 
-**Re-run Tests**: After refactoring the code, the tests are re-run to ensure that the changes have not introduced any regressions or unexpected behavior. This step verifies that the code still adheres to the desired functionality defined by the tests.
+5. **Re-run Tests**: After refactoring the code, the tests are re-run to ensure that the changes have not introduced any regressions or unexpected behavior. This step verifies that the code still adheres to the desired functionality defined by the tests.
 
 
 ### Tools and Technologies
@@ -198,7 +207,53 @@ http://localhost:8080
 ```
 You can now explore and interact with the application.
 
-7. API Documentation
+
+
+
+
+## Contributing 
+We welcome and appreciate contributions from the community! If you're interested in making this project better, you can contribute in several ways. Whether you want to report a bug, suggest a new feature, or submit code improvements, your contributions are valuable to us.
+
+To contribute to this project, please follow the guidelines below:
+
+### Reporting Issues
+If you encounter any issues or bugs while using this project, please open an issue on the GitHub repository. When reporting an issue, provide as much detail as possible, including:
+
+- A clear and concise description of the problem
+- Steps to reproduce the issue
+- Any relevant error messages or screenshots 
+
+### Suggesting Enhancements
+If you have an idea to enhance this project or want to propose a new feature, feel free to submit a feature request on the GitHub repository. Clearly describe your suggestion and provide any additional context that might be helpful.
+
+### Making Code Contributions
+If you're interested in contributing code to this project, we're thrilled to have your help! Here's how you can get started:
+
+- Fork the repository to your GitHub account.
+- Create a new branch for your feature or bug fix.
+- Make the necessary changes and ensure that the code follows the project's coding guidelines.
+- Write appropriate tests to cover your changes.
+- Commit your changes and push them to your forked repository.
+- Open a pull request in the main repository and provide a detailed description of your changes.
+- Please note that all contributions will be thoroughly reviewed, and constructive feedback may be provided to ensure the quality and compatibility of the codebase.
+
+### Code Style Guidelines
+To maintain consistency within the project, please adhere to the following code style guidelines:
+
+- Use clear and descriptive variable and function names.
+- Follow the existing code formatting conventions.
+- Write concise and informative comments when necessary.
+- Write unit tests for new features or modifications to existing code.
+
+### Code of Conduct
+We expect all contributors to adhere to the project's Code of Conduct. Please be respectful and considerate of others throughout the process.
+
+Thank you for your interest in contributing to this project! Your contributions are highly appreciated, and together we can make this project even better.
+
+
+
+
+
 
 
 
@@ -208,13 +263,13 @@ You can now explore and interact with the application.
 We would like to extend our gratitude to the following individuals for their contributions to this project:
 
 - [Edgar Zambrana](https://github.com/EdgarJoell) - [LinkedIn](https://www.linkedin.com/in/edgar-j-zambrana-0b11a31b2/)
-- [Lorena Rojas](https://github.com/janesmith) - [LinkedIn](https://www.linkedin.com/in/janesmith)
-- [Maksym Zinchenko](https://github.com/alexjohnson) - [LinkedIn](https://www.linkedin.com/in/alexjohnson)
+- [Lorena Rojas](https://github.com/lrojas4) 
+- [Maksym Zinchenko](https://github.com/maklaut007) 
 
 Our Instructors:
-- [Leo Rodriguez](https://github.com/johndoe) - [LinkedIn](https://www.linkedin.com/in/johndoe)
-- [Suresh Sigera](https://github.com/janesmith) - [LinkedIn](https://www.linkedin.com/in/janesmith)
-- [Dhrubo Chowdhury](https://github.com/alexjohnson) - [LinkedIn](https://www.linkedin.com/in/alexjohnson)
+- Leo Rodriguez - [LinkedIn](https://www.linkedin.com/in/leonardo-rodriguez/)
+- [Suresh Sigera](https://github.com/sureshmelvinsigera) 
+- Dhrubo Chowdhury [LinkedIn](https://www.linkedin.com/in/dhrubo-hasan/)
 
 Their dedication and expertise have greatly contributed to the success of this project. We are grateful for their valuable insights and efforts.
 
