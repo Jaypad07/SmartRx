@@ -14,6 +14,11 @@ public class PrescriptionController {
 
     private PrescriptionService prescriptionService;
 
+    /**
+     * Sets the PrescriptionService instance for this PrescriptionManager.
+     * This method is used for dependency injection to provide the necessary service implementation.
+     * @param prescriptionService The PrescriptionService instance to be injected.
+     */
     @Autowired
     public void setPrescriptionService(PrescriptionService prescriptionService) {
         this.prescriptionService = prescriptionService;
@@ -30,7 +35,7 @@ public class PrescriptionController {
 
     /**
      * GET: endpoint http://localhost:8080/api/newRequest/prescriptions/1
-     * @param prescriptionId medicationID
+     * @param prescriptionId prescriptionId
      * @return Prescription the user has requested to be refilled with updates refill #
      */
     @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
@@ -51,7 +56,7 @@ public class PrescriptionController {
 
     /**
      * GET: endpoint http://localhost:8080/api/pharmacist/prescriptions
-     * GET ALL PRESCRIPTIONS, must have pharmacist userprofile role to access this through user servide.
+     * GET ALL PRESCRIPTIONS, must have pharmacist userprofile role to access this through user service.
      * @return a list of all prescriptions
      */
     @GetMapping (path="/pharmacist/prescriptions")
@@ -60,22 +65,30 @@ public class PrescriptionController {
     }
 
     /**
-     *GET A SPECIFIC PRESCRIPTION BY ID. Must be a pharmacist to see any prescription, verifies in prescription service.
-     * @param prescriptionId prescriptionObject
-     * @return Prescription
+     * PUT: endpoint http://localhost:8080/api/pharmacist/prescriptions/1
+     * UPDATE A SPECIFIC PRESCRIPTION, must have pharmacist userprofile role to access this through user service.
+     * @param prescriptionId
+     * @param prescriptionObject
+     * @return an instance of the updated prescription
      */
-    @PutMapping(path="/pharmacist/prescription/{prescriptionId}")
+    @PutMapping(path="/pharmacist/prescriptions/{prescriptionId}")
     public Prescription updatePrescription(@PathVariable Long prescriptionId, @RequestBody Prescription prescriptionObject) {
         return prescriptionService.updatePrescription(prescriptionObject, prescriptionId);
     }
 
-
+    /**
+     * GET: endpoint http://localhost:8080/api/pharmacist/prescriptions/1
+     * GET A SPECIFIC PRESCRIPTION BY ID. Must be a pharmacist to see any prescription, verifies in prescription service.
+     * @param prescriptionId prescriptionId
+     * @return Prescription
+     */
     @GetMapping (path="/pharmacist/prescriptions/{prescriptionId}")
     public Prescription getAPrescriptionId(@PathVariable Long prescriptionId){
         return prescriptionService.getAPrescriptionsById(prescriptionId);
     }
 
     /**
+     * POST: endpoint http://localhost:8080/api/pharmacist/prescriptions/1?ids=1,2,3
      * The @PathVariable annotation is used to retrieve the userId from the path,
      * and the @RequestParam annotation is used to retrieve the ids request parameter, which represents a list of medication IDs.
      * @param userId
@@ -88,6 +101,12 @@ public class PrescriptionController {
         return prescriptionService.createPrescriptionForUser(userId, medicationIds, prescriptionObject);
     }
 
+    /**
+     * DELETE: endpoint http://localhost:8080/api/pharmacist/prescriptions/1
+     * Deletes a specific prescription by ID. Must have Pharmacist role.
+     * @param prescriptionId
+     * @return Nothing
+     */
     @DeleteMapping(path = "/pharmacist/prescriptions/{prescriptionId}")
     public Prescription deletePrescription(@PathVariable Long prescriptionId ) {
         return prescriptionService.deletePrescription(prescriptionId);
