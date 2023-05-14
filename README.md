@@ -75,7 +75,7 @@ Here are some key aspects of our general approach:
 
 #### Planning Documentation 
 [Link to Planning and Schedule]()
-![image](images/image.png)
+![image]()
 #### Unsolved Problems and Hurdles Tackled
 ![image](images/image.png)
 
@@ -109,6 +109,19 @@ Here's an overview of the TDD process followed in this project:
 - Junit
 - Maven
 - IntelliJ IDEA
+
+
+### API Endpoints
+
+| Name        | API Endpoint         | HTTP Verb | Purpose           |
+|-------------|----------------------|-----------|-------------------|
+| Create User | /auth/users/register | POST      | Create a new User |
+| Login User  | /auth/users/login    | POST      | Logs in a User    | 
+| Show User   | /users               | GET       | Displays a User   |
+| Update User | /users               | PUT       | Displays a User   |
+| Delete User | /users               | DELETE    | Displays a User   |
+
+
 
 ### Installation Instructions For Dependencies 
 1. Open your project in an IDE or navigate to the project directory using the command line.
@@ -183,14 +196,14 @@ You can now explore and interact with the application.
 
 We would like to extend our gratitude to the following individuals for their contributions to this project:
 
-- [Edgar Zambrana](https://github.com/johndoe) - [LinkedIn](https://www.linkedin.com/in/johndoe)
+- [Edgar Zambrana](https://github.com/EdgarJoell) - [LinkedIn](https://www.linkedin.com/in/edgar-j-zambrana-0b11a31b2/)
 - [Lorena Rojas](https://github.com/janesmith) - [LinkedIn](https://www.linkedin.com/in/janesmith)
 - [Maksym Zinchenko](https://github.com/alexjohnson) - [LinkedIn](https://www.linkedin.com/in/alexjohnson)
 
 Our Instructors:
-- [Edgar Zambrana](https://github.com/johndoe) - [LinkedIn](https://www.linkedin.com/in/johndoe)
-- [Lorena Rojas](https://github.com/janesmith) - [LinkedIn](https://www.linkedin.com/in/janesmith)
-- [Maksym Zinchenko](https://github.com/alexjohnson) - [LinkedIn](https://www.linkedin.com/in/alexjohnson)
+- [Leo Rodriguez](https://github.com/johndoe) - [LinkedIn](https://www.linkedin.com/in/johndoe)
+- [Suresh Sigera](https://github.com/janesmith) - [LinkedIn](https://www.linkedin.com/in/janesmith)
+- [Dhrubo Chowdhury](https://github.com/alexjohnson) - [LinkedIn](https://www.linkedin.com/in/alexjohnson)
 
 Their dedication and expertise have greatly contributed to the success of this project. We are grateful for their valuable insights and efforts.
 
