@@ -139,7 +139,7 @@ public class SpringBootCucumberTestDefinitions {
     @When("I enter my username and password")
     public void iEnterMyUsernameAndPassword() {
         JsonPath jsonObject = new JsonPath(response.asString());
-        Assert.assertEquals("email@email.com", jsonObject.get("email"));
+        Assert.assertEquals("email100@email.com", jsonObject.get("email"));
         Assert.assertNotNull(jsonObject);
     }
 

@@ -28,7 +28,7 @@ public class UserController {
     }
     /**
      * POST: endpoint http://localhost:8080/api/auth/users/login
-     * @param Request Body loginRequest object
+     * @param loginRequest
      * @return ResponseEntity that allows developer to access status codes, headers, and response body.
      */
     @PostMapping(path="/auth/users/login")
@@ -46,7 +46,7 @@ public class UserController {
 
     /**
      * PUT: http://localhost:8080/api/users
-     * @param RequestBody UserObject
+     * @param userObject
      * @return model User with updated changes
      */
     @PutMapping(path = "/users")
@@ -55,7 +55,6 @@ public class UserController {
     }
     /**
      * DELETE: http://localhost:8080/api/users
-     * @param Long userId
      * @return ResponseEntity that allows developer to access status codes, headers, and response body.
      */
     @DeleteMapping(path = "/users")

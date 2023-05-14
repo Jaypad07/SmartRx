@@ -34,16 +34,6 @@ public class PrescriptionController {
     }
 
     /**
-     * GET: endpoint http://localhost:8080/api/newRequest/prescriptions/1
-     * @param prescriptionId prescriptionId
-     * @return Prescription the user has requested to be refilled with updates refill #
-     */
-    @GetMapping(path="/prescriptions/newRequest/{prescriptionId}")
-    public Prescription requestPrescriptionRefill(@PathVariable Long prescriptionId){
-        return prescriptionService.requestPrescriptionRefill(prescriptionId);
-    }
-
-    /**
      * GET: endpoint http://localhost:8080/api/prescriptions/medications/1
      * GET ONE MEDICATION, gets a medication by its ID.
      * @param medicationId medicationID
