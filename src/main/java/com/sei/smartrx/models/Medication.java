@@ -1,5 +1,4 @@
 package com.sei.smartrx.models;
-import com.sei.smartrx.models.Prescription;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
