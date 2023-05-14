@@ -8,7 +8,6 @@ import com.sei.smartrx.repository.MedicationRepository;
 import com.sei.smartrx.repository.PrescriptionRepository;
 import com.sei.smartrx.repository.UserRepository;
 import com.sei.smartrx.service.UserService;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 @Component
 public class PrescriptionDataLoader implements CommandLineRunner {
@@ -105,7 +103,14 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             UserProfile pharmacistProfile = new UserProfile("ROLE_PHARMACIST");
             user4.setUserProfile(pharmacistProfile);
 
-            // user can have many prescriptions
+            // each user is linked to each prescription
+            prescription1.setUser(user);
+            prescription2.setUser(user);
+            prescription5.setUser(user);
+            prescription3.setUser(user2);
+            prescription5.setUser(user3);
+
+            // user can have many prescriptions, this adds each prescription object to a list
             List<Prescription> prescriptionList = new ArrayList<>();
             prescriptionList.add(prescription1);
             prescriptionList.add(prescription2);
@@ -115,12 +120,12 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             List<Prescription> prescriptionList3 = new ArrayList<>();
             prescriptionList2.add(prescription4);
             prescriptionList2.add(prescription6);
-            // reference each prescription to user
-            prescription1.setUser(user);
-            prescription2.setUser(user);
-            prescription5.setUser(user);
-            prescription3.setUser(user2);
-            prescription5.setUser(user3);
+
+            // adding the list of many prescriptions to the user
+            user.setPrescriptionList(prescriptionList);
+            user2.setPrescriptionList(prescriptionList2);
+            user3.setPrescriptionList(prescriptionList3);
+            //saving all Medication data
             medicationRepository.save(medication1);
             medicationRepository.save(medication2);
             medicationRepository.save(medication3);
@@ -145,11 +150,11 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             medicationsForPrescription1.add(medication8);
             List<Medication> medicationsForPrescription3 = new ArrayList<>();
             medicationsForPrescription3.add(medication9);
+            //set the list of medications to the prescription object
+            prescription1.setMedicationList(medicationsForPrescription1);
+            prescription4.setMedicationList(medicationsForPrescription2);
             prescription3.setMedicationList(medicationsForPrescription3);
-            // many prescriptions belong to one user
-            user.setPrescriptionList(prescriptionList);
-            user2.setPrescriptionList(prescriptionList2);
-            user3.setPrescriptionList(prescriptionList3);
+
             // save data
             userService.registerUser(user);
             userService.registerUser(user2);
@@ -157,8 +162,6 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             userService.registerUser(user4);
             prescriptionRepository.saveAll(prescriptionList);
             prescriptionRepository.saveAll(prescriptionList2);
-
-
         }
     }
 }

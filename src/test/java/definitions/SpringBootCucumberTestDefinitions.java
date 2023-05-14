@@ -126,7 +126,7 @@ public class SpringBootCucumberTestDefinitions {
         RequestSpecification request = RestAssured.given();
         JSONObject requestBody = new JSONObject();
         requestBody.put("email", "email100@email.com");
-        requestBody.put("password", "password100");
+        requestBody.put("password", "password");
         request.header("Content-Type", "application/json");
         response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/auth/users/register");
     }
@@ -236,14 +236,6 @@ public class SpringBootCucumberTestDefinitions {
         }
     }
 
-    /**
-     * This precondition checks if a user can view a medication by medication ID.
-     */
-    @Given("A specific medication ID")
-    public void aSpecificMedicationID() {
-        Long medicationId = 1L;
-        Assert.assertTrue(medicationId == 1L);
-    }
 
     /**
      * This step definition verifies that a user can search for medication by
@@ -302,7 +294,15 @@ public class SpringBootCucumberTestDefinitions {
      * The appropriate authorization role in the system will be tested.
      */
     @Given("a User had authorization role of pharmacist")
-    public void aUserHadAuthorizationRoleOfPharmacist() {
+    public void aUserHadAuthorizationRoleOfPharmacist() throws JSONException {
+        RequestSpecification request = RestAssured.given();
+        JSONObject requestBody = new JSONObject();
+        requestBody.put("email", "pharmacist@cvs.com");
+        requestBody.put("password", "password");
+        request.header("Content-Type", "application/json");
+        response = request.body(requestBody.toString()).post(BASE_URL + port +"/api/auth/users/login");
+        Assert.assertEquals(200, response.statusCode());
+        Assert.assertNotNull(response);
     }
 
     /**
@@ -346,7 +346,7 @@ public class SpringBootCucumberTestDefinitions {
         JSONObject requestBody = new JSONObject(); //JSON object with the updated prescription status
         requestBody.put("status", true); //Put request to update the prescription status
         request.header("Content-Type", "application/json");
-        response = request.body(requestBody.toString()).put(BASE_URL+ port + "/api/pharmacist/prescription/1");
+        response = request.body(requestBody.toString()).put(BASE_URL+ port + "/api/pharmacist/prescriptions/1");
         int statusCode = response.getStatusCode();
         assertEquals(200, response.getStatusCode());
     }
