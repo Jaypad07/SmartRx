@@ -48,7 +48,9 @@ public class UserService {
     public User registerUser(User userObject){
         if (!userRepository.existsByEmail(userObject.getEmail())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
-            userObject.setUserProfile(new UserProfile()); // Adding a new User Profile should set automatically increase the ID, and we can use setRole to set user privileges.
+            if (userObject.getUserProfile() == null) {
+                userObject.setUserProfile(new UserProfile("ROLE_USER")); // Adding a new User Profile should set automatically increase the ID, and we can use setRole to set user privileges.
+            }
             return userRepository.save(userObject);
         }else throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
     }
