@@ -74,8 +74,9 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             User user4 = new User("Crosby", " Marsh", "pharmacist@cvs.com", currentDate, "password", "NKDA");
 
             //creating authorized pharmacist profile, setting user 4 userProfile to pharmacist.
-            UserProfile pharmacistProfile = new UserProfile("ROLE_PHARMACIST");
-            user4.setUserProfile(pharmacistProfile);
+//            UserProfile pharmacistProfile = new UserProfile("ROLE_PHARMACIST");
+//            user4.setUserProfile(pharmacistProfile);
+
 
             // user can have many prescriptions
             List<Prescription> prescriptionList = new ArrayList<>();
@@ -105,6 +106,7 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             medicationRepository.save(medication1);
             medicationRepository.save(medication2);
             medicationRepository.save(medication3);
+            user4.getUserProfile().setRole("ROLE_PHARMACIST");
         }
     }
 }
