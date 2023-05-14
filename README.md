@@ -59,7 +59,7 @@ Here are some key aspects of our general approach:
 5. Roles and Responsibilities: Within each pair or quad, we assign roles and responsibilities. We have a designated driver who actively writes the code, while the navigator provides guidance, reviews the code, and ensures adherence to best practices. We periodically rotate these roles to promote equal participation and knowledge sharing.
 
 
-6. Effective Communication: Communication is vital in our pairing sessions. We engage in open and frequent communication, discussing ideas, brainstorming solutions, and seeking clarifications. We value active listening and constructive feedback, which enables us to make informed decisions and deliver high-quality code.![image](images/Comm2.png)
+6. Effective Communication: Communication is vital in our pairing sessions. We engage in open and frequent communication, discussing ideas, brainstorming solutions, and seeking clarifications. We value active listening and constructive feedback, which enables us to make informed decisions and deliver high-quality code.
 
 
 7. Continuous Learning: Pair programming serves as a platform for continuous learning and skill development. We actively share insights, coding techniques, and best practices with each other. This collaborative learning environment helps us grow individually and as a team.
