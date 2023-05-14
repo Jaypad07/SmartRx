@@ -121,6 +121,16 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             prescription5.setUser(user);
             prescription3.setUser(user2);
             prescription5.setUser(user3);
+            medicationRepository.save(medication1);
+            medicationRepository.save(medication2);
+            medicationRepository.save(medication3);
+            medicationRepository.save(medication4);
+            medicationRepository.save(medication5);
+            medicationRepository.save(medication6);
+            medicationRepository.save(medication7);
+            medicationRepository.save(medication8);
+            medicationRepository.save(medication9);
+            medicationRepository.save(medication10);
             //many medications belong to many prescriptions
             List<Medication> medicationsForPrescription2 = new ArrayList<>();
             medicationsForPrescription2.add(medication1);
@@ -133,6 +143,8 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             medicationsForPrescription2.add(medication5);
             medicationsForPrescription2.add(medication6);
             medicationsForPrescription2.add(medication8);
+            prescription2.setMedicationList(medicationsForPrescription2);
+            prescription1.setMedicationList(medicationsForPrescription1);
             // many prescriptions belong to one user
             user.setPrescriptionList(prescriptionList);
             user2.setPrescriptionList(prescriptionList2);
@@ -144,16 +156,7 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             userService.registerUser(user4);
             prescriptionRepository.saveAll(prescriptionList);
             prescriptionRepository.saveAll(prescriptionList2);
-            medicationRepository.save(medication1);
-            medicationRepository.save(medication2);
-            medicationRepository.save(medication3);
-            medicationRepository.save(medication4);
-            medicationRepository.save(medication5);
-            medicationRepository.save(medication6);
-            medicationRepository.save(medication7);
-            medicationRepository.save(medication8);
-            medicationRepository.save(medication9);
-            medicationRepository.save(medication10);
+
 
         }
     }
