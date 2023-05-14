@@ -43,7 +43,7 @@ public class PrescriptionController {
 
     /**
      * GET: endpoint http://localhost:8080/api/prescriptions/medications/1
-     * @param medicationID
+     * @param medicationId
      * @return a Medication object
      */
     @GetMapping(path="/prescriptions/medications/{medicationId}")

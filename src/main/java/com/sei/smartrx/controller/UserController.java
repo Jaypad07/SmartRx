@@ -49,7 +49,7 @@ public class UserController {
     }
     /**
      * PUT: http://localhost:8080/api/users
-     * @param Long userId, RequestBody UserObject
+     * @param userObject
      * @return model User
      */
     @PutMapping(path = "/users")
@@ -58,7 +58,7 @@ public class UserController {
     }
     /**
      * DELETE: http://localhost:8080/api/users
-     * @param Long userId
+     * @param
      * @return ResponseEntity that allows developer to access status codes, headers, and response body.
      */
     @DeleteMapping(path = "/users")
