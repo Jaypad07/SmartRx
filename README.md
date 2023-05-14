@@ -111,7 +111,7 @@ Here's an overview of the TDD process followed in this project:
 - IntelliJ IDEA
 
 
-### API Endpoints
+### API Endpoints - User
 
 | Name        | API Endpoint         | HTTP Verb | Purpose           |
 |-------------|----------------------|-----------|-------------------|
@@ -120,6 +120,17 @@ Here's an overview of the TDD process followed in this project:
 | Show User   | /users               | GET       | Displays a User   |
 | Update User | /users               | PUT       | Displays a User   |
 | Delete User | /users               | DELETE    | Displays a User   |
+
+
+### API Endpoints - Pharmacist
+
+| Name                      | API Endpoint                                   | HTTP Verb | Purpose                              |
+|---------------------------|------------------------------------------------|-----------|--------------------------------------|
+| List User's Prescriptions | /api/prescriptions                             | GET       | Gets a list of a Users Prescriptions |
+| Individual Prescription   | /api/newRequest/prescriptions/1                | GET       | Gets a single Users Prescription     | 
+| Get all prescriptions     | /api/pharmacist/prescriptions                  | GET       | Gets all prescriptions               |
+| Get one medication        | /api/prescriptions/medications/{medicationId}  | GET       | Gets a specific medication by Id     |
+| Get Specific Prescription | /api/pharmacist/prescriptions/{prescriptionId} | GET       | Gets a Specific Prescription by Id   |
 
 
 
