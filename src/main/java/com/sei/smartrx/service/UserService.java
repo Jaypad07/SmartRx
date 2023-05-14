@@ -40,11 +40,22 @@ public class UserService {
         this.myUserDetails = myUserDetails;
     }
 
+    /**
+     * Retrives the current logged-in user.
+     *
+     * @return the User instance representing the current logged-in user.
+     */
     public static User getCurrentLoggedInUser() {
         MyUserDetails userDetails = (MyUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return userDetails.getUser();
     }
-
+    /**
+     * Creates a new user.
+     *
+     * @param userObject the User object containing user details
+     * @return the created User object
+     * @throws InformationNotFoundException if a user with the provided email already exists.
+     */
     public User registerUser(User userObject){
         if (!userRepository.existsByEmail(userObject.getEmail())) {
             userObject.setPassword(passwordEncoder.encode(userObject.getPassword()));
@@ -55,9 +66,21 @@ public class UserService {
         }else throw new InformationExistException("User with email address " + userObject.getEmail() + " already exists");
     }
 
+    /**
+     * Finds a user by their email.
+     * @param email the email of the user to find
+     * @return the User object corresponding to the provided email
+     */
     public User findUserByEmail(String email){
         return userRepository.findUserByEmail(email);
     }
+
+
+    /**
+     * Logs in a user with the provided credentials
+     * @param loginRequest the LoginRequest object containing login credentials
+     * @return a ResponseEntity containing a login response
+     */
 
     public ResponseEntity<?> loginUser(LoginRequest loginRequest) {
         try {
@@ -71,7 +94,11 @@ public class UserService {
             return ResponseEntity.ok(new LoginResponse("Error: username or password is incorrect"));
         }
     }
-
+    /**
+     * Retrieves the current user.
+     * @return the User object representing the current user
+     * @throws InformationNotFoundException if the user with the current logged-in user's ID does not exist.
+     */
     public User getCurrentUser(){
         Optional<User> user = userRepository.findById(getCurrentLoggedInUser().getId());
         if (user.isPresent()) {
@@ -79,6 +106,12 @@ public class UserService {
         } else throw new InformationNotFoundException("User with Id " + getCurrentLoggedInUser().getId() + " does not exist.");
     }
 
+    /**
+     * Updates a user's details.
+     * @param userObject the User object containing updated user details
+     * @return the updated User object
+     * @throws InformationNotFoundException if the current user does not exist
+     */
     public User updateCurrentUser(User userObject) throws InformationNotFoundException{
         User updatedUser = getCurrentUser();
         updatedUser.setFirstName(userObject.getFirstName());
@@ -90,6 +123,10 @@ public class UserService {
         return userRepository.save(updatedUser);
     }
 
+    /**
+     * Deletes the current user.
+     * @return a ResponseEntity indicating the success of the delete operation
+     */
     public ResponseEntity<?> deleteCurrentUser() {
         User user = getCurrentUser();
         userRepository.delete(user);

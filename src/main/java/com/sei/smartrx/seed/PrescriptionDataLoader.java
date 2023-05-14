@@ -26,6 +26,12 @@ public class PrescriptionDataLoader implements CommandLineRunner {
 
 
     private PrescriptionRepository prescriptionRepository;
+
+    /**
+     * Sets the MedicationRepository dependency.
+     *
+     * @param prescriptionRepository the MedicationRepository instance to be injected
+     */
     @Autowired
     public void setPrescriptionRepository(PrescriptionRepository prescriptionRepository) {
         this.prescriptionRepository = prescriptionRepository;
@@ -40,6 +46,11 @@ public class PrescriptionDataLoader implements CommandLineRunner {
 
     private UserRepository userRepository;
 
+    /**
+     * Sets the UserRepository dependency.
+     *
+     * @param userRepository the UserRepository instance to be injected
+     */
     @Autowired
     public void setUserRepository(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -48,10 +59,19 @@ public class PrescriptionDataLoader implements CommandLineRunner {
     @Autowired
     private UserService userService;
 
+    /**
+     * Runds the data loading process
+     * @param args the command line arguments
+     * @throws Exception if an error occurs during the data loading process
+     */
     @Override
     public void run(String... args) throws Exception {
         loadPrescriptionData();
     }
+
+    /**
+     * Loads prescription data into the application
+     */
 
     private void loadPrescriptionData() {
 
