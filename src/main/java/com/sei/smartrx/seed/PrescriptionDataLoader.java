@@ -78,15 +78,23 @@ public class PrescriptionDataLoader implements CommandLineRunner {
         System.out.println("Calling PrescriptionDataLoader");
 
         if (prescriptionRepository.count() == 0) {
-            Prescription prescription1 = new Prescription("John Beck", 5, currentDate, true);
-            Prescription prescription2 = new Prescription("Joan Hill", 2, currentDate, true);
-            Prescription prescription3 = new Prescription("Eric Slack", 2, currentDate, false);
-            Prescription prescription4 = new Prescription("Another name", 6, currentDate, true);
-            Prescription prescription5 = new Prescription("Patient A", 0, currentDate, false);
+            Prescription prescription1 = new Prescription("Stacey Smith", 5, currentDate, true);
+            Prescription prescription2 = new Prescription("Stacey Smith", 2, currentDate, true);
+            Prescription prescription3 = new Prescription("Mike Harrington", 2, currentDate, false);
+            Prescription prescription4 = new Prescription("Bill Brown", 6, currentDate, true);
+            Prescription prescription5 = new Prescription("Stacey Smith", 0, currentDate, false);
+            Prescription prescription6 = new Prescription("Bill Brown", 2, currentDate, true);
 
-            Medication medication1 = new Medication(1L, "name", "genName", "contra", "sideEffects", "ingredients");
-            Medication medication2 = new Medication(2L, "name2", "genName2", "contra2", "sideEffects2", "ingredients2");
-            Medication medication3 = new Medication(3L, "name3", "genName3", "contra3", "sideEffects3", "ingredients3");
+            Medication medication1 = new Medication(1L, "Metformin", "metformin hydrochloride", "severe kidney impairment, radiographic contrast dye, respiratory insufficiency", "gastrointestinal issues such as nausea and vomiting, vitamin b12 deficiency, and loss of appetite", "metformin hydrochloride, povidone, magnesium stearate, sodium starch glycolate");
+            Medication medication2 = new Medication(2L, "Glimepiride", "glimepiride", "Type 1 diabetes, pregnancy or breastfeeding, liver impairment", "hypoglycemia, photosensitivity, weight gain", "glimepiride, lactose monohydrate, cellulose, Sodium starch glycolate ");
+            Medication medication3 = new Medication(3L, "Zestril", "lisinipril", "pregnancy, simultaneous use with sacubitril/valsartan, renal artery stenosis", "cough, dizziness, low blood pressure", "calcium phosphate, magnesium stearate, mannitol, corn starch");
+            Medication medication4 = new Medication (4L, "Entresto", "sacubitril/valsartan", "simultaneous use of lisinipril, severe liver impairment, taking any MAO inhibitors", "low blood pressure, high potassium blood levels, increased heart rate, fatigue and/or weakness", "sacubitril, valsartan");
+            Medication medication5 = new Medication(5L, "Rheumatrex", "methotrexate", "breastfeeding, sever liver disease, pre-existing blood disorders", "loss of appetite, stomach pain, diarrhea, skin rash, hair loss, mouth sores", "methotrexate, tablet binder ingredients vary with manufacturer: consult specific manufacturer for list of binding ingredients");
+            Medication medication6 = new Medication(6L, "Coumadin", "warfarin sodium", "bleeding disorders, recent surgery or trauma, uncontrolled high blood pressure", "blood in urine, gum bleeding, increased bruising and bleeding, upset stomach or abdominal pain", "warfarin sodium, binding ingredients vary by manufacturer");
+            Medication medication7 = new Medication(7L, "Tenormin", "Atenolol", "heart rhythm disorders, Asthma or chronic obstructive pulmonary disease, and/or heart failure", "Fatigue or tiredness, cold hands and feet, slow heart rate, difficulty sleeping", "atenolol");
+            Medication medication8 = new Medication(8L, "Prilosec", "omeprazole",  "severe liver disease, osteoporosis, low magnesium levels, or vitamin B12 deficiency", "headache, constipation, Muscle pain or weakness", "omeprazole" );
+            Medication medication9 = new Medication (9L, "Zoloft", "sertraline", "Use of monoamine oxidase inhibitors (MAOIs), used with caution during pregnancy and breastfeeding, liver or kidney impairment, epilepsy, bipolar disorder, or a history of bleeding disorders", "Dizziness or lightheadedness, sweating, Insomnia or sleep disturbances", "sertraline hydrochloride");
+            Medication medication10 = new Medication(10L, "Lexapro", " Escitalopram", "liver or kidney impairment, epilepsy, bipolar disorder, or a history of bleeding disorders", "weight changes, nausea, dry mouth, drowsiness and fatigue", "escitalopram oxalate");
 
             User user = new User("Stacey", "Smith", "email@email.com", currentDate, "password", "watermelon");
             User user2 = new User("Mike", "Harrington", "email1@email.com", currentDate, "password1", "seafood, iodine");
@@ -96,25 +104,39 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             //creating authorized pharmacist profile, setting user 4 userProfile to pharmacist.
             UserProfile pharmacistProfile = new UserProfile("ROLE_PHARMACIST");
             user4.setUserProfile(pharmacistProfile);
-            user4.getUserProfile().setRole("ROLE_PHARMACIST");
+
             // user can have many prescriptions
             List<Prescription> prescriptionList = new ArrayList<>();
             prescriptionList.add(prescription1);
             prescriptionList.add(prescription2);
-            prescriptionList.add(prescription3);
+            prescriptionList.add(prescription5);
             List<Prescription> prescriptionList2 = new ArrayList<>();
+            prescriptionList2.add(prescription3);
+            List<Prescription> prescriptionList3 = new ArrayList<>();
             prescriptionList2.add(prescription4);
-            prescriptionList2.add(prescription5);
+            prescriptionList2.add(prescription6);
             // reference each prescription to user
             prescription1.setUser(user);
             prescription2.setUser(user);
-            prescription3.setUser(user);
-            prescription4.setUser(user2);
-            prescription1.setUser(user3);
-            prescription5.setUser(user2);
+            prescription5.setUser(user);
+            prescription3.setUser(user2);
+            prescription5.setUser(user3);
+            //many medications belong to many prescriptions
+            List<Medication> medicationsForPrescription2 = new ArrayList<>();
+            medicationsForPrescription2.add(medication1);
+            medicationsForPrescription2.add(medication6);
+            medicationsForPrescription2.add(medication7);
+            medicationsForPrescription2.add(medication8);
+            medicationsForPrescription2.add(medication10);
+            List<Medication> medicationsForPrescription1 = new ArrayList<>();
+            medicationsForPrescription2.add(medication2);
+            medicationsForPrescription2.add(medication5);
+            medicationsForPrescription2.add(medication6);
+            medicationsForPrescription2.add(medication8);
             // many prescriptions belong to one user
             user.setPrescriptionList(prescriptionList);
             user2.setPrescriptionList(prescriptionList2);
+            user3.setPrescriptionList(prescriptionList3);
             // save data
             userService.registerUser(user);
             userService.registerUser(user2);
@@ -125,6 +147,13 @@ public class PrescriptionDataLoader implements CommandLineRunner {
             medicationRepository.save(medication1);
             medicationRepository.save(medication2);
             medicationRepository.save(medication3);
+            medicationRepository.save(medication4);
+            medicationRepository.save(medication5);
+            medicationRepository.save(medication6);
+            medicationRepository.save(medication7);
+            medicationRepository.save(medication8);
+            medicationRepository.save(medication9);
+            medicationRepository.save(medication10);
 
         }
     }
