@@ -51,7 +51,7 @@ In our development process, we have adopted an agile approach with a focus on co
 
 Here are some key aspects of our general approach:
 
-1. Kanban Board: We maintain a Kanban board to visualize our workflow and track the progress of tasks. The board consists of columns representing different stages of the development cycle, such as "To Do," "In Progress," "Review," and "Done." This board helps us visualize the work in progress and maintain a smooth flow of tasks.[![Kanban Board](images/Kanban-b.png)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
+1. Kanban Board: We maintain a Kanban board to visualize our workflow and track the progress of tasks. The board consists of columns representing different stages of the development cycle, such as "To Do," "In Progress," "Review," and "Done." This board helps us visualize the work in progress and maintain a smooth flow of tasks.[![Kanban Board](images/kanban-b.png)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
 
 2. Collaborative Environment: We foster a collaborative environment where every team member actively participates and contributes to the project. Pair programming allows us to work closely together, share knowledge, and make collective decisions.
 
