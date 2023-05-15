@@ -82,6 +82,12 @@ Here are some key aspects of our general approach:
 #### User Stories
 ![image](images/BronzeUS.png)
 
+#### Silver User Stories
+![image](images/SilverUS.png)
+
+#### Gold User Stories
+![image](images/GoldUS.png)
+
 #### ERD Diagram
 [![image](images/ERD.png)](https://dbdiagram.io/d/64595cb6dca9fb07c4b87508)
 
