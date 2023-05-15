@@ -78,7 +78,7 @@ public class PrescriptionController {
     }
 
     /**
-     * POST: endpoint http://localhost:8080/api/pharmacist/prescriptions/1?ids=1,2,3
+     * POST: endpoint http://localhost:8080/api/pharmacist/prescriptions/1/?ids=1,2,3
      * The @PathVariable annotation is used to retrieve the userId from the path,
      * and the @RequestParam annotation is used to retrieve the ids request parameter, which represents a list of medication IDs.
      * @param userId The ID of the user for whom the prescriptions are being updated.

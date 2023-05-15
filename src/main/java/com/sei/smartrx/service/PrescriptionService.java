@@ -190,6 +190,9 @@ public class PrescriptionService {
 
     /**
      * This method will add new medications to the medication database
+     * It is currently unused, as we are using our prescriptionDataloader and
+     * H2 for our database needs. However, this method would be needed in a real
+     * use scenario.
      * @param medicationObject
      * @return medication to be added to the database
      */
