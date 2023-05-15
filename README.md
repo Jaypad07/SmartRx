@@ -120,7 +120,7 @@ One of our major wins was successfully implementing the Prescription feature, wh
 This project follows the Test Driven Development (TDD) approach to ensure the reliability and correctness of the codebase. TDD involves writing tests before implementing the actual code logic.
 
 Here's an overview of the TDD process followed in this project:
-![image](images/TDDchart.png)
+![image](images/tddfive.png)
 
 1. **Write Tests**: Tests are written in the form of Cucumber feature files using Gherkin syntax. Each feature file describes a specific functionality or scenario to be tested. Test scenarios are written in a user-friendly language that captures the expected behavior of the system.
 
@@ -130,7 +130,7 @@ Here's an overview of the TDD process followed in this project:
 
 4. **Refactor Code**: Once the tests pass, the code is refactored to improve its design, readability, and maintainability. Refactoring involves making changes to the code without altering its behavior. The goal is to enhance the code's structure, eliminate duplication, and improve overall code quality.
 
-5. **Re-run Tests**: After refactoring the code, the tests are re-run to ensure that the changes have not introduced any regressions or unexpected behavior. This step verifies that the code still adheres to the desired functionality defined by the tests.
+5. **Re-run Tests**: After refactoring the code, the tests are re-run to ensure that the changes have not introduced any regressions or unexpected behavior. This step verifies that the code still adheres to the desired functionality defined by the tests.![Test Successful](images/test_success.png)
 
 
 ### Tools and Technologies
