@@ -44,14 +44,14 @@ SmartRx performs thorough validation of incoming data to ensure its integrity an
 SmartRx also includes a suite of unit tests and integration tests to validate the functionality and behavior of the API. It follows coding best practices, adheres to code style guidelines, and undergoes rigorous testing to ensure high-quality and reliable software.
 
 ##### API Documentation
-![image](images/apidocs.png)
+![image](images/apidocs-b.png)
 
 ### General Approach
 In our development process, we have adopted an agile approach with a focus on collaboration and iterative development. We have been utilizing pair programming extensively, both in duos and as a quad, to leverage the collective skills and expertise of our team members. We utilize Kanban as our project management framework to enhance our workflow and improve overall efficiency.
 
 Here are some key aspects of our general approach:
 
-1. Kanban Board: We maintain a Kanban board to visualize our workflow and track the progress of tasks. The board consists of columns representing different stages of the development cycle, such as "To Do," "In Progress," "Review," and "Done." This board helps us visualize the work in progress and maintain a smooth flow of tasks.[![Kanban Board](images/Kanban.png)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
+1. Kanban Board: We maintain a Kanban board to visualize our workflow and track the progress of tasks. The board consists of columns representing different stages of the development cycle, such as "To Do," "In Progress," "Review," and "Done." This board helps us visualize the work in progress and maintain a smooth flow of tasks.[![Kanban Board](images/Kanban-b.png)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
 
 2. Collaborative Environment: We foster a collaborative environment where every team member actively participates and contributes to the project. Pair programming allows us to work closely together, share knowledge, and make collective decisions.
 
