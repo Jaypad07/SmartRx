@@ -1,4 +1,4 @@
-Feature: User able to register, login, update their information including their allergies as well as delete their account
+Feature: User able to register, login, update their profile information as well as delete their account
   Scenario:
   Given User is logged in
     When user searches for their prescriptions
