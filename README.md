@@ -98,13 +98,21 @@ Here are some key aspects of our general approach:
 
 #### Unsolved Problems and Hurdles Tackled
 ![image](images/image.png)
-- Minor Errors 
-- Git Conflicts
+- Merging Branches on Github
+- Issues with 'Prescription Data Loader' (seed) file
+- Setting up Security Token 
+- Functionality Issues with 'createPrescription' Method'
+- We Failed Fast!!!
 
 #### Major Wins
+- Worked Collaboratively and Creatively
+- Reached MVP and Silver Status
+- Became Cucumber Champions
+- Mastered Many to Many Relationships
+- Mastered Many to Many Entity Relationships
 
 
-[![Schedule & Timeline](images/rq5w4UZjdp.png)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
+[![Major Wins](images/rq5w4UZjdp.png)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
 ###### Prescription Feature
 One of our major wins was successfully implementing the Prescription feature, which involved incorporating a many-to-many relationship. This achievement allowed us to efficiently manage and track prescriptions, ensuring accuracy and accessibility for both users and healthcare professionals. We are proud of this accomplishment as it significantly enhances the functionality and value of our product.
 ## Test Driven Development (TDD)
