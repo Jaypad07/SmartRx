@@ -3,30 +3,33 @@
 ### Description
 SmartRx REST API backend is a Java and Spring Boot application that provides a robust and scalable solution for managing prescription and medication data. It serves as a reliable and efficient backend system to support various client applications such as web, mobile, or desktop applications.
 
+
 ## Table of Contents
-- Product Overview
-- Key Features
-- General Approach
-- Planning Documentation
-- User Stories
-- ERD Diagram
-- Unsolved Problems & Hurdles Tackled
-- Testing (TDD Process)
-- Tools and Technologies
-- API Endpoints - User
-- API Endpoints - Pharmacist
-- Usage
-- Installation Instructions for Dependencies
-- How To Install and Run this Application on your own Machine
-- Contributing
-- Credits
-- References
+- [Product Overview](#product-overview)
+- [Key Features](#key-product-features)
+- [General Approach](#general-approach)
+- [Planning Documentation](#planning-documentation)
+- [User Stories](#user-stories)
+- [ERD Diagram](#erd-diagram)
+- [Unsolved Problems & Hurdles Tackled](#unsolved-problems-and-hurdles-tackled)
+- [Testing (TDD Process)](#test-driven-development-tdd)
+- [Tools and Technologies](#tools-and-technologies)
+- [API Endpoints - User](#api-endpoints---user)
+- [API Endpoints - Pharmacist](#api-endpoints---pharmacist)
+- [Usage](#usage)
+- [Installation Instructions for Dependencies](#installation-instructions-for-dependencies-)
+- [How To Install and Run this Application on your own Machine](#how-to-install-and-run-this-application-on-your-own-machine)
+- [Contributing](#contributing-)
+- [Credits](#credits)
+- [References](#references)
 
 
 
 
 ## Product Overview
+
 ### Key Product Features
+
 ##### CRUD Operations:
 SmartRx allows users to perform Create, Read, Update, and Delete (CRUD) operations on prescription and medication data. Users can create new prescriptions, retrieve prescription details, update existing prescriptions, and delete prescriptions as needed.
 
@@ -39,14 +42,15 @@ SmartRx performs thorough validation of incoming data to ensure its integrity an
 ##### Testing and Quality Assurance:
 SmartRx also includes a suite of unit tests and integration tests to validate the functionality and behavior of the API. It follows coding best practices, adheres to code style guidelines, and undergoes rigorous testing to ensure high-quality and reliable software.
 
-
+##### API Documentation
+![image](images/apidocs.png)
 
 ### General Approach
 In our development process, we have adopted an agile approach with a focus on collaboration and iterative development. We have been utilizing pair programming extensively, both in duos and as a quad, to leverage the collective skills and expertise of our team members. We utilize Kanban as our project management framework to enhance our workflow and improve overall efficiency.
 
 Here are some key aspects of our general approach:
 
-1. Kanban Board: We maintain a Kanban board to visualize our workflow and track the progress of tasks. The board consists of columns representing different stages of the development cycle, such as "To Do," "In Progress," "Review," and "Done." This board helps us visualize the work in progress and maintain a smooth flow of tasks.![image](images/Kanban.png)
+1. Kanban Board: We maintain a Kanban board to visualize our workflow and track the progress of tasks. The board consists of columns representing different stages of the development cycle, such as "To Do," "In Progress," "Review," and "Done." This board helps us visualize the work in progress and maintain a smooth flow of tasks.[![Kanban Board](images/Kanban.png)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
 
 2. Collaborative Environment: We foster a collaborative environment where every team member actively participates and contributes to the project. Pair programming allows us to work closely together, share knowledge, and make collective decisions.
 
@@ -72,12 +76,14 @@ Here are some key aspects of our general approach:
 
 
 ### Planning Documentation
+#### Schedule
+[![Schedule & Timeline](images/timeline.jpg)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
 
 #### User Stories
 ![image](images/BronzeUS.png)
 
 #### ERD Diagram
-![image](images/ERD.png)
+[![image](images/ERD.png)](https://dbdiagram.io/d/64595cb6dca9fb07c4b87508)
 
 ##### External Links to Planning Documents
 - [Link to Planning and Schedule]()
@@ -86,9 +92,15 @@ Here are some key aspects of our general approach:
 
 #### Unsolved Problems and Hurdles Tackled
 ![image](images/image.png)
+- Minor Errors 
+- Git Conflicts
+
+#### Major Wins
 
 
-
+[![Schedule & Timeline](images/rq5w4UZjdp.png)](https://github.com/users/Jaypad07/projects/4/views/1?layout=board)
+###### Prescription Feature
+One of our major wins was successfully implementing the Prescription feature, which involved incorporating a many-to-many relationship. This achievement allowed us to efficiently manage and track prescriptions, ensuring accuracy and accessibility for both users and healthcare professionals. We are proud of this accomplishment as it significantly enhances the functionality and value of our product.
 ## Test Driven Development (TDD)
 
 This project follows the Test Driven Development (TDD) approach to ensure the reliability and correctness of the codebase. TDD involves writing tests before implementing the actual code logic.
@@ -146,6 +158,7 @@ Here's an overview of the TDD process followed in this project:
 
 
 ### Installation Instructions For Dependencies 
+
 1. Open your project in an IDE or navigate to the project directory using the command line.
 2. Locate the pom.xml file in the root directory of your project.
 3. Open the pom.xml file and locate the <dependencies> section.
@@ -161,6 +174,7 @@ Here's an overview of the TDD process followed in this project:
    - Note: If you are using an IDE, it might automatically download the dependencies and update the project configuration. If not, you can manually refresh the project or restart the IDE to ensure that the dependencies are recognized.
 
 ### How To Install and Run this Application on your own Machine
+
 To run this application on your local machine, please follow the steps below:
 
 1. Prerequisites
@@ -214,6 +228,7 @@ You can now explore and interact with the application.
 
 
 ## Contributing 
+
 We welcome and appreciate contributions from the community! If you're interested in making this project better, you can contribute in several ways. Whether you want to report a bug, suggest a new feature, or submit code improvements, your contributions are valuable to us.
 
 To contribute to this project, please follow the guidelines below:
