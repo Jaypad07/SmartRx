@@ -122,24 +122,26 @@ Here's an overview of the TDD process followed in this project:
 
 ### API Endpoints - User
 
-| Name        | API Endpoint         | HTTP Verb | Purpose           |
-|-------------|----------------------|-----------|-------------------|
-| Create User | /auth/users/register | POST      | Create a new User |
-| Login User  | /auth/users/login    | POST      | Logs in a User    | 
-| Show User   | /users               | GET       | Displays a User   |
-| Update User | /users               | PUT       | Displays a User   |
-| Delete User | /users               | DELETE    | Displays a User   |
+| Name        | API Endpoint             | HTTP Verb | Purpose                      |
+|-------------|--------------------------|-----------|------------------------------|
+| Create User | /api/auth/users/register | POST      | Create a new User            |
+| Login User  | /api/auth/users/login    | POST      | Logs in a User               | 
+| Show User   | /api/users               | GET       | Displays a User              |
+| Update User | /api/users               | PUT       | Updates a User               |
+| Delete User | /api/users               | DELETE    | Deletes a User from database |
 
 
 ### API Endpoints - Pharmacist
 
-| Name                      | API Endpoint                                   | HTTP Verb | Purpose                              |
-|---------------------------|------------------------------------------------|-----------|--------------------------------------|
-| List User's Prescriptions | /api/prescriptions                             | GET       | Gets a list of a Users Prescriptions |
-| Individual Prescription   | /api/newRequest/prescriptions/1                | GET       | Gets a single Users Prescription     | 
-| Get all prescriptions     | /api/pharmacist/prescriptions                  | GET       | Gets all prescriptions               |
-| Get one medication        | /api/prescriptions/medications/{medicationId}  | GET       | Gets a specific medication by Id     |
-| Get Specific Prescription | /api/pharmacist/prescriptions/{prescriptionId} | GET       | Gets a Specific Prescription by Id   |
+| Name                      | API Endpoint                                             | HTTP Verb | Purpose                               |
+|---------------------------|----------------------------------------------------------|-----------|---------------------------------------|
+| List User's Prescriptions | /api/prescriptions                                       | GET       | Gets a list of a Users Prescriptions  |
+| Get all prescriptions     | /api/pharmacist/prescriptions                            | GET       | Gets all prescriptions                |
+| Get one medication        | /api/prescriptions/medications/{medicationId}            | GET       | Gets a specific medication by Id      |
+| Get Specific Prescription | /api/pharmacist/prescriptions/{prescriptionId}           | GET       | Gets a Specific Prescription by Id    |
+| Create a prescription     | /api/pharmacist/prescriptions/{prescriptionId}/{userId}/ | POST      | Creates a Prescription                |
+| Update a prescription     | /api/pharmacist/prescriptions/{prescriptionId}           | PUT       | Updates a Specific Prescription by Id |
+| Delete a prescription     | /api/pharmacist/prescriptions/prescription               | DELETE    | Delete a Prescription by Id           |
 
 
 
