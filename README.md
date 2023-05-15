@@ -1,4 +1,5 @@
 # SmartRx
+![image](images/logo1.png)
 
 ### Description
 SmartRx REST API backend is a Java and Spring Boot application that provides a robust and scalable solution for managing prescription and medication data. It serves as a reliable and efficient backend system to support various client applications such as web, mobile, or desktop applications.
